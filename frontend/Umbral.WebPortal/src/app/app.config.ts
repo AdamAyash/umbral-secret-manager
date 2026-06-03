@@ -1,10 +1,9 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { providePrimeNG } from 'primeng/config';
 import { provideRouter } from '@angular/router';
-import Aura from '@primeuix/themes/aura';
-
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { UmbralPreset } from './core/theme/umbral-preset';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       ripple: true,
       theme: {
-        preset: Aura
+        preset: UmbralPreset
       }
     })
   ]

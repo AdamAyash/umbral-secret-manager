@@ -2,3 +2,7 @@ header{
     background-color: #010311;
     
 }
+
+.nav-item:hover{
+    color: var(--color-primary);
+}
