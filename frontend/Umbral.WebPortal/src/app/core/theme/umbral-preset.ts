@@ -5,19 +5,18 @@ import Aura from '@primeuix/themes/aura';
 export const UmbralPreset = definePreset(Aura, {
     semantic: {
         primary: {
-            50: '#eff6ff',
-            100: '#dbeafe',
-            200: '#bfdbfe',
-            300: '#7dd3fc',
-            400: '#38bdf8',
-            500: '#0ea5e9',
-            600: '#7c3aed',
-            700: '#6d28d9',
-            800: '#5b21b6',
-            900: '#4c1d95',
-            950: '#2e1065'
+            50: '{indigo.50}',
+            100: '{indigo.100}',
+            200: '{indigo.200}',
+            300: '{indigo.300}',
+            400: '{indigo.400}',
+            500: '{indigo.950}',
+            600: '{indigo.950}',
+            700: '{indigo.950}',
+            800: '{indigo.950}',
+            900: '{indigo.950}',
+            950: '{indigo.950}'
         },
-
         colorScheme: {
             light: {
                 surface: {

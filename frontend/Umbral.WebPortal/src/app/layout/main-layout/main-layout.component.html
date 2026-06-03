@@ -1,21 +1,21 @@
-<header class="h-15 flex items-center sticky outline-2 outline-indigo-950 z-1">
-    <div>
-        <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" size="large" />
-    </div>
-    <div class="ml-auto">
-        <i class="pt-2 mr-3 pi pi-bell" style="font-size: 1.4rem"></i>
-    </div>
-    <div>
-        <p-button icon="pi pi-user" class="mr-4" size="small" />
+<header class="fixed top-0 left-0 right-0 z-10 flex h-15 items-center border-b border-indigo-950 bg-slate-950">
+    <div class="ml-auto flex items-center gap-3 pr-4">
+        <i class="pi pi-bell"></i>
+        <p-button icon="pi pi-user" size="small" />
     </div>
 </header>
-<aside class="flex flex-col fixed h-screen w-55 pt-5 bg-slate-950 outline-2 outline-indigo-950 items-center">
-    <div class="nav-item">
-        <a class="flex flex-row text-gray-350 items-center" href="">
-            <div class="ml-auto">
-                <i class="pt-2 mr-3 pi pi-home" style="font-size: 1.1rem"></i>
-            </div>
-            Dashboard
-        </a>
-    </div>
-</aside>
+
+<div class="flex pt-15">
+    <aside class="h-[calc(100vh-3.75rem)] w-55 shrink-0 border-r border-indigo-950 bg-slate-950 pt-5">
+        <nav class="px-4">
+            <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-300 hover:bg-indigo-600 w-fu"
+                routerLink="/dashboard">
+                <i class="pi pi-home text-lg"></i>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="min-h-[calc(100vh-3.75rem)] flex-1 bg-[#101011] p-6">
+    </main>
+</div>
