@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 

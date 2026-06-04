@@ -1,24 +1,19 @@
-<header class="fixed top-0 left-0 right-0 z-10 flex h-15 items-center border-b border-indigo-950 bg-slate-950">
-    <div>
-        <img src="UmbralLogo.png">
-    </div>
-    <div class="ml-auto flex items-center gap-3 pr-4">
-        <i class="pi pi-bell"></i>
-        <p-button icon="pi pi-user" size="small" />
-    </div>
-</header>
-
-<div class="flex pt-15">
-    <aside class="h-[calc(100vh-3.75rem)] w-55 shrink-0 border-r border-indigo-950 bg-slate-950 pt-5">
-        <nav class="px-4">
-            <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-300 hover:bg-indigo-600 w-fu"
-                routerLink="/dashboard">
-                <i class="pi pi-home text-lg"></i>
-                <span>Dashboard</span>
-            </a>
-        </nav>
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-amber-300">
+        Sidebar
     </aside>
 
-    <main class="min-h-[calc(100vh-3.75rem)] flex-1 bg-[#101011] p-6">
-    </main>
+    <!-- Right side -->
+    <div class="flex flex-col flex-1">
+        <!-- Header -->
+        <div class="bg-red-500 h-16 flex items-center px-4">
+            HEADER
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 bg-black">
+            CONTENT
+        </div>
+    </div>
 </div>
