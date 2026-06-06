@@ -6,18 +6,19 @@ import Aura from '@primeuix/themes/aura';
 export const UmbralPreset = definePreset(Aura, {
     semantic: {
         primary: {
-            50: '{indigo.50}',
-            100: '{indigo.100}',
-            200: '{indigo.200}',
-            300: '{indigo.300}',
-            400: '{indigo.400}',
-            500: '{indigo.950}',
-            600: '{indigo.950}',
-            700: '{indigo.950}',
-            800: '{indigo.950}',
-            900: '{indigo.950}',
-            950: '{indigo.950}'
+            50: '#eef7ff',
+            100: '#d9efff',
+            200: '#b7e2ff',
+            300: '#7ccfff',
+            400: '#4863FA',
+            500: '#06b6d4',
+            600: '#7c3aed',
+            700: '#6d28d9',
+            800: '#5b21b6',
+            900: '#13164F',
+            950: '#1e1b4b',
         },
+
         colorScheme: {
             light: {
                 surface: {
@@ -30,11 +31,12 @@ export const UmbralPreset = definePreset(Aura, {
                     500: '#64748b',
                     600: '#475569',
                     700: '#334155',
-                    800: '#1e293b',
+                    800: '#030820',
                     900: '#0f172a',
-                    950: '#020617'
-                }
+                    950: '#020617',
+                },
             },
+
             dark: {
                 surface: {
                     0: '#ffffff',
@@ -46,11 +48,11 @@ export const UmbralPreset = definePreset(Aura, {
                     500: '#475569',
                     600: '#334155',
                     700: '#1e293b',
-                    800: '#0f172a',
-                    900: '#020617',
-                    950: '#02030a'
-                }
-            }
-        }
-    }
+                    800: '#0b1120',
+                    900: '#030820',
+                    950: '#020617',
+                },
+            },
+        },
+    },
 });

@@ -1,0 +1,21 @@
+.sidebar {
+  position: relative;
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, #7c3aed, #06b6d4);
+}
+
+.sidebar-link:hover {
+  color: var(--color-primary);
+  background: #13164f;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: var(--color-primary);
+}
