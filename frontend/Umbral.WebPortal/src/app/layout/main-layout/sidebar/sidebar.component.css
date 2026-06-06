@@ -16,6 +16,6 @@
   color: var(--color-primary);
   background: #13164f;
   outline-style: solid;
-  outline-width: 2px;
-  outline-color: var(--color-primary);
+  outline-width: 1px;
+  outline-color: linear-gradient(180deg, #7c3aed, #06b6d4);
 }
