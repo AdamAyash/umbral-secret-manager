@@ -12,7 +12,10 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       ripple: true,
       theme: {
-        preset: UmbralPreset
+        preset: UmbralPreset,
+        options: {
+          darkModeSelector: '.umbral-dark'
+        }
       }
     })
   ]

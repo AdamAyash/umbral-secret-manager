@@ -6,19 +6,18 @@ import Aura from '@primeuix/themes/aura';
 export const UmbralPreset = definePreset(Aura, {
     semantic: {
         primary: {
-            50: '#ecfeff',
-            100: '#cffafe',
-            200: '#a5f3fc',
-            300: '#67e8f9',
-            400: '#22d3ee',
-            500: '#06b6d4',
-            600: '#0891b2',
-            700: '#0e7490',
-            800: '#155e75',
-            900: '#164e63',
-            950: '#083344'
+            50: '#11FCFA',
+            100: '#11FCFA',
+            200: '#11FCFA',
+            300: '#11FCFA',
+            400: '#11FCFA',
+            500: '#11FCFA',
+            600: '#11FCFA',
+            700: '#11FCFA',
+            800: '#11FCFA',
+            900: '#11FCFA',
+            950: '#11FCFA',
         },
-
         colorScheme: {
             light: {
                 surface: {
@@ -54,5 +53,19 @@ export const UmbralPreset = definePreset(Aura, {
                 },
             },
         },
+        components: {
+            inputtext: {
+                background: '#04071B',
+                color: '#fef3c7',
+                borderColor: 'rgba(255,255,255,0.10)',
+                hoverBorderColor: 'rgba(34,211,238,0.45)',
+                focusBorderColor: 'rgba(34,211,238,0.65)',
+                placeholderColor: '#64748b',
+                borderRadius: '0.75rem',
+                paddingX: '0.875rem',
+                paddingY: '0.625rem',
+                shadow: 'none'
+            }
+        }
     },
 });

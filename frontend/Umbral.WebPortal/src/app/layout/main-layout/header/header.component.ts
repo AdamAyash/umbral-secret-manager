@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   selector: 'umbral-header',
-  imports: [ButtonModule],
+  imports: [ButtonModule, InputTextModule, IconFieldModule, InputIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   standalone: true
