@@ -6,18 +6,19 @@ import Aura from '@primeuix/themes/aura';
 export const UmbralPreset = definePreset(Aura, {
     semantic: {
         primary: {
-            50: '#11FCFA',
-            100: '#11FCFA',
-            200: '#11FCFA',
-            300: '#11FCFA',
-            400: '#11FCFA',
-            500: '#11FCFA',
-            600: '#11FCFA',
-            700: '#11FCFA',
-            800: '#11FCFA',
-            900: '#11FCFA',
-            950: '#11FCFA',
+            50: '#F5F3FF',
+            100: '#EDE9FE',
+            200: '#DDD6FE',
+            300: '#C4B5FD',
+            400: '#A78BFA',
+            500: '#8B5CF6',
+            600: '#7C3AED',
+            700: '#6D28D9',
+            800: '#5B21B6',
+            900: '#4C1D95',
+            950: '#2E1065',
         },
+
         colorScheme: {
             light: {
                 surface: {
@@ -30,7 +31,7 @@ export const UmbralPreset = definePreset(Aura, {
                     500: '#64748b',
                     600: '#475569',
                     700: '#334155',
-                    800: '#030820',
+                    800: '#1e293b',
                     900: '#0f172a',
                     950: '#020617',
                 },
@@ -40,32 +41,18 @@ export const UmbralPreset = definePreset(Aura, {
                 surface: {
                     0: '#ffffff',
                     50: '#f8fafc',
-                    100: '#e2e8f0',
+                    100: '#e5e7eb',
                     200: '#cbd5e1',
                     300: '#94a3b8',
                     400: '#64748b',
                     500: '#475569',
                     600: '#334155',
-                    700: '#1e293b',
-                    800: '#0b1120',
-                    900: '#030820',
-                    950: '#020617',
+                    700: '#1f2937',
+                    800: '#111827',
+                    900: '#070A13',
+                    950: '#03040A',
                 },
             },
         },
-        components: {
-            inputtext: {
-                background: '#04071B',
-                color: '#fef3c7',
-                borderColor: 'rgba(255,255,255,0.10)',
-                hoverBorderColor: 'rgba(34,211,238,0.45)',
-                focusBorderColor: 'rgba(34,211,238,0.65)',
-                placeholderColor: '#64748b',
-                borderRadius: '0.75rem',
-                paddingX: '0.875rem',
-                paddingY: '0.625rem',
-                shadow: 'none'
-            }
-        }
     },
 });
