@@ -1,4 +1,4 @@
-<header class="header flex h-18 justify-between outline-1 items-center bg-surface-800">
+<header class="flex min-h-18 justify-between items-center bg-surface-950 border-b-2 border-[#a698d024]">
     <div class="px-5">
         <p-iconfield>
             <p-inputicon class="pi pi-search" />
@@ -7,25 +7,9 @@
         </p-iconfield>
     </div>
     <div class="flex gap-2 items-center px-4">
-        <button type="button"
-            class="relative grid h-10 w-10 place-items-center rounded-full border border-[#A78BFA38] bg-[#03040A]/60 text-[#F8FAFC] transition hover:border-[#11FCFA61] hover:bg-[#0B1020] hover:text-[#11FCFA]">
+        <p-button variant="outlined" text="true" rounded="true" class="grid h-10 w-10 place-items-center">
             <i class="pi pi-bell text-lg"></i>
-        </button>
-        <p-button variant="outlined" rounded="true" class="flex items-center gap-2">
-            <span
-                class="grid h-8 w-8 place-items-center rounded-full bg-linear-to-br from-[#8B5CF6]/35 to-[#11FCFA]/20 text-[#F8FAFC]">
-                <i class="pi pi-user text-sm"></i>
-            </span>
-
-            <span class="grid text-left leading-none">
-                <span class="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-[#94A3B8]">
-                    Operator
-                </span>
-
-                <span class="text-sm font-semibold text-[#F8FAFC]"> Adam Ayash </span>
-            </span>
-
-            <i class="pi pi-chevron-down text-xs text-[#94A3B8]"></i>
         </p-button>
+        <umbral-user-profile></umbral-user-profile>
     </div>
 </header>
