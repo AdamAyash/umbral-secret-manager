@@ -1,0 +1,15 @@
+<a [routerLink]="navigationItemData().route" routerLinkActive="border-[#A78BFA38] bg-[#8B5CF6]/15 text-[#C4B5FD]" class="
+                flex h-11 items-center gap-3
+                rounded-xl
+                border border-transparent
+                px-3
+                text-sm font-semibold
+                text-[#CBD5E1]
+                transition
+                hover:border-[#A78BFA1F]
+                hover:bg-[#0B1020]/70
+                hover:text-[#F8FAFC]
+            ">
+    <i [class]="navigationItemData().icon + ' text-lg'"></i>
+    <span>{{ navigationItemData().label }}</span>
+</a>

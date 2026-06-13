@@ -1,0 +1,10 @@
+<aside class="h-screen w-64 border-r border-[#6d618b58] bg-surface-950">
+    <div class="px-5 pb-10 pt-5">
+        <img src="/images/logo/umbral-logo.png" alt="Umbral logo" />
+    </div>
+    <nav class="flex flex-col gap-2 px-4">
+        @for(navigationItem of this.getNavigationItems(); track navigationItem.route ){
+        <umbral-navigation-item [navigationItemData]="navigationItem"></umbral-navigation-item>
+        }
+    </nav>
+</aside>
