@@ -18,6 +18,12 @@ export const routes: Routes = [
                     import('./features/dashboard/dashboard.page')
                         .then(m => m.DashboardPage)
             },
+            {
+                path: 'members',
+                loadComponent: () =>
+                    import('./features/members/members.page')
+                        .then(m => m.MembersPage)
+            },
         ]
     }
 ];

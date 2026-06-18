@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, InputSignal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NavigationItemData } from '../../../layout.config';
 
@@ -9,5 +9,5 @@ import { NavigationItemData } from '../../../layout.config';
   styleUrl: './navigation-item.component.css',
 })
 export class NavigationItemComponent {
-  public readonly navigationItemData = input.required<NavigationItemData>();
+  public readonly navigationItemData: InputSignal<NavigationItemData> = input.required<NavigationItemData>();
 }

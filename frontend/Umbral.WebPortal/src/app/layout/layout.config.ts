@@ -8,5 +8,6 @@ export interface NavigationItemData {
 
 export const MAIN_SIDEBAR_ITEMS: NavigationItemData[] = [
   { label: 'Dashboard', icon: ApplicationIcons.Dashboard, route: '/dashboard' },
-  { label: 'Projects', icon: ApplicationIcons.Projects, route: '/projects' }
+  { label: 'Projects', icon: ApplicationIcons.Projects, route: '/projects' },
+  { label: 'Members', icon: ApplicationIcons.Members, route: '/members' }
 ];
