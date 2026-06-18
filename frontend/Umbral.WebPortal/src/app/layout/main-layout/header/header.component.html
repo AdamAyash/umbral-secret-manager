@@ -1,15 +1,29 @@
-<header class="flex min-h-18 justify-between items-center bg-surface-950 border-b-2 border-[#a698d024]">
-    <div class="px-5">
-        <p-iconfield>
-            <p-inputicon class="pi pi-search" />
-            <input class="w-100" type="text" pSize="small" pInputText
-                placeholder="Search for secrets, projects, environments..." />
-        </p-iconfield>
-    </div>
-    <div class="flex gap-2 items-center px-4">
-        <p-button variant="outlined" text="true" rounded="true" class="grid h-10 w-10 place-items-center">
-            <i class="pi pi-bell text-lg"></i>
-        </p-button>
-        <umbral-user-profile></umbral-user-profile>
-    </div>
+<header
+  class="flex sticky min-h-18 justify-between items-center bg-surface-950 border-b-2 border-[#a698d024]"
+>
+  <div class="px-5">
+    <p-iconfield>
+      <p-inputicon class="pi pi-search" />
+      <input
+        class="w-100"
+        type="text"
+        pSize="small"
+        pInputText
+        placeholder="Search for secrets, projects, environments..."
+      />
+    </p-iconfield>
+  </div>
+  <div class="flex gap-2 items-center px-4">
+    <button
+      type="button"
+      class="relative grid h-10 w-10 place-items-center rounded-full border border-[#A78BFA2E] bg-[#03040A]/70 text-[#C4B5FD] transition hover:border-[#11FCFA61] hover:bg-[#0B1020] hover:text-[#11FCFA]"
+    >
+      <i class="pi pi-bell text-sm"></i>
+
+      <span
+        class="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#11FCFA] shadow-[0_0_12px_rgba(17,252,250,0.8)]"
+      ></span>
+    </button>
+    <umbral-user-profile></umbral-user-profile>
+  </div>
 </header>

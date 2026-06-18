@@ -10,7 +10,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes), provideClientHydration(withEventReplay()),
     providePrimeNG({
-      ripple: true,
       theme: {
         preset: UmbralPreset,
         options: {

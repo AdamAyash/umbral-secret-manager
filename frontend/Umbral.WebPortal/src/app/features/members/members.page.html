@@ -1,0 +1,87 @@
+<section class="mb-6 flex items-end justify-between">
+  <div>
+    <h1 class="text-3xl font-bold text-[#F8FAFC]">Members</h1>
+    <p class="mt-2 text-sm text-[#94A3B8]">Manage everyone who belongs to your organization.</p>
+  </div>
+
+  <button
+    type="button"
+    class="rounded-xl bg-[#8B5CF6] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#7C3AED]"
+  >
+    Invite Member
+  </button>
+</section>
+
+<div class="rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4">
+  <p-table [value]="members" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Member</th>
+        <th>Role</th>
+        <th>Projects</th>
+        <th>Status</th>
+        <th>Last Active</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-member>
+      <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div
+              class="grid h-9 w-9 place-items-center rounded-full bg-[#8B5CF6]/15 text-sm font-bold text-[#C4B5FD]"
+            >
+              {{ member.initials }}
+            </div>
+
+            <div>
+              <p class="font-semibold text-[#F8FAFC]">
+                {{ member.name }}
+              </p>
+              <p class="text-xs text-[#94A3B8]">
+                {{ member.email }}
+              </p>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <span class="text-sm font-medium text-[#CBD5E1]">
+            {{ member.role }}
+          </span>
+        </td>
+
+        <td>
+          <span class="text-sm text-[#CBD5E1]">
+            {{ member.projectCount }}
+          </span>
+        </td>
+
+        <td>
+          <span
+            class="rounded-full border px-2 py-1 text-xs font-semibold"
+            [class]="getStatusClass(member.status)"
+          >
+            {{ member.status }}
+          </span>
+        </td>
+
+        <td>
+          <span class="text-sm text-[#94A3B8]">
+            {{ member.lastActive }}
+          </span>
+        </td>
+
+        <td class="text-right">
+          <button
+            type="button"
+            class="rounded-lg p-2 text-[#64748B] transition hover:bg-[#03040A] hover:text-[#11FCFA]"
+          >
+            <i class="pi pi-ellipsis-v"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
