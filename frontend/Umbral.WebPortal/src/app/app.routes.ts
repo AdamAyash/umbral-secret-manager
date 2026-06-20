@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { LoginPage } from './features/login/login.page';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
                         .then(m => m.MembersPage)
             },
         ]
+    },
+    {
+        path: 'login',
+        component: LoginPage
     }
 ];

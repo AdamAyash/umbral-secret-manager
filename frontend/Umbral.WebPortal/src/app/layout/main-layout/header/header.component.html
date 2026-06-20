@@ -17,12 +17,24 @@
     <button
       type="button"
       class="relative grid h-10 w-10 place-items-center rounded-full border border-[#A78BFA2E] bg-[#03040A]/70 text-[#C4B5FD] transition hover:border-[#11FCFA61] hover:bg-[#0B1020] hover:text-[#11FCFA]"
+      [attr.aria-label]="
+        unreadNotificationCount() > 0
+          ? unreadNotificationCount() + ' unread notifications'
+          : 'Notifications'
+      "
     >
       <i class="pi pi-bell text-sm"></i>
 
-      <span
-        class="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#11FCFA] shadow-[0_0_12px_rgba(17,252,250,0.8)]"
-      ></span>
+      @if (unreadNotificationCount() > 0) {
+        <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5" aria-hidden="true">
+          <span
+            class="absolute inline-flex h-full w-full rounded-full bg-[#11FCFA]/70 motion-safe:animate-ping"
+          ></span>
+          <span
+            class="relative inline-flex h-2.5 w-2.5 rounded-full border-2 border-surface-950 bg-[#11FCFA] shadow-[0_0_12px_rgba(17,252,250,0.8)]"
+          ></span>
+        </span>
+      }
     </button>
     <umbral-user-profile></umbral-user-profile>
   </div>

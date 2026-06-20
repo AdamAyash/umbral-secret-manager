@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -13,4 +13,5 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
   standalone: true
 })
 export class HeaderComponent {
+  public readonly unreadNotificationCount = signal(3);
 }

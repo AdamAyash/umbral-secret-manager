@@ -1,14 +1,75 @@
-<p-button variant="outlined" text="true" rounded="true" class="flex items-center gap-2">
+<p-button
+  (onClick)="menu.toggle($event)"
+  ariaLabel="Open account menu"
+  [text]="true"
+  [rounded]="true"
+  styleClass="flex items-center gap-2 border border-[#A78BFA2E] px-2 py-1.5 transition hover:border-[#11FCFA61] hover:bg-[#0B1020]"
+>
+  <span
+    class="relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-linear-to-br from-[#8B5CF6]/35 to-[#11FCFA]/20 text-[#F8FAFC]"
+  >
+    <i class="pi pi-user text-sm"></i>
     <span
-        class="grid h-8 w-8 place-items-center rounded-full bg-linear-to-br from-[#8B5CF6]/35 to-[#11FCFA]/20 text-[#F8FAFC]">
-        <i class="pi pi-user text-sm"></i>
-    </span>
+      class="absolute -right-0.5 -bottom-0.5 h-2.5 w-2.5 rounded-full border-2 border-surface-950 bg-[#11FCFA]"
+    ></span>
+  </span>
 
-    <span class="grid text-left leading-none">
-        <span class="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-[#94A3B8]">
-            Operator
-        </span>
-        <span class="text-sm font-semibold text-surface-50"> Adam Ayash </span>
+  <span class="hidden text-left leading-none sm:grid">
+    <span class="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-[#94A3B8]">
+      Operator
     </span>
-    <i class="pi pi-chevron-down text-xs text-[#94A3B8]"></i>
+    <span class="mt-1 text-sm font-semibold text-surface-50">Adam Ayash</span>
+  </span>
+  <i class="pi pi-chevron-down hidden text-xs text-[#94A3B8] sm:block"></i>
 </p-button>
+
+<p-menu
+  #menu
+  id="account-menu"
+  ariaLabel="Account menu"
+  [model]="menuItems"
+  [popup]="true"
+  [style]="{ width: '18rem' }"
+  appendTo="body"
+>
+  <ng-template #start>
+    <div
+      class="border-b border-[#A78BFA1F] bg-linear-to-br from-[#8B5CF6]/15 via-transparent to-[#11FCFA]/5 px-4 py-4"
+    >
+      <div class="flex items-center gap-3">
+        <span
+          class="relative grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-[#A78BFA38] bg-linear-to-br from-[#8B5CF6]/35 to-[#11FCFA]/20 text-surface-50 shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
+        >
+          <i class="pi pi-user"></i>
+          <span
+            class="absolute -right-1 -bottom-1 h-3 w-3 rounded-full border-2 border-surface-950 bg-[#11FCFA]"
+          ></span>
+        </span>
+
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <p class="m-0 truncate text-sm font-semibold text-surface-50">Adam Ayash</p>
+            <span
+              class="rounded-full border border-[#A78BFA38] bg-[#8B5CF6]/15 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-[#C4B5FD]"
+            >
+              Operator
+            </span>
+          </div>
+          <p class="mt-1 mb-0 truncate text-xs text-[#94A3B8]">Shadowbyte Labs</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #end>
+    <div class="border-t border-[#A78BFA1F] p-2">
+      <button
+        type="button"
+        class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-[#FCA5A5] transition hover:bg-red-500/10 hover:text-[#FECACA]"
+      >
+        <i class="pi pi-sign-out"></i>
+        <span>Sign out</span>
+      </button>
+    </div>
+  </ng-template>
+</p-menu>

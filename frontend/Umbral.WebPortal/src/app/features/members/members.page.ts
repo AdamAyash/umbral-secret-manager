@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { BasePage } from '../../core/ui/pages/base-page';
+import { BasePageTemplateComponent } from "../../core/ui/pages/base-page-template/base-page-template.component";
 
 interface Member {
   id: string;
@@ -14,11 +16,18 @@ interface Member {
 
 @Component({
   selector: 'umbral-members',
-  imports: [TableModule],
+  imports: [TableModule, BasePageTemplateComponent],
   templateUrl: './members.page.html',
   styleUrl: './members.page.css',
 })
-export class MembersPage {
+export class MembersPage extends BasePage {
+
+  protected override initialize(): void {
+    this.pageTitle = 'Members'
+  }
+  protected override validate(): boolean {
+    return true;
+  }
   public members: Member[] = [
     {
       id: 'mem_001',
