@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { InputText } from "primeng/inputtext";
 import { BasePage } from '../../core/ui/pages/base-page';
 
 @Component({
   selector: 'umbral-login-page',
-  imports: [InputText],
+  imports: [],
   templateUrl: './login.page.html',
   styleUrl: './login.page.css',
 })
