@@ -1,12 +1,12 @@
-import { Directive, input, InputSignal, OnInit } from "@angular/core";
+import { Directive, Input, OnInit } from "@angular/core";
 import { BaseControlInteractor } from "../interactors/base-control-interactor";
 
 @Directive()
 export abstract class BaseControl<TInteractor extends BaseControlInteractor> implements OnInit {
 
-    public _interactor: InputSignal<TInteractor> = input.required();
+    @Input() public _interactor?: TInteractor;
 
     public ngOnInit(): void {
-        this._interactor().initControl(this);
+        this._interactor?.initControl(this);
     }
 }

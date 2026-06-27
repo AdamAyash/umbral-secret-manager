@@ -1,9 +1,9 @@
 import { BaseControl } from "../controls/base-control";
 
 export class BaseControlInteractor {
-    private _control?: BaseControl<BaseControlInteractor>
+    private _control?: BaseControl<this>
 
-    public initControl(control: BaseControl<BaseControlInteractor>): void {
+    public initControl(control: BaseControl<this>): void {
         this._control = control;
     }
 }
