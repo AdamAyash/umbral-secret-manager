@@ -24,6 +24,7 @@ export class MembersPage extends BasePage {
 
   protected override initialize(): void {
     this.pageTitle = 'Members'
+    this.pageSubTitle = 'Manage everyone who belongs to your organization.'
   }
   protected override validate(): boolean {
     return true;
