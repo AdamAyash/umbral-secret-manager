@@ -14,7 +14,10 @@ export class LoginPage extends BasePage {
   public textInputControlInteractor?: InputTextControlInteractor;
 
   protected override initialize(): void {
+
     this.textInputControlInteractor = new InputTextControlInteractor();
+    this.textInputControlInteractor.label = "Email";
+    this.textInputControlInteractor.placeHolder = "Enter your email address";
   }
 
   protected override validate(): boolean {
