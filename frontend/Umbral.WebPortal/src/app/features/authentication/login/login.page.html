@@ -69,20 +69,20 @@
           </label>
 
           <div class="relative">
-            <!-- <i
-              class="pi pi-envelope pointer-events-none absolute top-1/2 left-5 -translate-y-1/2 text-xl text-[#7C8FB8]"
-            ></i> -->
-            <input
-              pInputText
-              formControlName="email"
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="Enter your email address"
-              required
-              class="h-12! w-full rounded-xl! border border-[#A78BFA2E]! bg-[#0B1020]/70! pr-12 pl-11 text-sm text-surface-50 outline-none transition placeholder:text-[#64748B] focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20"
-            />
+            <p-iconfield>
+              <p-inputicon class="pi pi-envelope" />
+              <input
+                pInputText
+                formControlName="email"
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="Enter your email address"
+                required
+                class="h-11 w-full"
+              />
+            </p-iconfield>
           </div>
         </div>
 
@@ -96,28 +96,20 @@
           </div>
 
           <div class="relative">
-            <i
-              class="pi pi-lock pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-[#64748B]"
-            ></i>
-
-            <input
-              id="password"
-              name="password"
-              formControlName="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Enter your password"
-              required
-              class="h-12 w-full rounded-xl border border-[#A78BFA2E] bg-[#0B1020]/70 pr-12 pl-11 text-sm text-surface-50 outline-none transition placeholder:text-[#64748B] focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20"
-            />
-
-            <button
-              type="button"
-              aria-label="Show password"
-              class="absolute top-1/2 right-3 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-lg text-[#64748B] transition hover:bg-[#8B5CF6]/10 hover:text-[#C4B5FD]"
-            >
-              <i class="pi pi-eye text-sm"></i>
-            </button>
+            <p-iconfield>
+              <p-inputicon class="pi pi-lock" />
+              <input
+                id="password"
+                pInputText
+                name="password"
+                formControlName="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                required
+                class="h-11 w-full"
+              />
+            </p-iconfield>
           </div>
         </div>
 

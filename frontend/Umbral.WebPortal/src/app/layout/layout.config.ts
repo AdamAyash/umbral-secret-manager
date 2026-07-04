@@ -1,4 +1,4 @@
-import { ApplicationIcons } from "../shared/icons/application-icons";
+import { ApplicationIcons } from "../shared/ui/icons/application-icons";
 
 export interface NavigationItemData {
   label: string;
