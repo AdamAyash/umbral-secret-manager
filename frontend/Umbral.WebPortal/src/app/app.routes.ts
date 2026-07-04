@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { LoginPage } from './features/login/login.page';
+import { LoginPage } from './features/authentication/login/login.page';
 
 export const routes: Routes = [
     {

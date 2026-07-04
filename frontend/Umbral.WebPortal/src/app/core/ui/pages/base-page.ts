@@ -15,4 +15,9 @@ export abstract class BasePage implements OnInit {
     public ngOnInit(): void {
         this.initialize();
     }
+
+    protected onSubmit(): void {
+        if (!this.validate())
+            return;
+    }
 }
