@@ -74,15 +74,20 @@
               <input
                 pInputText
                 formControlName="email"
+                [variant]="'filled'"
                 id="email"
                 name="email"
                 type="email"
                 autocomplete="email"
                 placeholder="Enter your email address"
                 required
-                class="h-11 w-full"
+                fluid
               />
             </p-iconfield>
+            <umbral-error-message
+              [control]="this.email!"
+              fieldLabel="Email address"
+            ></umbral-error-message>
           </div>
         </div>
 
@@ -98,18 +103,21 @@
           <div class="relative">
             <p-iconfield>
               <p-inputicon class="pi pi-lock" />
-              <input
+              <p-password
+                [feedback]="false"
+                [toggleMask]="true"
+                [variant]="'filled'"
                 id="password"
-                pInputText
                 name="password"
                 formControlName="password"
-                type="password"
-                autocomplete="current-password"
+                fluid
                 placeholder="Enter your password"
-                required
-                class="h-11 w-full"
               />
             </p-iconfield>
+            <umbral-error-message
+              [control]="this.password!"
+              fieldLabel="Password"
+            ></umbral-error-message>
           </div>
         </div>
 
@@ -124,7 +132,7 @@
 
         <button
           type="submit"
-          class="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#8B5CF6] text-sm font-semibold text-white shadow-[0_12px_32px_rgba(139,92,246,0.25)] transition hover:bg-[#7C3AED] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA]"
+          class="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#8B5CF6] text-sm font-semibold text-white shadow-[0_12px_32px_rgba(139,92,246,0.25)] transition hover:bg-[#7C3AED] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA] active:bg-[#bb9dee]"
         >
           Sign in
           <i class="pi pi-arrow-right text-xs"></i>
