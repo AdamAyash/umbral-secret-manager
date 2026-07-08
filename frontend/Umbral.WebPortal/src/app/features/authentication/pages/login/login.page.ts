@@ -46,12 +46,17 @@ export class LoginPage extends BasePage {
   }
 
   protected override validate(): boolean {
+    this.loginForm.markAllAsTouched();
+
     return this.loginForm.valid;
   }
 
-  protected override onSubmit(): void {
-    super.onSubmit();
+  protected override onSubmit(): boolean {
+    if (!super.onSubmit())
+      return false;
 
     this._userAuthenticationService.login(new LoginInputModel(), this._loginResponseProcessable);
+
+    return true;
   }
 }

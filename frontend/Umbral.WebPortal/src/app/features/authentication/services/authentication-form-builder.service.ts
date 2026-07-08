@@ -18,6 +18,9 @@ export class AuthenticationFormBuilderService {
                 Validators.required,
                 Validators.minLength(this.passwordMinLength),
             ])
-        });
+        }
+            , {
+                updateOn: 'submit'
+            });
     }
 }

@@ -10,9 +10,10 @@ import { IServerResponseProcessable } from "./server-response-processable";
 export abstract class BaseServerRequestService {
 
     private _httpClient: HttpClient = inject(HttpClient);
+
     protected abstract getServiceDomain(): string;
 
-    protected sendServerRequest<TInputModel, TOutputModel>(
+    protected sendServerPostRequest<TInputModel, TOutputModel>(
         serviceRoute: string,
         inputModel: TInputModel,
         serviceProcessable: IServerResponseProcessable<TOutputModel>,

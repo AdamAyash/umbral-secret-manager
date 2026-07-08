@@ -8,7 +8,7 @@ import { LoginOutputModel } from "../models/login/login-output.model";
 export class UserAuthenticationService extends BaseServerRequestService {
 
     public login(inputModel: LoginInputModel, serverResponseProcessable: IServerResponseProcessable<LoginOutputModel>): void {
-        this.sendServerRequest('login', inputModel, serverResponseProcessable)
+        this.sendServerPostRequest('login', inputModel, serverResponseProcessable)
     }
 
     protected override getServiceDomain(): string {

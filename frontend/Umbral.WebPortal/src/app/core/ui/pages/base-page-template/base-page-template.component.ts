@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, InputSignal, } from '@angular/core';
 import { BasePage } from '../base-page';
 @Component({
   selector: 'umbral-base-page-template',
@@ -7,5 +7,5 @@ import { BasePage } from '../base-page';
   styleUrl: './base-page-template.component.css',
 })
 export class BasePageTemplateComponent {
-  @Input({ required: true }) public pageReference: BasePage | undefined;
+  public pageReference: InputSignal<BasePage> = input.required();
 }

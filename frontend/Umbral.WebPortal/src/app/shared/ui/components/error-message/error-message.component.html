@@ -1,3 +1,3 @@
-@if (this.control.invalid && this.control.touched) {
+@if (this.control().invalid && this.control().touched) {
   <p-message severity="error" size="small" variant="simple">{{ this.errorMessage() }}</p-message>
 }

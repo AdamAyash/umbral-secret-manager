@@ -1,7 +1,7 @@
 import { Directive, Input, OnInit } from "@angular/core";
 
 /**
- * 
+ *  Base page  abstract class providing basic functionality for most pages.
  */
 @Directive()
 export abstract class BasePage implements OnInit {
@@ -16,8 +16,10 @@ export abstract class BasePage implements OnInit {
         this.initialize();
     }
 
-    protected onSubmit(): void {
+    protected onSubmit(): boolean {
         if (!this.validate())
-            return;
+            return false;
+
+        return true;
     }
 }

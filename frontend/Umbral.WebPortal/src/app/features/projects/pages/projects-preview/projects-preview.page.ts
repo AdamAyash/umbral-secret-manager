@@ -14,12 +14,12 @@ interface Project {
 }
 
 @Component({
-  selector: 'umbral-projects',
+  selector: 'umbral-projects-preview-page',
   imports: [],
-  templateUrl: './projects.page.html',
-  styleUrl: './projects.page.css',
+  templateUrl: './projects-preview.page.html',
+  styleUrl: './projects-preview.page.css',
 })
-export class ProjectsPage {
+export class ProjectsPreviewPage {
   public readonly projects: readonly Project[] = [
     {
       id: 'warpath-devolved',

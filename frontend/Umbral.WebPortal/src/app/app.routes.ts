@@ -10,20 +10,20 @@ export const routes: Routes = [
             {
                 path: 'projects',
                 loadComponent: () =>
-                    import('./features/projects/projects.page')
-                        .then(m => m.ProjectsPage)
+                    import('./features/projects/pages/projects-preview/projects-preview.page')
+                        .then(m => m.ProjectsPreviewPage)
             },
             {
                 path: 'dashboard',
                 loadComponent: () =>
-                    import('./features/dashboard/dashboard.page')
+                    import('./features/dashboard/pages/dashboard/dashboard.page')
                         .then(m => m.DashboardPage)
             },
             {
                 path: 'members',
                 loadComponent: () =>
-                    import('./features/members/members.page')
-                        .then(m => m.MembersPage)
+                    import('./features/members/pages/members-preview/members-preview.page')
+                        .then(m => m.MembersPreviewPage)
             },
         ]
     },

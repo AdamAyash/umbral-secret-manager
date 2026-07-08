@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { BasePage } from '../../core/ui/pages/base-page';
-import { BasePageTemplateComponent } from "../../core/ui/pages/base-page-template/base-page-template.component";
+import { BasePage } from '../../../../core/ui/pages/base-page';
+import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
 
 interface Member {
   id: string;
@@ -15,12 +15,12 @@ interface Member {
 }
 
 @Component({
-  selector: 'umbral-members',
+  selector: 'umbral-members-preview-page',
   imports: [TableModule, BasePageTemplateComponent],
-  templateUrl: './members.page.html',
-  styleUrl: './members.page.css',
+  templateUrl: './members-preview.page.html',
+  styleUrl: './members-preview.page.css',
 })
-export class MembersPage extends BasePage {
+export class MembersPreviewPage extends BasePage {
 
   protected override initialize(): void {
     this.pageTitle = 'Members'

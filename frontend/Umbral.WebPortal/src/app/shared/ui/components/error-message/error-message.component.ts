@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, InputSignal } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 
@@ -9,27 +9,28 @@ import { MessageModule } from 'primeng/message';
   styleUrl: './error-message.component.css',
 })
 export class ErrorMessageComponent {
-  @Input({ required: true }) public control!: AbstractControl;
-  @Input({ required: true }) public fieldLabel: string = '';
+
+  public control: InputSignal<AbstractControl> = input.required();
+  public fieldLabel: InputSignal<string> = input.required();
 
   public showErrorMessage(): boolean {
-    return this.control.invalid && (this.control.touched || this.control.dirty);
+    return this.control().invalid && (this.control().touched || this.control().dirty);
   }
 
   public errorMessage(): string {
 
-    const errors: ValidationErrors | null = this.control.errors;
+    const validationErrors: ValidationErrors | null = this.control().errors;
 
-    if (!errors) {
+    if (!validationErrors) {
       return '';
     }
 
-    if (errors['email'])
+    if (validationErrors['email'])
       return this.emailErrorMessage();
-    if (errors['required'])
+    if (validationErrors['required'])
       return this.requiredErrorMessage();
-    if (errors['minlength'])
-      return this.minLengthErrorMessage(errors['minlength'].requiredLength);
+    if (validationErrors['minlength'])
+      return this.minLengthErrorMessage(validationErrors['minlength'].requiredLength);
 
     return 'Invalid value.';
   }
@@ -39,10 +40,10 @@ export class ErrorMessageComponent {
   }
 
   private requiredErrorMessage(): string {
-    return `${this.fieldLabel} is required.`
+    return `${this.fieldLabel()} is required.`
   }
 
   private minLengthErrorMessage(requiredLength: number): string {
-    return `${this.fieldLabel} must be at least ${requiredLength} characters.`;
+    return `${this.fieldLabel()} must be at least ${requiredLength} characters.`;
   }
 }
