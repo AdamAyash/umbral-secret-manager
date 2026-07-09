@@ -11,6 +11,7 @@ import { BasePage } from '../../../../core/ui/pages/base-page';
 import { ErrorMessageComponent } from '../../../../shared/ui/components/error-message/error-message.component';
 import { LoginOutputModel } from '../../models/login/login-output.model';
 import { LoginInputModel } from '../../models/login/login-input.model';
+import { ProblemDetailsModel } from '../../../../core/api';
 
 @Component({
   selector: 'umbral-login-page',
@@ -29,7 +30,8 @@ export class LoginPage extends BasePage {
     processResult: (output: LoginOutputModel): boolean => {
       return true;
     },
-    processError: () => {
+    processError: (problemDetails: ProblemDetailsModel) => {
+      console.log(problemDetails.detail);
     }
   };
 
@@ -56,6 +58,7 @@ export class LoginPage extends BasePage {
       return false;
 
     this._userAuthenticationService.login(new LoginInputModel(), this._loginResponseProcessable);
+    this.password?.reset();
 
     return true;
   }

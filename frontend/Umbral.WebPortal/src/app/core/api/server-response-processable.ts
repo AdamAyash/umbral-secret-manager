@@ -1,4 +1,6 @@
+import { ProblemDetailsModel } from "./base-server-response";
+
 export interface IServerResponseProcessable<TOutputModel> {
     processResult: (output: TOutputModel) => boolean;
-    processError: () => void;
+    processError: (problemDetails: ProblemDetailsModel) => void;
 }

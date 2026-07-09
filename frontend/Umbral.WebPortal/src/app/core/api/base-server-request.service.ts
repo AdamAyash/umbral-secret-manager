@@ -1,8 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { BaseServerResponse } from "./base-server-response";
+import { BaseServerResponse, ProblemDetailsModel } from "./base-server-response";
 import { IServerResponseProcessable } from "./server-response-processable";
+import { catchError, EMPTY } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -23,9 +24,14 @@ export abstract class BaseServerRequestService {
                 this.constructFullRequestURL(serviceRoute),
                 inputModel
             )
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    serviceProcessable.processError(error.error as ProblemDetailsModel);
+                    return EMPTY;
+                }))
             .subscribe((serverResponse) => {
-                if (serverResponse.output && serverResponse.isSuccessful) {
-                    if (!serviceProcessable.processResult(serverResponse.output)) {
+                if (serverResponse.data && serverResponse.isSuccessful) {
+                    if (!serviceProcessable.processResult(serverResponse.data)) {
                         //
                     }
                 }
