@@ -31,7 +31,8 @@ export class LoginPage extends BasePage {
       return true;
     },
     processError: (problemDetails: ProblemDetailsModel) => {
-      console.log(problemDetails.detail);
+      if (problemDetails.code == "AUTH_INVALID_CREDENTIALS")
+        this.toastService.showError('Authentication error', problemDetails?.detail);
     }
   };
 
