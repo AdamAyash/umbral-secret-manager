@@ -4,6 +4,9 @@ import { IServerResponseProcessable } from "../../../core/api/server-response-pr
 import { LoginInputModel } from "../models/login/login-input.model";
 import { LoginOutputModel } from "../models/login/login-output.model";
 
+/**
+ * User authentication service 
+ */
 @Injectable({ providedIn: 'root' })
 export class UserAuthenticationService extends BaseServerRequestService {
 

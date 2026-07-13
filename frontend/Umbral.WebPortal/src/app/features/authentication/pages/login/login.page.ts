@@ -28,6 +28,7 @@ export class LoginPage extends BasePage {
 
   private _loginResponseProcessable: IServerResponseProcessable<LoginOutputModel> = {
     processResult: (output: LoginOutputModel): boolean => {
+      console.log(output.user);
       return true;
     },
     processError: (problemDetails: ProblemDetailsModel) => {

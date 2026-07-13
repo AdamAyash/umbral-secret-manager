@@ -1,4 +1,5 @@
+import { UserModel } from "../user/user.model";
+
 export class LoginOutputModel {
-    public userName?: string;
-    public email?: string
+    user?: UserModel;
 }
