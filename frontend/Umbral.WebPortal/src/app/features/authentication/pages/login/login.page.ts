@@ -59,7 +59,11 @@ export class LoginPage extends BasePage {
     if (!super.onSubmit())
       return false;
 
-    this._userAuthenticationService.login(new LoginInputModel(), this._loginResponseProcessable);
+    let loginInputModel = new LoginInputModel();
+    loginInputModel.email = this.email?.value;
+    loginInputModel.password = this.password?.value;
+
+    this._userAuthenticationService.login(loginInputModel, this._loginResponseProcessable);
     this.password?.reset();
 
     return true;

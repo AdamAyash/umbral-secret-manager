@@ -4,8 +4,8 @@ import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
   imports: [RouterOutlet, ToastModule],
 })
 export class AppComponent {
