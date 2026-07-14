@@ -1,3 +1,6 @@
+/**
+ * A problem details model following the RFC error standard.
+ */
 export class ProblemDetailsModel {
     type?: string;
     title?: string;

@@ -1,3 +1,6 @@
+/**
+ * Base server response. 
+ */
 export class BaseServerResponse<OutputModel> {
     public dateTimeStamp?: Date;
     public isSuccessful?: boolean;
