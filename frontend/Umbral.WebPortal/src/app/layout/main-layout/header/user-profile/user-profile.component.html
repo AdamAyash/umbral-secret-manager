@@ -1,5 +1,6 @@
 <p-button
   (onClick)="menu.toggle($event)"
+  \
   ariaLabel="Open account menu"
   [text]="true"
   [rounded]="true"
@@ -16,9 +17,9 @@
 
   <span class="hidden text-left leading-none sm:grid">
     <span class="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-[#94A3B8]">
-      Operator
+      {{ userSession?.role }}
     </span>
-    <span class="mt-1 text-sm font-semibold text-surface-50">Adam Ayash</span>
+    <span class="mt-1 text-sm font-semibold text-surface-50">{{ userSession?.fullName }}</span>
   </span>
   <i class="pi pi-chevron-down hidden text-xs text-[#94A3B8] sm:block"></i>
 </p-button>
@@ -48,14 +49,16 @@
 
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2">
-            <p class="m-0 truncate text-sm font-semibold text-surface-50">Adam Ayash</p>
-            <span
-              class="rounded-full border border-[#A78BFA38] bg-[#8B5CF6]/15 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-[#C4B5FD]"
-            >
-              Operator
-            </span>
+            <p class="m-0 truncate text-sm font-semibold text-surface-50">
+              {{ userSession?.fullName }}
+              <span
+                class="rounded-full border border-[#A78BFA38] bg-[#8B5CF6]/15 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-[#C4B5FD]"
+              >
+                {{ userSession?.role }}
+              </span>
+            </p>
           </div>
-          <p class="mt-1 mb-0 truncate text-xs text-[#94A3B8]">Shadowbyte Labs</p>
+          <p class="mt-2 mb-0 truncate text-xs text-[#94A3B8]">Shadowbyte Labs</p>
         </div>
       </div>
     </div>

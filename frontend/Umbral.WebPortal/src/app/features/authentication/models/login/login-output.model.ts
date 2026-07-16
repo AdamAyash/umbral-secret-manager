@@ -1,5 +1,5 @@
-import { UserModel } from "../user/user.model";
+import { UserSessionModel } from "../user-session.model";
 
 export class LoginOutputModel {
-    user?: UserModel
+    public userSession?: UserSessionModel
 }
