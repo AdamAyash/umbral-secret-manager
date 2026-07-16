@@ -14,14 +14,6 @@ export class UserProfileComponent implements OnInit {
   private readonly _userAuthenticationService: UserAuthenticationService = inject(UserAuthenticationService);
   private _userSession?: UserSessionModel;
 
-  public get userSession(): UserSessionModel | undefined {
-    return this._userSession;
-  }
-
-  public ngOnInit(): void {
-    this._userSession = this._userAuthenticationService.getUserSession();
-  }
-
   public readonly menuItems: MenuItem[] = [
     {
       label: 'Account',
@@ -33,4 +25,16 @@ export class UserProfileComponent implements OnInit {
       ],
     },
   ];
+
+  public get userSession(): UserSessionModel | undefined {
+    return this._userSession;
+  }
+
+  public ngOnInit(): void {
+    this._userSession = this._userAuthenticationService.getUserSession();
+  }
+
+  public onSignOut(): void {
+    this._userAuthenticationService.logout();
+  }
 }

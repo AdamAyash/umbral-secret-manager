@@ -1,5 +1,5 @@
 import { ProblemDetailsModel } from ".";
-export interface IServerResponseProcessable<TOutputModel> {
+export interface IServerResponseProcessable<TOutputModel, TServiceErrorCodes> {
     processResult: (output: TOutputModel) => boolean;
-    processError: (problemDetails: ProblemDetailsModel) => void;
+    processError: (problemDetails: ProblemDetailsModel<TServiceErrorCodes>) => void;
 }

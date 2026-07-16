@@ -20,10 +20,10 @@ export abstract class BaseServerRequestService {
      */
     protected abstract getServiceDomain(): string;
 
-    protected sendServerPostRequest<TInputModel, TOutputModel>(
+    protected sendServerPostRequest<TInputModel, TOutputModel, TServiceErrorCodes>(
         serviceRoute: string,
         inputModel: TInputModel,
-        serviceProcessable: IServerResponseProcessable<TOutputModel>,
+        serviceProcessable: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>,
     ): void {
         this._httpClient
             .post<BaseServerResponse<TOutputModel>>(
@@ -32,7 +32,7 @@ export abstract class BaseServerRequestService {
             )
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    serviceProcessable.processError(error.error as ProblemDetailsModel);
+                    serviceProcessable.processError(error.error as ProblemDetailsModel<TServiceErrorCodes>);
                     return EMPTY;
                 }))
             .subscribe((serverResponse) => {

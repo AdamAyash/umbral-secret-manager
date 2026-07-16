@@ -48,15 +48,15 @@
         </span>
 
         <div class="min-w-0 flex-1">
-          <div class="flex items-center gap-2">
-            <p class="m-0 truncate text-sm font-semibold text-surface-50">
+          <div class="flex min-w-0 items-center gap-2">
+            <p class="m-0 min-w-0 truncate text-sm font-semibold text-surface-50">
               {{ userSession?.fullName }}
-              <span
-                class="rounded-full border border-[#A78BFA38] bg-[#8B5CF6]/15 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-[#C4B5FD]"
-              >
-                {{ userSession?.role }}
-              </span>
             </p>
+            <span
+              class="shrink-0 rounded-full border border-[#A78BFA38] bg-[#8B5CF6]/15 px-2 py-0.5 text-[0.6rem] font-bold uppercase leading-none tracking-wider text-[#C4B5FD]"
+            >
+              {{ userSession?.role }}
+            </span>
           </div>
           <p class="mt-2 mb-0 truncate text-xs text-[#94A3B8]">Shadowbyte Labs</p>
         </div>
@@ -67,6 +67,7 @@
   <ng-template #end>
     <div class="border-t border-[#A78BFA1F] p-2">
       <button
+        (click)="this.onSignOut()"
         type="button"
         class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-[#FCA5A5] transition hover:bg-red-500/10 hover:text-[#FECACA]"
       >

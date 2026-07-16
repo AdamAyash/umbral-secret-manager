@@ -5,6 +5,10 @@ import { LoginInputModel } from "../models/login/login-input.model";
 import { LoginOutputModel } from "../models/login/login-output.model";
 import { UserSessionModel } from "../models/user-session.model";
 import { LocalStorageService } from "../../../core/services/local-storage/local-storage.service";
+import { Router } from "@angular/router";
+import { UserAuthenticationErrorCodes } from "./user-authentication-error-codes";
+import { SignUpInputModel } from "../models/sign-up/sign-up-input.model";
+import { SignUpOutputModel } from "../models/sign-up/sign-up-output.model";
 
 /**
  * User authentication service 
@@ -14,6 +18,7 @@ export class UserAuthenticationService extends BaseServerRequestService {
 
     private readonly _localStorageService: LocalStorageService = inject(LocalStorageService);
     private readonly _userSessionLocalStorageKey: string = "USER_SESSION";
+    private readonly _router: Router = inject(Router);
 
     private _userSession?: UserSessionModel;
 
@@ -22,8 +27,19 @@ export class UserAuthenticationService extends BaseServerRequestService {
      * @param inputModel 
      * @param serverResponseProcessable 
      */
-    public login(inputModel: LoginInputModel, serverResponseProcessable: IServerResponseProcessable<LoginOutputModel>): void {
+    public login(inputModel: LoginInputModel, serverResponseProcessable: IServerResponseProcessable<LoginOutputModel,
+        UserAuthenticationErrorCodes>): void {
         this.sendServerPostRequest('login', inputModel, serverResponseProcessable)
+    }
+
+    /**
+     * sign up request
+     * @param inputModel 
+     * @param serverResponseProcessable 
+     */
+    public signUp(inputModel: SignUpInputModel, serverResponseProcessable: IServerResponseProcessable<SignUpOutputModel,
+        UserAuthenticationErrorCodes>): void {
+        this.sendServerPostRequest('sign-up', inputModel, serverResponseProcessable)
     }
 
     /**
@@ -60,6 +76,7 @@ export class UserAuthenticationService extends BaseServerRequestService {
      */
     public logout(): void {
         this._localStorageService.removeItem(this._userSessionLocalStorageKey);
+        this._router.navigate(['/login']);
     }
 
     /**

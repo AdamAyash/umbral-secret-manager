@@ -23,4 +23,16 @@ export class AuthenticationFormBuilderService {
                 updateOn: 'submit'
             });
     }
+
+    public buildSignUpForm(): FormGroup {
+        return new FormGroup({
+            email: new FormControl('', [
+                Validators.required,
+                Validators.email
+            ])
+        }
+            , {
+                updateOn: 'submit'
+            });
+    }
 }

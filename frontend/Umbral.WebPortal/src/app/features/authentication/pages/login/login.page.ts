@@ -12,10 +12,12 @@ import { ErrorMessageComponent } from '../../../../shared/ui/components/error-me
 import { LoginOutputModel } from '../../models/login/login-output.model';
 import { LoginInputModel } from '../../models/login/login-input.model';
 import { ProblemDetailsModel } from '../../../../core/api';
+import { RouterLink } from '@angular/router';
+import { UserAuthenticationErrorCodes } from '../../services/user-authentication-error-codes';
 
 @Component({
   selector: 'umbral-login-page',
-  imports: [ReactiveFormsModule, InputTextModule, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent],
+  imports: [ReactiveFormsModule, InputTextModule, RouterLink, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent],
   templateUrl: './login.page.html',
   styleUrl: './login.page.css',
 })
@@ -26,7 +28,7 @@ export class LoginPage extends BasePage {
   private _authenticationFormBuilderService: AuthenticationFormBuilderService = inject(AuthenticationFormBuilderService);
   private _userAuthenticationService: UserAuthenticationService = inject(UserAuthenticationService);
 
-  private _loginResponseProcessable: IServerResponseProcessable<LoginOutputModel> = {
+  private _loginResponseProcessable: IServerResponseProcessable<LoginOutputModel, UserAuthenticationErrorCodes> = {
     processResult: (output: LoginOutputModel): boolean => {
 
       if (!output.userSession)
@@ -37,9 +39,9 @@ export class LoginPage extends BasePage {
 
       return true;
     },
-    processError: (problemDetails: ProblemDetailsModel) => {
-      if (problemDetails.code == "AUTH_INVALID_CREDENTIALS")
-        this.toastService.showError('Authentication error', problemDetails?.detail);
+    processError: (problemDetails: ProblemDetailsModel<UserAuthenticationErrorCodes>) => {
+      if (problemDetails.errorCode === UserAuthenticationErrorCodes.InvalidCredentials)
+        this.toastService.showError(problemDetails.title, problemDetails?.detail);
     }
   };
 
