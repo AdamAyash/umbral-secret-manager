@@ -28,7 +28,13 @@ export class LoginPage extends BasePage {
 
   private _loginResponseProcessable: IServerResponseProcessable<LoginOutputModel> = {
     processResult: (output: LoginOutputModel): boolean => {
-      console.log(output.user);
+
+      if (!output.userSession)
+        return false;
+
+      this._userAuthenticationService.saveUserSession(output.userSession)
+      this.redirectTo('/dashboard');
+
       return true;
     },
     processError: (problemDetails: ProblemDetailsModel) => {
@@ -59,7 +65,7 @@ export class LoginPage extends BasePage {
     if (!super.onSubmit())
       return false;
 
-    let loginInputModel = new LoginInputModel();
+    const loginInputModel = new LoginInputModel();
     loginInputModel.email = this.email?.value;
     loginInputModel.password = this.password?.value;
 

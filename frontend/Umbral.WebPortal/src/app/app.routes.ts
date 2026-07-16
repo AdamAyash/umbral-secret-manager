@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { LoginPage } from './features/authentication/pages/login/login.page';
+import { authenticationGuard } from './core/guards/authentication-guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: MainLayoutComponent,
+        canActivate: [authenticationGuard],
         children: [
             {
                 path: 'projects',

@@ -13,10 +13,10 @@ import { ProblemDetailsModel, IServerResponseProcessable, BaseServerResponse } f
 export abstract class BaseServerRequestService {
 
     // Http client
-    private _httpClient: HttpClient = inject(HttpClient);
+    private readonly _httpClient: HttpClient = inject(HttpClient);
 
     /**
-     * domain of the current service
+     * Domain of the current service
      */
     protected abstract getServiceDomain(): string;
 
@@ -38,7 +38,7 @@ export abstract class BaseServerRequestService {
             .subscribe((serverResponse) => {
                 if (serverResponse.data && serverResponse.isSuccessful) {
                     if (!serviceProcessable.processResult(serverResponse.data)) {
-                        //
+                        //TODO
                     }
                 }
             });

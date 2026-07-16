@@ -94,7 +94,6 @@ module.exports = tseslint.config(
           arrowParameter: false,
         },
       ],
-      'no-console': 'of',
     },
   },
   {
