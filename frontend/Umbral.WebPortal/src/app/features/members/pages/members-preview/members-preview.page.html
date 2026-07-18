@@ -1,4 +1,18 @@
 <umbral-base-page-template [pageReference]="this">
+  <section class="mb-6 flex items-end justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-[#F8FAFC]">{{ this.pageTitle }}</h1>
+      <p class="mt-2 text-sm text-[#94A3B8]">{{ this.pageSubTitle }}</p>
+    </div>
+    <button
+      (click)="this.showInviteMemberDialog()"
+      type="button"
+      class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#8B5CF6] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(139,92,246,0.2)] transition hover:bg-[#7C3AED] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA]"
+    >
+      <i class="pi pi-plus text-xs"></i>
+      <span>Invite member</span>
+    </button>
+  </section>
   <div class="rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4">
     <p-table [value]="members" [paginator]="true" [rows]="10" responsiveLayout="scroll">
       <ng-template pTemplate="header">
@@ -72,16 +86,6 @@
       </ng-template>
     </p-table></div
 ></umbral-base-page-template>
-<!-- <section class="mb-6 flex items-end justify-between">
-  <div>
-    <h1 class="text-3xl font-bold text-[#F8FAFC]">Members</h1>
-    <p class="mt-2 text-sm text-[#94A3B8]">Manage everyone who belongs to your organization.</p>
-  </div>
-
-  <button
-    type="button"
-    class="rounded-xl bg-[#8B5CF6] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#7C3AED]"
-  >
-    Invite Member
-  </button>
-</section> -->
+<umbral-invite-member-dialog
+  [baseDialogController]="this.dialogController"
+></umbral-invite-member-dialog>

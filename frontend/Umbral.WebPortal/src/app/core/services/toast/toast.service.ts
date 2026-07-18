@@ -8,7 +8,7 @@ import { MessageService } from "primeng/api";
     providedIn: 'root'
 })
 export class ToastService {
-    private _messageService = inject(MessageService);
+    private _messageService: MessageService = inject(MessageService);
 
     /**
      * 

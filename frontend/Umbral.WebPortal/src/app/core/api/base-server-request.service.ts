@@ -32,7 +32,39 @@ export abstract class BaseServerRequestService {
             )
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    serviceProcessable.processError(error.error as ProblemDetailsModel<TServiceErrorCodes>);
+                    const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
+                    if (problemDetails)
+                        serviceProcessable.processError(problemDetails);
+                    else
+                        console.log("Error happened");
+
+                    return EMPTY;
+                }))
+            .subscribe((serverResponse) => {
+                if (serverResponse.data && serverResponse.isSuccessful) {
+                    if (!serviceProcessable.processResult(serverResponse.data)) {
+                        //TODO
+                    }
+                }
+            });
+    }
+
+    protected sendServerGetRequest<TOutputModel, TServiceErrorCodes>(
+        serviceRoute: string,
+        serviceProcessable: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>,
+    ): void {
+        this._httpClient
+            .get<BaseServerResponse<TOutputModel>>(
+                this.constructFullRequestURL(serviceRoute)
+            )
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
+                    if (problemDetails)
+                        serviceProcessable.processError(problemDetails);
+                    else
+                        console.log("Error happened");
+
                     return EMPTY;
                 }))
             .subscribe((serverResponse) => {

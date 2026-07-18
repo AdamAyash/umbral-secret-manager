@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
-
+import { InviteMemberDialogComponent } from "../../dialogs/invite-member-dialog/invite-member-dialog.component";
+import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
+import { EmptyOutputModel } from '../../../../core/api/models/empty-output.model';
+import { BaseDialogController } from '../../../../core/ui/dialogs/base-dialog-controller/base-dialog-controller';
 interface Member {
   id: string;
   name: string;
@@ -16,11 +19,13 @@ interface Member {
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialogComponent],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
 })
 export class MembersPreviewPage extends BasePage {
+
+  public dialogController: BaseDialogController<EmptyInputModel, EmptyOutputModel> = new BaseDialogController<EmptyInputModel, EmptyOutputModel>();
 
   protected override initialize(): void {
     this.pageTitle = 'Members'
@@ -71,5 +76,9 @@ export class MembersPreviewPage extends BasePage {
       case 'Suspended':
         return 'border-[#F43F5E33] bg-[#F43F5E]/10 text-[#FB7185]';
     }
+  }
+
+  public showInviteMemberDialog(): void {
+    this.dialogController.showDialog();
   }
 }
