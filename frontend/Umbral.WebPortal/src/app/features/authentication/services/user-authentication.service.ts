@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 import { UserAuthenticationErrorCodes } from "./user-authentication-error-codes";
 import { SignUpInputModel } from "../models/sign-up/sign-up-input.model";
 import { SignUpOutputModel } from "../models/sign-up/sign-up-output.model";
+import { ResendEmailVerificationInputModel } from "../models/resend-email-verification/resend-email-verification-input.model";
+import { ResendEmailVerificationOutputModel } from "../models/resend-email-verification/resend-email-verification-output.model";
 
 /**
  * User authentication service 
@@ -40,6 +42,16 @@ export class UserAuthenticationService extends BaseServerRequestService {
     public signUp(inputModel: SignUpInputModel, serverResponseProcessable: IServerResponseProcessable<SignUpOutputModel,
         UserAuthenticationErrorCodes>): void {
         this.sendServerPostRequest('sign-up', inputModel, serverResponseProcessable)
+    }
+
+    /**
+     * resend email verification
+     * @param inputModel 
+     * @param serverResponseProcessable 
+     */
+    public resendEmailVerification(inputModel: ResendEmailVerificationInputModel, serverResponseProcessable: IServerResponseProcessable<ResendEmailVerificationOutputModel,
+        UserAuthenticationErrorCodes>): void {
+        this.sendServerPostRequest('resend-email-verification', inputModel, serverResponseProcessable)
     }
 
     /**

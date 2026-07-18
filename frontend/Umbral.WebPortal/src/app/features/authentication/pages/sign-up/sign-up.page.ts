@@ -29,7 +29,7 @@ export class SignUpPage extends BasePage {
   private _signUpResponseProcessable: IServerResponseProcessable<SignUpOutputModel, UserAuthenticationErrorCodes> = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     processResult: (output: SignUpOutputModel): boolean => {
-      this.redirectTo('/check-email');
+      this.redirectTo('check-email');
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

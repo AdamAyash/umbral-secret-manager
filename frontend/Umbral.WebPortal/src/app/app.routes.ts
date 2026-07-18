@@ -3,6 +3,7 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { LoginPage } from './features/authentication/pages/login/login.page';
 import { authenticationGuard } from './core/guards/authentication-guard';
 import { SignUpPage } from './features/authentication/pages/sign-up/sign-up.page';
+import { CheckEmailPage } from './features/authentication/pages/check-email/check-email.page';
 
 export const routes: Routes = [
     {
@@ -40,8 +41,6 @@ export const routes: Routes = [
     },
     {
         path: 'check-email',
-        loadComponent: () =>
-            import('./features/authentication/pages/check-email/check-email.page')
-                .then(m => m.CheckEmailPage)
+        component: CheckEmailPage
     },
 ];

@@ -13,10 +13,10 @@ export abstract class BasePage implements OnInit {
 
     protected readonly toastService: ToastService = inject(ToastService);
 
+    private readonly _router: Router = inject(Router);
+
     protected abstract initialize(): void;
     protected abstract validate(): boolean;
-
-    private readonly _router: Router = inject(Router);
 
     /**
      * On init implementation
