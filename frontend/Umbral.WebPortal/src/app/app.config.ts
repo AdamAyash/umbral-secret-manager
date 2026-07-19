@@ -11,7 +11,7 @@ import { GlobalErrorHandlerService } from './core/services/global-error-handler/
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAppInitializer(() => {
-      //
+      //firstValueFrom()
     }),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes), provideClientHydration(withEventReplay()),

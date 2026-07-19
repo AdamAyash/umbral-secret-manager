@@ -1,15 +1,22 @@
+import { Directive, signal, WritableSignal } from "@angular/core";
+
+@Directive()
 export class BaseDialogController<TDialogInputModel, TDialogOutputModel> {
-    private _isDialogVisible: boolean = false;
+    private _isDialogVisible: WritableSignal<boolean> = signal(false);
 
     public get isDialogVisible(): boolean {
-        return this._isDialogVisible;
+        return this._isDialogVisible();
+    }
+
+    public set isDialogVisible(isDialogVisible: boolean) {
+        this._isDialogVisible.set(isDialogVisible);
     }
 
     public showDialog(): void {
-        this._isDialogVisible = true;
+        this._isDialogVisible.set(true);
     }
 
     public closeDialog(): void {
-        this._isDialogVisible = false;
+        this._isDialogVisible.set(false);
     }
 }

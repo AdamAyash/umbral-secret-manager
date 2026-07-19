@@ -13,7 +13,7 @@ import { ProblemDetailsModel, IServerResponseProcessable, BaseServerResponse } f
 export abstract class BaseServerRequestService {
 
     // Http client
-    private readonly _httpClient: HttpClient = inject(HttpClient);
+    protected readonly _httpClient: HttpClient = inject(HttpClient);
 
     /**
      * Domain of the current service
@@ -32,6 +32,7 @@ export abstract class BaseServerRequestService {
             )
             .pipe(
                 catchError((error: HttpErrorResponse) => {
+
                     const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
                     if (problemDetails)
                         serviceProcessable.processError(problemDetails);
@@ -43,12 +44,17 @@ export abstract class BaseServerRequestService {
             .subscribe((serverResponse) => {
                 if (serverResponse.data && serverResponse.isSuccessful) {
                     if (!serviceProcessable.processResult(serverResponse.data)) {
-                        //TODO
+                        throw new Error();
                     }
                 }
             });
     }
 
+    /**
+     * sends a standard get request
+     * @param serviceRoute 
+     * @param serviceProcessable 
+     */
     protected sendServerGetRequest<TOutputModel, TServiceErrorCodes>(
         serviceRoute: string,
         serviceProcessable: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>,
@@ -70,7 +76,7 @@ export abstract class BaseServerRequestService {
             .subscribe((serverResponse) => {
                 if (serverResponse.data && serverResponse.isSuccessful) {
                     if (!serviceProcessable.processResult(serverResponse.data)) {
-                        //TODO
+                        throw new Error();
                     }
                 }
             });

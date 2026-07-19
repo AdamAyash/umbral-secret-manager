@@ -10,5 +10,6 @@ import { BaseDialogController } from '../base-dialog-controller/base-dialog-cont
   styleUrl: './base-dialog-template.component.css',
 })
 export class BaseDialogTemplateComponent<TDialogInputModel, TDialogOutputModel> {
+  public title: InputSignal<string> = input.required();
   public dialogController: InputSignal<BaseDialogController<TDialogInputModel, TDialogOutputModel>> = input.required();
 }
