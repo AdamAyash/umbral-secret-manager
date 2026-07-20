@@ -8,8 +8,8 @@ import { InputText } from "primeng/inputtext";
 @Component({
   selector: 'umbral-invite-member-dialog',
   imports: [BaseDialogTemplateComponent, InputText],
-  templateUrl: './invite-member-dialog.component.html',
-  styleUrl: './invite-member-dialog.component.css',
+  templateUrl: './invite-member.dialog.html',
+  styleUrl: './invite-member.dialog.css',
 })
 export class InviteMemberDialogComponent extends BaseDialog<EmptyInputModel, EmptyOutputModel> {
 }
