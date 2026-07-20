@@ -78,7 +78,10 @@ export class MembersPreviewPage extends BasePage {
     }
   }
 
-  public showInviteMemberDialog(): void {
-    this.dialogController.showDialog();
+  public onInviteMemberDialog(): void {
+    const inputModel = new EmptyInputModel();
+    const outputModel = new EmptyOutputModel();
+
+    this.dialogController.openDialog(inputModel, outputModel);
   }
 }

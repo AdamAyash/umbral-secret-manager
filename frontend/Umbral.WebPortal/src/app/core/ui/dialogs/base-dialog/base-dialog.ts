@@ -4,4 +4,12 @@ import { BaseDialogController } from '../base-dialog-controller/base-dialog-cont
 @Directive()
 export class BaseDialog<TDialogInputModel, TDialogOutputModel> {
     public baseDialogController: InputSignal<BaseDialogController<TDialogInputModel, TDialogOutputModel>> = input.required();
+
+    protected validateData(): boolean {
+        return true;
+    }
+
+    protected onSubmit(): boolean {
+        return this.validateData();
+    }
 }

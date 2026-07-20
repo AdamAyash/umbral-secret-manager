@@ -1,27 +1,39 @@
 <umbral-base-dialog-template title="Invite member" [dialogController]="this.baseDialogController()">
-  <!-- <div class="text-sm">
-    <p>An invite is specific to an email address and expires after 1 day.</p>
-  </div> -->
+  <form class="flex w-full flex-col gap-6" name="invite-member" (ngSubmit)="onSubmit()">
+    <div class="space-y-1.5">
+      <label for="invite-email" class="text-sm font-semibold text-[#E2E8F0]">Email address</label>
+      <p class="text-xs leading-5 text-[#94A3B8]">
+        The invitation is tied to this email address and expires after one day.
+      </p>
+    </div>
 
-  <div class="flex">
-    <form name="invite-member">
-      <div class="w-full flex">
-        <label for="email">Email address</label>
-      </div>
-      <div>
-        <input
-          pInputText
-          [variant]="'filled'"
-          id="email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          placeholder="Enter your email address"
-          required
-          fluid
-        />
-      </div>
-      <button type="submit">Send Invitation</button>
-    </form>
-  </div>
+    <div class="relative">
+      <i
+        class="pi pi-envelope pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-[#94A3B8]"
+      ></i>
+      <input
+        #email
+        pInputText
+        id="invite-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="name@company.com"
+        class="w-full! pl-10!"
+        [fluid]="true"
+        required
+      />
+    </div>
+
+    <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+      <p-button
+        label="Cancel"
+        severity="secondary"
+        [outlined]="true"
+        type="button"
+        (onClick)="this.baseDialogController().closeDialog()"
+      />
+      <p-button label="Send invitation" icon="pi pi-send" type="submit" />
+    </div>
+  </form>
 </umbral-base-dialog-template>
