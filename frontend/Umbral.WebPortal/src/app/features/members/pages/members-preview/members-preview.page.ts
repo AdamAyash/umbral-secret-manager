@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
-import { InviteMemberDialogComponent } from "../../dialogs/invite-member-dialog/invite-member.dialog";
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { EmptyOutputModel } from '../../../../core/api/models/empty-output.model';
 import { BaseDialogController } from '../../../../core/ui/dialogs/base-dialog-controller/base-dialog-controller';
+import { InviteMemberDialog } from '../../dialogs/invite-member-dialog/invite-member.dialog';
 interface Member {
   id: string;
   name: string;
@@ -19,7 +19,7 @@ interface Member {
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialogComponent],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
 })

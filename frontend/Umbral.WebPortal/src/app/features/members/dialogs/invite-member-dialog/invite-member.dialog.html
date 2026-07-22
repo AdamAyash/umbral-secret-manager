@@ -1,37 +1,53 @@
 <umbral-base-dialog-template title="Invite member" [dialogController]="this.baseDialogController()">
-  <form class="flex w-full flex-col gap-6" name="invite-member" (ngSubmit)="onSubmit()">
-    <div class="space-y-1.5">
+  <div class="pb-5">
+    <p class="text-sm font-bold">The invitation send to this email will expire in one day.</p>
+  </div>
+  <form
+    [formGroup]="this.inviteMemberForm"
+    class="flex w-full flex-col gap-6"
+    name="invite-member"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="relative flex flex-col gap-1">
       <label for="invite-email" class="text-sm font-semibold text-[#E2E8F0]">Email address</label>
-      <p class="text-xs leading-5 text-[#94A3B8]">
-        The invitation is tied to this email address and expires after one day.
-      </p>
+      <p-iconfield>
+        <p-inputicon class="pi pi-envelope" />
+        <input
+          #email
+          pInputText
+          id="invite-email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          formControlName="email"
+          placeholder="name@company.com"
+          [fluid]="true"
+          variant="filled"
+          required
+        />
+      </p-iconfield>
+      <umbral-error-message [control]="this.email!" fieldLabel="Email address">
+      </umbral-error-message>
+      <div class="flex flex-col gap-1 py-3">
+        <label for="userRole" class="text-sm font-semibold text-[#E2E8F0]">Member role</label>
+        <p-select
+          id="userRole"
+          variant="filled"
+          formControlName="memberRole"
+          [options]="this.userRoles"
+          placeholder="Select a role"
+        ></p-select>
+        <umbral-error-message [control]="this.memberRole!" fieldLabel="Role">
+        </umbral-error-message>
+      </div>
     </div>
-
-    <div class="relative">
-      <i
-        class="pi pi-envelope pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-[#94A3B8]"
-      ></i>
-      <input
-        #email
-        pInputText
-        id="invite-email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        placeholder="name@company.com"
-        class="w-full! pl-10!"
-        [fluid]="true"
-        required
-      />
-    </div>
-
     <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
       <p-button
         label="Cancel"
         severity="secondary"
         [outlined]="true"
         type="button"
-        (onClick)="this.baseDialogController().closeDialog()"
+        (onClick)="this.onCloseDialog()"
       />
       <p-button label="Send invitation" icon="pi pi-send" type="submit" />
     </div>

@@ -1,3 +1,3 @@
 export enum UserRoles {
-    Operator = "Operator"
+    Operator = "Operator",
 }
