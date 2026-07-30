@@ -11,7 +11,11 @@ import { ErrorMessageComponent } from "../../../../shared/ui/components";
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { SelectModule } from 'primeng/select';
-import { UserRoles } from '../../../authentication/models/user-roles';
+import { UserRoles } from '../../../../shared/models/user-roles';
+import { MembersService } from '../../services/members.service';
+import { InviteMemberInputModel } from '../../models/invite-member/invite-member-input.model';
+import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
+import { MembersErrorCodes } from '../../services/members-error-codes';
 
 interface Roles {
   label: string;
@@ -34,7 +38,24 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
   ]
 
   public inviteMemberForm!: FormGroup;
+
   private readonly _membersFormBuilderService: MembersFormBuilderService = inject(MembersFormBuilderService);
+  private readonly _memberService: MembersService = inject(MembersService);
+
+  private _inviteMemberResponseProcessable: IServerResponseProcessable<EmptyOutputModel, MembersErrorCodes> = {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    processResult: (output: EmptyOutputModel): boolean => {
+      this.onCloseDialog();
+      this._toastService.showInfo('', '');
+
+      return true;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>) => {
+      //
+    }
+
+  };
 
   public get email(): AbstractControl | null {
     return this.inviteMemberForm.get('email');
@@ -62,7 +83,12 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
     if (!super.onSubmit())
       return false;
 
-    this.onCloseDialog()
+    const inviteMemberInputModel = new InviteMemberInputModel();
+    inviteMemberInputModel.email = this.email?.value;
+    inviteMemberInputModel.role = this.memberRole?.value;
+
+    this._memberService.inviteMember(inviteMemberInputModel, this._inviteMemberResponseProcessable);
+
     return true;
   }
 }
