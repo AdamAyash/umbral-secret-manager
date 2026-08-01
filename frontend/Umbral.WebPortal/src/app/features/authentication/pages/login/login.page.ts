@@ -57,6 +57,10 @@ export class LoginPage extends BasePage {
     this.loginForm = this._authenticationFormBuilderService.buildLoginForm();
   }
 
+  protected override loadData(): void {
+
+  }
+
   protected override validate(): boolean {
     this.loginForm.markAllAsTouched();
 

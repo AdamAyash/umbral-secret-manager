@@ -14,12 +14,11 @@
     </button>
   </section>
   <div class="rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4">
-    <p-table [value]="members" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+    <p-table [(value])="membersArray" [paginator]="true" [rows]="10" responsiveLayout="scroll">
       <ng-template pTemplate="header">
         <tr>
           <th>Member</th>
           <th>Role</th>
-          <th>Projects</th>
           <th>Status</th>
           <th>Last Active</th>
           <th class="text-right">Actions</th>
@@ -52,13 +51,6 @@
               {{ member.role }}
             </span>
           </td>
-
-          <td>
-            <span class="text-sm text-[#CBD5E1]">
-              {{ member.projectCount }}
-            </span>
-          </td>
-
           <td>
             <span
               class="rounded-full border px-2 py-1 text-xs font-semibold"
@@ -70,7 +62,7 @@
 
           <td>
             <span class="text-sm text-[#94A3B8]">
-              {{ member.lastActive }}
+              {{ member.lastActiveAt }}
             </span>
           </td>
 
@@ -87,5 +79,5 @@
     </p-table></div
 ></umbral-base-page-template>
 <umbral-invite-member-dialog
-  [baseDialogController]="this.dialogController"
+  [baseDialogMediator]="this.membersDialogMediator"
 ></umbral-invite-member-dialog>

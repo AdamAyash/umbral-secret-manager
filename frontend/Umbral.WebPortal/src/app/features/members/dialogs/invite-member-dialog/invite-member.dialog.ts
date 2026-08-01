@@ -43,9 +43,9 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
   private readonly _memberService: MembersService = inject(MembersService);
 
   private _inviteMemberResponseProcessable: IServerResponseProcessable<EmptyOutputModel, MembersErrorCodes> = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     processResult: (output: EmptyOutputModel): boolean => {
-      this.onCloseDialog();
+      this.transferData(output);
       this._toastService.showInfo('', '');
 
       return true;

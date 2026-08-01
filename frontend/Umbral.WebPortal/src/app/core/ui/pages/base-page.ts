@@ -16,13 +16,14 @@ export abstract class BasePage implements OnInit {
     private readonly _router: Router = inject(Router);
 
     protected abstract initialize(): void;
+    protected abstract loadData(): void;
     protected abstract validate(): boolean;
-
     /**
      * On init implementation
      */
     public ngOnInit(): void {
         this.initialize();
+        this.loadData();
     }
 
     /**

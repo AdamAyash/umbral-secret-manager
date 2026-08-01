@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { EmptyOutputModel } from '../../../../core/api/models/empty-output.model';
-import { BaseDialogController } from '../../../../core/ui/dialogs/base-dialog-controller/base-dialog-controller';
+import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
 import { InviteMemberDialog } from '../../dialogs/invite-member-dialog/invite-member.dialog';
+import { MembersService } from '../../services/members.service';
+import { GetAllMembersInputModel } from '../../models/get-all-members/get-all-members-input.model';
+import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
+import { MembersErrorCodes } from '../../services/members-error-codes';
+import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
+import { MemberModel } from '../../models/member.model';
 interface Member {
   id: string;
   name: string;
@@ -25,47 +31,36 @@ interface Member {
 })
 export class MembersPreviewPage extends BasePage {
 
-  public dialogController: BaseDialogController<EmptyInputModel, EmptyOutputModel> = new BaseDialogController<EmptyInputModel, EmptyOutputModel>();
+  public membersDialogMediator: BaseDialogMediator<EmptyInputModel, EmptyOutputModel> = new BaseDialogMediator<EmptyInputModel, EmptyOutputModel>();
+  public membersArray: MemberModel[] = new Array<MemberModel>;
+
+  private _membersService: MembersService = inject(MembersService);
+
+  private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
+
+    processResult: (output: GetAllMembersOutputModel): boolean => {
+      this.membersArray = output.members;
+      return true;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>) => {
+      //
+    }
+
+  };
 
   protected override initialize(): void {
     this.pageTitle = 'Members'
     this.pageSubTitle = 'Manage everyone who belongs to your organization.'
   }
+
+  protected override loadData(): void {
+    this._membersService.getAllMembers(new GetAllMembersInputModel(), this._getAllMembersResponseProcessable)
+  }
+
   protected override validate(): boolean {
     return true;
   }
-  public members: Member[] = [
-    {
-      id: 'mem_001',
-      name: 'Adam Ayash',
-      email: 'adam@shadowbyte.dev',
-      initials: 'AA',
-      role: 'Owner',
-      projectCount: 4,
-      status: 'Active',
-      lastActive: 'Today',
-    },
-    {
-      id: 'mem_002',
-      name: 'Sarah Dev',
-      email: 'sarah@shadowbyte.dev',
-      initials: 'SD',
-      role: 'Admin',
-      projectCount: 2,
-      status: 'Active',
-      lastActive: '2 hours ago',
-    },
-    {
-      id: 'mem_003',
-      name: 'Mike Viewer',
-      email: 'mike@shadowbyte.dev',
-      initials: 'MV',
-      role: 'Member',
-      projectCount: 1,
-      status: 'Invited',
-      lastActive: '—',
-    },
-  ];
 
   public getStatusClass(status: Member['status']): string {
     switch (status) {
@@ -80,8 +75,9 @@ export class MembersPreviewPage extends BasePage {
 
   public onInviteMemberDialog(): void {
     const inputModel = new EmptyInputModel();
-    const outputModel = new EmptyOutputModel();
 
-    this.dialogController.openDialog(inputModel, outputModel);
+    this.membersDialogMediator.openDialog(inputModel).subscribe(() => {
+      // Reload the member list here. This runs for both a successful invite and a dismissed dialog.
+    })
   }
 }

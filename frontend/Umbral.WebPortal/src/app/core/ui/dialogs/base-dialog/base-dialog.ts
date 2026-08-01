@@ -1,11 +1,11 @@
 import { Directive, inject, input, InputSignal, OnInit } from '@angular/core';
-import { BaseDialogController } from '../base-dialog-controller/base-dialog-controller';
+import { BaseDialogMediator } from '../base-dialog-mediator/base-dialog-mediator';
 import { ToastService } from '../../../services/toast/toast.service';
 
 @Directive()
 export abstract class BaseDialog<TDialogInputModel, TDialogOutputModel> implements OnInit {
 
-    public baseDialogController: InputSignal<BaseDialogController<TDialogInputModel, TDialogOutputModel>> = input.required();
+    public baseDialogMediator: InputSignal<BaseDialogMediator<TDialogInputModel, TDialogOutputModel>> = input.required();
     protected _toastService: ToastService = inject(ToastService);
 
     public ngOnInit(): void {
@@ -15,7 +15,11 @@ export abstract class BaseDialog<TDialogInputModel, TDialogOutputModel> implemen
     protected abstract initialize(): void;
 
     protected onCloseDialog(): void {
-        this.baseDialogController().closeDialog();
+        this.baseDialogMediator().closeDialog();
+    }
+
+    public transferData(outputModel: TDialogOutputModel): void {
+        this.baseDialogMediator().transferData(outputModel);
     }
 
     protected validateData(): boolean {

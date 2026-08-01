@@ -46,6 +46,10 @@ export class SignUpPage extends BasePage {
     this.signUpForm = this._authenticationFormBuilderService.buildSignUpForm();
   }
 
+  protected override loadData(): void {
+
+  }
+
   protected override validate(): boolean {
     this.signUpForm.markAllAsTouched();
 
