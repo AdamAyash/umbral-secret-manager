@@ -68,6 +68,7 @@
 
           <td class="text-right">
             <button
+              (click)="onMemberActions($event)"
               type="button"
               class="rounded-lg p-2 text-[#64748B] transition hover:bg-[#03040A] hover:text-[#11FCFA]"
             >
@@ -76,7 +77,8 @@
           </td>
         </tr>
       </ng-template>
-    </p-table></div
+    </p-table>
+    <p-contextmenu #memberActionsContextMenu [model]="membersContextMenuItems" /></div
 ></umbral-base-page-template>
 <umbral-invite-member-dialog
   [baseDialogMediator]="this.membersDialogMediator"

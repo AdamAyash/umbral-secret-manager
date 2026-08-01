@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
@@ -12,6 +12,8 @@ import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../cor
 import { MembersErrorCodes } from '../../services/members-error-codes';
 import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
 import { MemberModel } from '../../models/member.model';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { MenuItem } from 'primeng/api';
 interface Member {
   id: string;
   name: string;
@@ -25,7 +27,7 @@ interface Member {
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
 })
@@ -33,8 +35,10 @@ export class MembersPreviewPage extends BasePage {
 
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, EmptyOutputModel> = new BaseDialogMediator<EmptyInputModel, EmptyOutputModel>();
   public membersArray: MemberModel[] = new Array<MemberModel>;
+  public membersContextMenuItems?: MenuItem[];
 
-  private _membersService: MembersService = inject(MembersService);
+  private _membersService: MembersService = inject(MembersService)
+  private memberActionsContextMenu = viewChild<ContextMenu>('memberActionsContextMenu');;
 
   private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
 
@@ -52,6 +56,13 @@ export class MembersPreviewPage extends BasePage {
   protected override initialize(): void {
     this.pageTitle = 'Members'
     this.pageSubTitle = 'Manage everyone who belongs to your organization.'
+
+    this.membersContextMenuItems = [
+      {
+        label: 'Roles',
+        icon: 'pi pi-users',
+      }
+    ];
   }
 
   protected override loadData(): void {
@@ -79,5 +90,9 @@ export class MembersPreviewPage extends BasePage {
     this.membersDialogMediator.openDialog(inputModel).subscribe(() => {
       // Reload the member list here. This runs for both a successful invite and a dismissed dialog.
     })
+  }
+
+  public onMemberActions(event: MouseEvent): void {
+    this.memberActionsContextMenu()?.show(event);
   }
 }
