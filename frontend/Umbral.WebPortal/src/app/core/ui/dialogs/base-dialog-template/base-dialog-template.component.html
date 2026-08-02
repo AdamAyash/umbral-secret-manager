@@ -1,3 +1,7 @@
-<p-dialog [header]="this.title()" [(visible)]="this.dialogController().isDialogVisible">
+<p-dialog
+  [header]="this.title()"
+  [(visible)]="this.dialogController().isDialogVisible"
+  (onHide)="this.dialogController().closeDialog()"
+>
   <ng-content></ng-content>
 </p-dialog>

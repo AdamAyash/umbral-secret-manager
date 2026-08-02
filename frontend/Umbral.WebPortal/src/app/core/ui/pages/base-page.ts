@@ -29,7 +29,6 @@ export abstract class BasePage implements OnInit {
     * 
     */
     protected abstract validate(): boolean;
-
     /**
      * On init implementation
      */

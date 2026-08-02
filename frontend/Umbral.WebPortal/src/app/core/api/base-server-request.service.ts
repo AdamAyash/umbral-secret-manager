@@ -3,6 +3,8 @@ import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { catchError, EMPTY } from "rxjs";
 import { ProblemDetailsModel, IServerResponseProcessable, BaseServerResponse } from ".";
+import { LoadingAnimationService } from "../services/loading-animation-service/loading-animation-service";
+import { ToastService } from "../services/toast/toast.service";
 
 /**
  * A base server request service class
@@ -15,6 +17,10 @@ export abstract class BaseServerRequestService {
     // Http client
     protected readonly _httpClient: HttpClient = inject(HttpClient);
 
+    // Animation loading service
+    private readonly _loadingAnimationService: LoadingAnimationService = inject(LoadingAnimationService);
+    private readonly _toastService: ToastService = inject(ToastService);
+
     /**
      * Domain of the current service
      */
@@ -25,6 +31,7 @@ export abstract class BaseServerRequestService {
         inputModel: TInputModel,
         serviceProcessable: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>,
     ): void {
+        this._loadingAnimationService.begin();
         this._httpClient
             .post<BaseServerResponse<TOutputModel>>(
                 this.constructFullRequestURL(serviceRoute),
@@ -34,14 +41,16 @@ export abstract class BaseServerRequestService {
                 catchError((error: HttpErrorResponse) => {
 
                     const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
-                    if (problemDetails)
+                    if (problemDetails.errorCode)
                         serviceProcessable.processError(problemDetails);
                     else
-                        console.log("Error happened");
+                        this._toastService.showError("Something went wrong on our end. Try refreshing, or come back in a few minutes");
 
+                    this._loadingAnimationService.end();
                     return EMPTY;
                 }))
             .subscribe((serverResponse) => {
+                this._loadingAnimationService.end();
                 if (serverResponse.data && serverResponse.isSuccessful) {
                     if (!serviceProcessable.processResult(serverResponse.data)) {
                         throw new Error();
@@ -59,6 +68,7 @@ export abstract class BaseServerRequestService {
         serviceRoute: string,
         serviceProcessable: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>,
     ): void {
+
         this._httpClient
             .get<BaseServerResponse<TOutputModel>>(
                 this.constructFullRequestURL(serviceRoute)

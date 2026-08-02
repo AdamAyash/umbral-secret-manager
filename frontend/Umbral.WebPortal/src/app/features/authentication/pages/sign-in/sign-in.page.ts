@@ -61,6 +61,10 @@ export class SignInPage extends BasePage {
     //
   }
 
+  protected override loadData(): void {
+
+  }
+
   protected override validate(): boolean {
     this.signInForm.markAllAsTouched();
 
