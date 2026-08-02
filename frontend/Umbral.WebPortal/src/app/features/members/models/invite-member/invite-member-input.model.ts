@@ -1,4 +1,4 @@
-import { UserRoles } from "../../../../shared/models/user-roles";
+import { UserRoles } from "../../../../shared/enums/user-roles";
 
 export class InviteMemberInputModel {
     public email?: string;

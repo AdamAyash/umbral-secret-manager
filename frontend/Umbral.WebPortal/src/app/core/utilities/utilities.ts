@@ -3,7 +3,6 @@
  */
 export class Utilities {
 
-
     /**
      * Deserializing json to an object
      * @returns 
@@ -15,5 +14,17 @@ export class Utilities {
         catch {
             return undefined;
         }
+    }
+
+    /**
+     * Returns whether the string provided is empty
+     * @param inputString 
+     * @returns 
+     */
+    public static isEmptyString(inputString?: string): boolean {
+        if (inputString && inputString.length > 0)
+            return false;
+
+        return true;
     }
 }

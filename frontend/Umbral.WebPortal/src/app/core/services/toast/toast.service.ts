@@ -1,5 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { MessageService } from "primeng/api";
+import { Severity } from "../../../shared/enums/severity";
 
 /**
  * Toast message service for displaying messages
@@ -17,7 +18,7 @@ export class ToastService {
      * @param isSticky 
      */
     public showInfo(title?: string, details?: string, isSticky: boolean = false): void {
-        this._messageService.add({ severity: 'info', summary: title, detail: details, sticky: isSticky });
+        this._messageService.add({ severity: Severity.Info, summary: title, detail: details, sticky: isSticky });
     }
 
     /**
@@ -27,6 +28,6 @@ export class ToastService {
      * @param isSticky 
      */
     public showError(title?: string, details?: string, isSticky: boolean = false): void {
-        this._messageService.add({ severity: 'error', summary: title, detail: details, sticky: isSticky });
+        this._messageService.add({ severity: Severity.Error, summary: title, detail: details, sticky: isSticky });
     }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from '@angular/core';
+import { Component, inject, Signal, viewChild } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
@@ -14,16 +14,7 @@ import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-m
 import { MemberModel } from '../../models/member.model';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { MenuItem } from 'primeng/api';
-interface Member {
-  id: string;
-  name: string;
-  email: string;
-  initials: string;
-  role: 'Owner' | 'Admin' | 'Member';
-  projectCount: number;
-  status: 'Active' | 'Invited' | 'Suspended';
-  lastActive: string;
-}
+import { MemberStatus } from '../../../../shared/enums/member-status';
 
 @Component({
   selector: 'umbral-members-preview-page',
@@ -38,7 +29,7 @@ export class MembersPreviewPage extends BasePage {
   public membersContextMenuItems?: MenuItem[];
 
   private _membersService: MembersService = inject(MembersService)
-  private memberActionsContextMenu = viewChild<ContextMenu>('memberActionsContextMenu');;
+  private memberActionsContextMenu: Signal<ContextMenu | undefined> = viewChild<ContextMenu>('memberActionsContextMenu');
 
   private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
 
@@ -54,14 +45,20 @@ export class MembersPreviewPage extends BasePage {
   };
 
   protected override initialize(): void {
+
     this.pageTitle = 'Members'
     this.pageSubTitle = 'Manage everyone who belongs to your organization.'
 
     this.membersContextMenuItems = [
       {
-        label: 'Roles',
-        icon: 'pi pi-users',
-      }
+        label: 'Edit',
+        icon: 'pi pi-pencil',
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-trash',
+        styleClass: 'text-red-500'
+      },
     ];
   }
 
@@ -69,21 +66,17 @@ export class MembersPreviewPage extends BasePage {
     this._membersService.getAllMembers(new GetAllMembersInputModel(), this._getAllMembersResponseProcessable)
   }
 
-  protected override loadData(): void {
-    //
-  }
-
   protected override validate(): boolean {
     return true;
   }
 
-  public getStatusClass(status: Member['status']): string {
+  public getMemberStatusClass(status: MemberStatus): string {
     switch (status) {
-      case 'Active':
+      case MemberStatus.Active:
         return 'border-[#11FCFA33] bg-[#11FCFA]/10 text-[#11FCFA]';
-      case 'Invited':
+      case MemberStatus.PendingInvite:
         return 'border-[#A78BFA33] bg-[#8B5CF6]/10 text-[#C4B5FD]';
-      case 'Suspended':
+      case MemberStatus.Inactive:
         return 'border-[#F43F5E33] bg-[#F43F5E]/10 text-[#FB7185]';
     }
   }

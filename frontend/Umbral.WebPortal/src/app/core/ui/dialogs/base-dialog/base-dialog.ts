@@ -3,11 +3,7 @@ import { BaseDialogMediator } from '../base-dialog-mediator/base-dialog-mediator
 import { ToastService } from '../../../services/toast/toast.service';
 
 @Directive()
-export abstract class BaseDialog<TDialogInputModel, TDialogOutputModel> implements OnInit, OnDestroy {
-
-    public ngOnDestroy(): void {
-        console.log('Dialog is closed');
-    }
+export abstract class BaseDialog<TDialogInputModel, TDialogOutputModel> implements OnInit {
 
     public baseDialogMediator: InputSignal<BaseDialogMediator<TDialogInputModel, TDialogOutputModel>> = input.required();
     protected _toastService: ToastService = inject(ToastService);
