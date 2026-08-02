@@ -36,7 +36,7 @@ export class CheckEmailPage extends BasePage {
   }
 
   protected override loadData(): void {
-
+    //
   }
 
   protected override validate(): boolean {

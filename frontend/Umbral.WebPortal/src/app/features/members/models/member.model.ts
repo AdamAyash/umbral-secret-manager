@@ -1,5 +1,5 @@
-import { MemberStatus } from "../../../shared/models/member-status";
-import { UserRoles } from "../../../shared/models/user-roles";
+import { MemberStatus } from "../../../shared/enums/member-status";
+import { UserRoles } from "../../../shared/enums/user-roles";
 
 export class MemberModel {
     public id?: string;

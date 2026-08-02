@@ -1,4 +1,4 @@
-import { UserRoles } from "../../../shared/models/user-roles";
+import { UserRoles } from "../../../shared/enums/user-roles";
 
 /**
  * A User session model with basic information.

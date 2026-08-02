@@ -47,7 +47,7 @@ export class SignUpPage extends BasePage {
   }
 
   protected override loadData(): void {
-
+    //
   }
 
   protected override validate(): boolean {

@@ -1,8 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { BaseServerRequestService } from "../../../core/api/base-server-request.service";
 import { IServerResponseProcessable } from "../../../core/api/server-response-processable"
-import { LoginInputModel } from "../models/login/login-input.model";
-import { LoginOutputModel } from "../models/login/login-output.model";
+import { SingInInputModel } from "../models/sign-in/sign-in-input.model";
 import { UserSessionModel } from "../models/user-session.model";
 import { LocalStorageService } from "../../../core/services/local-storage/local-storage.service";
 import { Router } from "@angular/router";
@@ -11,6 +10,7 @@ import { SignUpInputModel } from "../models/sign-up/sign-up-input.model";
 import { SignUpOutputModel } from "../models/sign-up/sign-up-output.model";
 import { ResendEmailVerificationInputModel } from "../models/resend-email-verification/resend-email-verification-input.model";
 import { ResendEmailVerificationOutputModel } from "../models/resend-email-verification/resend-email-verification-output.model";
+import { SignInOutputModel } from "../models/sign-in/sign-in-output.model";
 
 /**
  * User authentication service 
@@ -25,13 +25,13 @@ export class UserAuthenticationService extends BaseServerRequestService {
     private _userSession?: UserSessionModel;
 
     /**
-     * login request 
+     * Sign in request 
      * @param inputModel 
      * @param serverResponseProcessable 
      */
-    public login(inputModel: LoginInputModel, serverResponseProcessable: IServerResponseProcessable<LoginOutputModel,
+    public singIn(inputModel: SingInInputModel, serverResponseProcessable: IServerResponseProcessable<SignUpOutputModel,
         UserAuthenticationErrorCodes>): void {
-        this.sendServerPostRequest('login', inputModel, serverResponseProcessable)
+        this.sendServerPostRequest('sign-in', inputModel, serverResponseProcessable)
     }
 
     /**
@@ -39,7 +39,7 @@ export class UserAuthenticationService extends BaseServerRequestService {
      * @param inputModel 
      * @param serverResponseProcessable 
      */
-    public signUp(inputModel: SignUpInputModel, serverResponseProcessable: IServerResponseProcessable<SignUpOutputModel,
+    public signUp(inputModel: SignUpInputModel, serverResponseProcessable: IServerResponseProcessable<SignInOutputModel,
         UserAuthenticationErrorCodes>): void {
         this.sendServerPostRequest('sign-up', inputModel, serverResponseProcessable)
     }
@@ -88,7 +88,7 @@ export class UserAuthenticationService extends BaseServerRequestService {
      */
     public logout(): void {
         this._localStorageService.removeItem(this._userSessionLocalStorageKey);
-        this._router.navigate(['/login']);
+        this._router.navigate(['/sign-in']);
     }
 
     /**

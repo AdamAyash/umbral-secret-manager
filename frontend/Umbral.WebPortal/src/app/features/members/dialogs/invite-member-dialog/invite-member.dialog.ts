@@ -11,7 +11,7 @@ import { ErrorMessageComponent } from "../../../../shared/ui/components";
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { SelectModule } from 'primeng/select';
-import { UserRoles } from '../../../../shared/models/user-roles';
+import { UserRoles } from '../../../../shared/enums/user-roles';
 import { MembersService } from '../../services/members.service';
 import { InviteMemberInputModel } from '../../models/invite-member/invite-member-input.model';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
@@ -46,7 +46,7 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
 
     processResult: (output: EmptyOutputModel): boolean => {
       this.transferData(output);
-      this._toastService.showInfo('', '');
+      this._toastService.showInfo('Member Invited', 'The invitation has been sent successfully. Pending members will appear in the members list until they accept the invitation.');
 
       return true;
     },
@@ -54,7 +54,6 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
     processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>) => {
       //
     }
-
   };
 
   public get email(): AbstractControl | null {

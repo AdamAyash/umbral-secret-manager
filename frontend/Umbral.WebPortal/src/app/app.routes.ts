@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { LoginPage } from './features/authentication/pages/login/login.page';
+import { SignInPage } from './features/authentication/pages/sign-in/sign-in.page';
 import { authenticationGuard } from './core/guards/authentication-guard';
 import { SignUpPage } from './features/authentication/pages/sign-up/sign-up.page';
 import { CheckEmailPage } from './features/authentication/pages/check-email/check-email.page';
@@ -32,8 +32,8 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'login',
-        component: LoginPage
+        path: 'sign-in',
+        component: SignInPage
     },
     {
         path: 'sign-up',
