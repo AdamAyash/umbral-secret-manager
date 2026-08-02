@@ -4,8 +4,9 @@ import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { EmptyOutputModel } from '../../../../core/api/models/empty-output.model';
-import { BaseDialogController } from '../../../../core/ui/dialogs/base-dialog-controller/base-dialog-controller';
+import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
 import { InviteMemberDialog } from '../../dialogs/invite-member-dialog/invite-member.dialog';
+
 interface Member {
   id: string;
   name: string;
@@ -25,15 +26,21 @@ interface Member {
 })
 export class MembersPreviewPage extends BasePage {
 
-  public dialogController: BaseDialogController<EmptyInputModel, EmptyOutputModel> = new BaseDialogController<EmptyInputModel, EmptyOutputModel>();
+  public dialogController: BaseDialogMediator<EmptyInputModel, EmptyOutputModel> = new BaseDialogMediator<EmptyInputModel, EmptyOutputModel>();
 
   protected override initialize(): void {
     this.pageTitle = 'Members'
     this.pageSubTitle = 'Manage everyone who belongs to your organization.'
   }
+
+  protected override loadData(): void {
+    //
+  }
+
   protected override validate(): boolean {
     return true;
   }
+
   public members: Member[] = [
     {
       id: 'mem_001',
@@ -79,9 +86,10 @@ export class MembersPreviewPage extends BasePage {
   }
 
   public onInviteMemberDialog(): void {
-    const inputModel = new EmptyInputModel();
-    const outputModel = new EmptyOutputModel();
 
-    this.dialogController.openDialog(inputModel, outputModel);
+    const inputModel = new EmptyInputModel();
+    this.dialogController.openDialog(inputModel);
+
+    //TODO RELOAD 
   }
 }

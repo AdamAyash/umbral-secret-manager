@@ -1,5 +1,5 @@
 import { UserSessionModel } from "../user-session.model";
 
-export class LoginOutputModel {
+export class SignInOutputModel {
     public userSession?: UserSessionModel
 }

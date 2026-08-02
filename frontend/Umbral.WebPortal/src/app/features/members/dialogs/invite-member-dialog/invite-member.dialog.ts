@@ -46,7 +46,7 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     processResult: (output: EmptyOutputModel): boolean => {
       this.onCloseDialog();
-      this._toastService.showInfo('', '');
+      //this._toastService.showInfo('', '');
 
       return true;
     },
@@ -54,7 +54,6 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
     processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>) => {
       //
     }
-
   };
 
   public get email(): AbstractControl | null {

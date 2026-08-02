@@ -1,6 +1,6 @@
 import { Component, input, InputSignal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { BaseDialogController } from '../base-dialog-controller/base-dialog-controller';
+import { BaseDialogMediator } from '../base-dialog-mediator/base-dialog-mediator';
 
 
 @Component({
@@ -11,5 +11,5 @@ import { BaseDialogController } from '../base-dialog-controller/base-dialog-cont
 })
 export class BaseDialogTemplateComponent<TDialogInputModel, TDialogOutputModel> {
   public title: InputSignal<string> = input.required();
-  public dialogController: InputSignal<BaseDialogController<TDialogInputModel, TDialogOutputModel>> = input.required();
+  public dialogController: InputSignal<BaseDialogMediator<TDialogInputModel, TDialogOutputModel>> = input.required();
 }

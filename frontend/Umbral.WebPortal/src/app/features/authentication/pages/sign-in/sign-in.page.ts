@@ -9,27 +9,27 @@ import { UserAuthenticationService } from '../../services/user-authentication.se
 import { IServerResponseProcessable } from '../../../../core/api/server-response-processable';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { ErrorMessageComponent } from '../../../../shared/ui/components/error-message/error-message.component';
-import { LoginOutputModel } from '../../models/login/login-output.model';
-import { LoginInputModel } from '../../models/login/login-input.model';
 import { ProblemDetailsModel } from '../../../../core/api';
 import { RouterLink } from '@angular/router';
 import { UserAuthenticationErrorCodes } from '../../services/user-authentication-error-codes';
+import { SignInOutputModel } from '../../models/sign-in/sign-in-output.model';
+import { SingInInputModel } from '../../models/sign-in/sign-in-input.model';
 
 @Component({
-  selector: 'umbral-login-page',
+  selector: 'umbral-sign-in-page',
   imports: [ReactiveFormsModule, InputTextModule, RouterLink, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent],
-  templateUrl: './login.page.html',
-  styleUrl: './login.page.css',
+  templateUrl: './sign-in.page.html',
+  styleUrl: './sign-in.page.css',
 })
-export class LoginPage extends BasePage {
+export class SignInPage extends BasePage {
 
-  public loginForm!: FormGroup;
+  public signInForm!: FormGroup;
 
   private _authenticationFormBuilderService: AuthenticationFormBuilderService = inject(AuthenticationFormBuilderService);
   private _userAuthenticationService: UserAuthenticationService = inject(UserAuthenticationService);
 
-  private _loginResponseProcessable: IServerResponseProcessable<LoginOutputModel, UserAuthenticationErrorCodes> = {
-    processResult: (output: LoginOutputModel): boolean => {
+  private _signInResponseProcessable: IServerResponseProcessable<SignInOutputModel, UserAuthenticationErrorCodes> = {
+    processResult: (output: SignInOutputModel): boolean => {
 
       if (!output.userSession)
         return false;
@@ -46,32 +46,36 @@ export class LoginPage extends BasePage {
   };
 
   public get email(): AbstractControl | null {
-    return this.loginForm.get('email');
+    return this.signInForm.get('email');
   }
 
   public get password(): AbstractControl | null {
-    return this.loginForm.get('password');
+    return this.signInForm.get('password');
   }
 
   protected override initialize(): void {
-    this.loginForm = this._authenticationFormBuilderService.buildLoginForm();
+    this.signInForm = this._authenticationFormBuilderService.buildSignInForm();
+  }
+
+  protected override loadData(): void {
+    //
   }
 
   protected override validate(): boolean {
-    this.loginForm.markAllAsTouched();
+    this.signInForm.markAllAsTouched();
 
-    return this.loginForm.valid;
+    return this.signInForm.valid;
   }
 
   protected override onSubmit(): boolean {
     if (!super.onSubmit())
       return false;
 
-    const loginInputModel = new LoginInputModel();
-    loginInputModel.email = this.email?.value;
-    loginInputModel.password = this.password?.value;
+    const signInInputModel = new SingInInputModel();
+    signInInputModel.email = this.email?.value;
+    signInInputModel.password = this.password?.value;
 
-    this._userAuthenticationService.login(loginInputModel, this._loginResponseProcessable);
+    this._userAuthenticationService.singIn(signInInputModel, this._signInResponseProcessable);
     this.password?.reset();
 
     return true;
