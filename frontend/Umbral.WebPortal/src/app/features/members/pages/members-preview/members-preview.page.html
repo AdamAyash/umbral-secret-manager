@@ -1,9 +1,6 @@
 <umbral-base-page-template [pageReference]="this">
   <section class="mb-6 flex items-end justify-between">
-    <div>
-      <h1 class="text-3xl font-bold text-[#F8FAFC]">{{ this.pageTitle }}</h1>
-      <p class="mt-2 text-sm text-[#94A3B8]">{{ this.pageSubTitle }}</p>
-    </div>
+    <umbral-page-titles [pageReference]="this"></umbral-page-titles>
     <button
       (click)="this.onInviteMemberDialog()"
       type="button"
@@ -14,7 +11,15 @@
     </button>
   </section>
   <div class="rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4">
-    <p-table [value]="membersArray" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+    <p-table
+      [value]="membersArray"
+      [selectionMode]="'single'"
+      [selection]="this.currentlySelectedMember"
+      (onRowSelect)="onMemberSelected($event)"
+      [paginator]="true"
+      [rows]="5"
+      responsiveLayout="scroll"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>Member</th>
@@ -26,7 +31,7 @@
       </ng-template>
 
       <ng-template pTemplate="body" let-member>
-        <tr>
+        <tr [pSelectableRow]="member">
           <td>
             <div class="flex items-center gap-3">
               <div

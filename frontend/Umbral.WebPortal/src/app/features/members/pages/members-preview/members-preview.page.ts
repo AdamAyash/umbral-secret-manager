@@ -1,5 +1,5 @@
 import { Component, inject, Signal, viewChild } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule, TableRowSelectEvent } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
@@ -15,10 +15,11 @@ import { MemberModel } from '../../models/member.model';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { MenuItem } from 'primeng/api';
 import { MemberStatus } from '../../../../shared/enums/member-status';
+import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
 })
@@ -27,6 +28,7 @@ export class MembersPreviewPage extends BasePage {
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, EmptyOutputModel> = new BaseDialogMediator<EmptyInputModel, EmptyOutputModel>();
   public membersArray: MemberModel[] = new Array<MemberModel>;
   public membersContextMenuItems?: MenuItem[];
+  public currentlySelectedMember?: MemberModel;
 
   private _membersService: MembersService = inject(MembersService)
   private memberActionsContextMenu: Signal<ContextMenu | undefined> = viewChild<ContextMenu>('memberActionsContextMenu');
@@ -92,5 +94,13 @@ export class MembersPreviewPage extends BasePage {
 
   public onMemberActions(event: MouseEvent): void {
     this.memberActionsContextMenu()?.show(event);
+  }
+
+  public onMemberSelected(event: TableRowSelectEvent<MemberModel>): void {
+
+    const memberModel = event.data as MemberModel;
+    if (memberModel) {
+      this.redirectTo(`members/member-details/${memberModel.id}`);
+    }
   }
 }

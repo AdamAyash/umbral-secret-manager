@@ -1,6 +1,6 @@
 import { Directive, inject, Input, OnInit } from "@angular/core";
 import { ToastService } from "../../services/toast/toast.service";
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 /**
  *  Base page  abstract class providing basic functionality for most pages.
@@ -52,7 +52,7 @@ export abstract class BasePage implements OnInit {
      * 
      * @param path 
      */
-    protected redirectTo(path: string): void {
-        this._router.navigate([path]);
+    protected redirectTo(path: string, queryParameters?: NavigationExtras): void {
+        this._router.navigate([path], queryParameters);
     }
 }

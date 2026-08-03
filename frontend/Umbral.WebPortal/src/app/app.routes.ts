@@ -29,6 +29,12 @@ export const routes: Routes = [
                     import('./features/members/pages/members-preview/members-preview.page')
                         .then(m => m.MembersPreviewPage)
             },
+            {
+                path: 'members/member-details/:id',
+                loadComponent: () =>
+                    import('./features/members/pages/member-details-preview/member-details-preview.page')
+                        .then(m => m.MemberDetailsPreviewPage),
+            }
         ]
     },
     {
