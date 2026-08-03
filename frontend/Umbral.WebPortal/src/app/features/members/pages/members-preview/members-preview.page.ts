@@ -53,13 +53,12 @@ export class MembersPreviewPage extends BasePage {
 
     this.membersContextMenuItems = [
       {
-        label: 'Edit',
-        icon: 'pi pi-pencil',
+        label: 'Deactivate member',
+        icon: 'pi pi-user-minus',
       },
       {
-        label: 'Delete',
-        icon: 'pi pi-trash',
-        styleClass: 'text-red-500'
+        label: 'Delete member',
+        icon: 'pi pi-trash text-red-400',
       },
     ];
   }

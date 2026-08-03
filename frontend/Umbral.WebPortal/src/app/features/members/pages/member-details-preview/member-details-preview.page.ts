@@ -1,42 +1,62 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { BasePage } from '../../../../core/ui';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePageTemplateComponent } from '../../../../core/ui/pages/base-page-template/base-page-template.component';
 import { MemberModel } from '../../models/member.model';
 import { MemberStatus } from '../../../../shared/enums/member-status';
 import { MembersService } from '../../services/members.service';
-import { GetAllMembersInputModel } from '../../models/get-all-members/get-all-members-input.model';
-import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { MembersErrorCodes } from '../../services/members-error-codes';
+import { GetMemberOutputModel } from '../../models/get-member/get-member-output.model';
+import { QueryParameters } from '../../../../core/ui/pages/query-parameters';
+import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { TableModule } from 'primeng/table';
+
+interface MemberProject {
+  id: string;
+  name: string;
+  role: string;
+  environments: number;
+  secrets: number;
+  addedAt: string;
+}
 
 @Component({
   selector: 'umbral-member-details-preview',
-  imports: [BasePageTemplateComponent, PageTitlesComponent],
+  imports: [BasePageTemplateComponent, PageTitlesComponent, MenuModule, TableModule],
   templateUrl: './member-details-preview.page.html',
   styleUrl: './member-details-preview.page.css',
 })
 export class MemberDetailsPreviewPage extends BasePage {
 
   public member?: MemberModel;
+  public readonly projects: MemberProject[] = [];
+  public readonly memberActions: MenuItem[] = [
+    {
+      label: 'Deactivate member',
+      icon: 'pi pi-user-minus',
+      command: () => this.toastService.showInfo('Deactivate member', 'Member deactivation will be available soon.'),
+    },
+    {
+      label: 'Delete member',
+      icon: 'pi pi-trash text-red-400',
+      command: () => this.toastService.showInfo('Delete member', 'Member deletion will be available soon.'),
+    },
+  ];
 
-  private readonly _route = inject(ActivatedRoute);
-  private readonly _membersService = inject(MembersService);
+  private readonly _membersService: MembersService = inject(MembersService);
+  private _getMemberResponseProcessable: IServerResponseProcessable<GetMemberOutputModel, MembersErrorCodes> = {
 
-  private readonly _getAllMembersResponseProcessable: IServerResponseProcessable<
-    GetAllMembersOutputModel,
-    MembersErrorCodes
-  > = {
-    processResult: (output: GetAllMembersOutputModel): boolean => {
-      const memberId = this._route.snapshot.paramMap.get('id');
-      this.member = output.members.find((member) => member.id === memberId);
+    processResult: (output: GetMemberOutputModel): boolean => {
+      this.member = output.member;
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>): void => {
-      // The base page handles displaying request errors.
-    },
+    processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>) => {
+      //
+    }
+
   };
 
   protected override initialize(): void {
@@ -44,10 +64,15 @@ export class MemberDetailsPreviewPage extends BasePage {
     this.pageSubTitle = 'View this member\'s account and access information.'
   }
   protected override loadData(): void {
-    this._membersService.getAllMembers(
-      new GetAllMembersInputModel(),
-      this._getAllMembersResponseProcessable,
-    );
+
+    const memberId: string | null = this.getQueryParameter(QueryParameters.Id)
+    if (!memberId) {
+      this.toastService.showError('Member no found', 'This member does not exist.')
+      this.redirectTo('members');
+      return;
+    }
+
+    this._membersService.getMember(memberId, this._getMemberResponseProcessable);
   }
   protected override validate(): boolean {
     return true;
@@ -64,6 +89,23 @@ export class MemberDetailsPreviewPage extends BasePage {
       default:
         return 'border-[#A78BFA1F] bg-[#121A2F] text-[#94A3B8]';
     }
+  }
+
+  public async copyToClipboard(value: string | undefined, label: string): Promise<void> {
+    if (!value) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(value);
+      this.toastService.showInfo('Copied', `${label} copied to clipboard.`);
+    } catch {
+      this.toastService.showError('Copy failed', `Unable to copy the ${label.toLowerCase()}.`);
+    }
+  }
+
+  public onAddToProject(): void {
+    this.toastService.showInfo('Add to project', 'Project assignment will be available soon.');
   }
 
 }

@@ -1,0 +1,39 @@
+:host ::ng-deep .project-paginator {
+  gap: 0.15rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+:host ::ng-deep .project-paginator .p-paginator-page,
+:host ::ng-deep .project-paginator .p-paginator-first,
+:host ::ng-deep .project-paginator .p-paginator-prev,
+:host ::ng-deep .project-paginator .p-paginator-next,
+:host ::ng-deep .project-paginator .p-paginator-last {
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  border-radius: 0.6rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+:host ::ng-deep .project-paginator .p-paginator-page:hover,
+:host ::ng-deep .project-paginator .p-paginator-first:hover,
+:host ::ng-deep .project-paginator .p-paginator-prev:hover,
+:host ::ng-deep .project-paginator .p-paginator-next:hover,
+:host ::ng-deep .project-paginator .p-paginator-last:hover {
+  background: rgba(139, 92, 246, 0.14);
+  color: #ddd6fe;
+}
+
+:host ::ng-deep .project-paginator .p-paginator-page.p-p-highlight {
+  background: rgba(139, 92, 246, 0.2);
+  color: #ddd6fe;
+}
+
+:host ::ng-deep .project-paginator .p-paginator-current {
+  margin: 0 0.5rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}

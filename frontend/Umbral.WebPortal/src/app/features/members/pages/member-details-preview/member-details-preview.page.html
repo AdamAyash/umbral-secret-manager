@@ -1,57 +1,191 @@
 <umbral-base-page-template [pageReference]="this">
-  <section class="mb-6">
+  <section class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
     <umbral-page-titles [pageReference]="this"></umbral-page-titles>
+    <div>
+      <button
+        (click)="memberActionsMenu.toggle($event)"
+        type="button"
+        class="inline-flex items-center gap-2 rounded-xl border border-[#A78BFA38] bg-[#0B1020]/80 px-3.5 py-2.5 text-sm font-semibold text-[#C4B5FD] transition hover:border-[#A78BFA61] hover:bg-[#8B5CF6]/10 hover:text-[#DDD6FE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA]"
+      >
+        <i class="pi pi-cog text-xs"></i>
+        Actions
+        <i class="pi pi-chevron-down text-[0.65rem]"></i>
+      </button>
+      <p-menu #memberActionsMenu [model]="memberActions" [popup]="true" appendTo="body"></p-menu>
+    </div>
   </section>
 
   <section class="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
-    <aside class="h-fit overflow-hidden rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80">
-      <div class="p-5">
-        <div class="mb-6 flex items-center gap-3">
+    <aside
+      class="h-fit overflow-hidden rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/90 shadow-[0_16px_48px_rgba(3,4,10,0.3)]"
+    >
+      <div
+        class="border-b border-[#A78BFA1F] bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.2),transparent_58%)] px-4 pb-4 pt-3"
+      >
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#A78BFA]">
+          Member profile
+        </p>
+        <div class="mt-3 flex items-center gap-3">
           <div
-            class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#8B5CF6]/15 text-base font-bold text-[#C4B5FD]"
+            class="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-[#A78BFA33] bg-[#8B5CF6]/15 text-base font-bold text-[#DDD6FE] shadow-[0_8px_24px_rgba(139,92,246,0.15)]"
           >
             {{ member?.initials || '--' }}
           </div>
-          <div class="min-w-0">
-            <p class="truncate font-semibold text-[#F8FAFC]">
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-base font-semibold text-[#F8FAFC]">
               {{ member?.name || 'Unknown member' }}
             </p>
-            <p class="truncate text-sm text-[#94A3B8]">{{ member?.email || 'No email address' }}</p>
+            <p class="mt-0.5 truncate text-sm text-[#94A3B8]">
+              {{ member?.email || 'No email address' }}
+            </p>
           </div>
         </div>
+        <span
+          class="mt-3 inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold"
+          [class]="getMemberStatusClass(member?.status)"
+        >
+          {{ member?.status || 'Unknown' }}
+        </span>
+      </div>
 
-        <dl class="space-y-4">
-          <div>
-            <dt class="text-xs font-medium uppercase tracking-wider text-[#64748B]">Member ID</dt>
-            <dd class="mt-1 break-all font-mono text-sm text-[#CBD5E1]">{{ member?.id || '—' }}</dd>
-          </div>
-          <div>
-            <dt class="text-xs font-medium uppercase tracking-wider text-[#64748B]">Email</dt>
-            <dd class="mt-1 break-all text-sm text-[#CBD5E1]">{{ member?.email || '—' }}</dd>
-          </div>
-          <div>
-            <dt class="text-xs font-medium uppercase tracking-wider text-[#64748B]">Role</dt>
-            <dd class="mt-1 text-sm font-medium text-[#CBD5E1]">{{ member?.role || '—' }}</dd>
-          </div>
-          <div>
-            <dt class="text-xs font-medium uppercase tracking-wider text-[#64748B]">Status</dt>
-            <dd class="mt-2">
-              <span
-                class="rounded-full border px-2 py-1 text-xs font-semibold"
-                [class]="getMemberStatusClass(member?.status)"
-              >
-                {{ member?.status || 'Unknown' }}
-              </span>
-            </dd>
-          </div>
-          <div>
-            <dt class="text-xs font-medium uppercase tracking-wider text-[#64748B]">Last active</dt>
-            <dd class="mt-1 text-sm text-[#CBD5E1]">{{ member?.lastActiveAt || '—' }}</dd>
-          </div>
-        </dl>
+      <div class="space-y-4 p-4">
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#64748B]">
+            Identity
+          </p>
+          <dl
+            class="overflow-hidden rounded-xl border border-[#A78BFA1F] divide-y divide-[#A78BFA1F]"
+          >
+            <div class="px-3.5 py-2.5">
+              <dt class="text-xs text-[#64748B]">Member ID</dt>
+              <dd class="mt-1 flex items-start gap-2">
+                <span class="min-w-0 flex-1 break-all font-mono text-xs text-[#CBD5E1]">{{
+                  member?.id || '--'
+                }}</span>
+                <button
+                  (click)="copyToClipboard(member?.id, 'Member ID')"
+                  [disabled]="!member?.id"
+                  type="button"
+                  aria-label="Copy member ID"
+                  class="shrink-0 rounded-md p-1.5 text-[#94A3B8] transition hover:bg-[#8B5CF6]/15 hover:text-[#C4B5FD] focus-visible:outline-2 focus-visible:outline-[#A78BFA] disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <i class="pi pi-copy text-xs"></i>
+                </button>
+              </dd>
+            </div>
+            <div class="px-3.5 py-2.5">
+              <dt class="text-xs text-[#64748B]">Email address</dt>
+              <dd class="mt-1 flex items-start gap-2">
+                <span class="min-w-0 flex-1 break-all text-sm text-[#CBD5E1]">{{
+                  member?.email || '--'
+                }}</span>
+                <button
+                  (click)="copyToClipboard(member?.email, 'Email')"
+                  [disabled]="!member?.email"
+                  type="button"
+                  aria-label="Copy email address"
+                  class="shrink-0 rounded-md p-1.5 text-[#94A3B8] transition hover:bg-[#8B5CF6]/15 hover:text-[#C4B5FD] focus-visible:outline-2 focus-visible:outline-[#A78BFA] disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <i class="pi pi-copy text-xs"></i>
+                </button>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#64748B]">
+            Access
+          </p>
+          <dl
+            class="overflow-hidden rounded-xl border border-[#A78BFA1F] divide-y divide-[#A78BFA1F]"
+          >
+            <div class="flex items-center justify-between gap-4 px-3.5 py-2.5">
+              <dt class="text-sm text-[#94A3B8]">Role</dt>
+              <dd class="text-sm font-medium text-[#F8FAFC]">{{ member?.role || '--' }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4 px-3.5 py-2.5">
+              <dt class="text-sm text-[#94A3B8]">Last active</dt>
+              <dd class="text-right text-sm text-[#CBD5E1]">{{ member?.lastActiveAt || '--' }}</dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </aside>
 
-    <!-- Project grid for this member will be added here. -->
+    <section
+      class="overflow-hidden rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/90 shadow-[0_16px_48px_rgba(3,4,10,0.3)]"
+    >
+      <header
+        class="flex flex-col gap-3 border-b border-[#A78BFA1F] px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div>
+          <h2 class="text-base font-semibold text-[#F8FAFC]">Projects</h2>
+          <p class="mt-1 text-sm text-[#94A3B8]">Projects this member can access</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="hidden rounded-full border border-[#A78BFA33] bg-[#8B5CF6]/10 px-2.5 py-1 text-xs font-semibold text-[#C4B5FD] sm:inline-flex"
+          >
+            {{ projects.length }} projects
+          </span>
+          <button
+            (click)="onAddToProject()"
+            type="button"
+            class="inline-flex items-center gap-2 rounded-xl bg-[#8B5CF6] px-3.5 py-2 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(139,92,246,0.18)] transition hover:bg-[#7C3AED] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA]"
+          >
+            <i class="pi pi-plus text-xs"></i>
+            Add to project
+          </button>
+        </div>
+      </header>
+
+      <p-table [value]="projects" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Project</th>
+            <th>Access role</th>
+            <th>Environments</th>
+            <th>Secrets</th>
+            <th>Added</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-project>
+          <tr>
+            <td>
+              <div class="flex items-center gap-3">
+                <span
+                  class="grid h-9 w-9 place-items-center rounded-xl border border-[#A78BFA1F] bg-[#8B5CF6]/15 text-[#C4B5FD]"
+                >
+                  <i class="pi pi-box text-sm"></i>
+                </span>
+                <span class="font-medium text-[#F8FAFC]">{{ project.name }}</span>
+              </div>
+            </td>
+            <td class="text-sm text-[#CBD5E1]">{{ project.role }}</td>
+            <td class="text-sm text-[#CBD5E1]">{{ project.environments }}</td>
+            <td class="text-sm text-[#CBD5E1]">{{ project.secrets }}</td>
+            <td class="text-sm text-[#94A3B8]">{{ project.addedAt }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">
+              <div class="flex flex-col items-center px-4 py-14 text-center">
+                <span
+                  class="grid h-11 w-11 place-items-center rounded-2xl bg-[#8B5CF6]/10 text-[#C4B5FD]"
+                >
+                  <i class="pi pi-briefcase text-lg"></i>
+                </span>
+                <p class="mt-3 font-medium text-[#F8FAFC]">No project access yet</p>
+                <p class="mt-1 text-sm text-[#94A3B8]">
+                  Projects assigned to this member will appear here.
+                </p>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </section>
   </section>
 </umbral-base-page-template>

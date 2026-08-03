@@ -1,6 +1,7 @@
 import { Directive, inject, Input, OnInit } from "@angular/core";
 import { ToastService } from "../../services/toast/toast.service";
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { QueryParameters } from "./query-parameters";
 
 /**
  *  Base page  abstract class providing basic functionality for most pages.
@@ -14,6 +15,7 @@ export abstract class BasePage implements OnInit {
     protected readonly toastService: ToastService = inject(ToastService);
 
     private readonly _router: Router = inject(Router);
+    private readonly _activatedRouter: ActivatedRoute = inject(ActivatedRoute);
 
     /*
      * 
@@ -54,5 +56,10 @@ export abstract class BasePage implements OnInit {
      */
     protected redirectTo(path: string, queryParameters?: NavigationExtras): void {
         this._router.navigate([path], queryParameters);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    protected getQueryParameter(queryParameter: QueryParameters) {
+        return this._activatedRouter.snapshot.paramMap.get(queryParameter);
     }
 }
