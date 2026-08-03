@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
+import { BasePage } from '../../../../core/ui';
 
 type ProjectStatus = 'Active' | 'Setup' | 'Archived';
 interface Project {
@@ -15,11 +17,12 @@ interface Project {
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [],
+  imports: [PageTitlesComponent],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
 })
-export class ProjectsPreviewPage {
+export class ProjectsPreviewPage extends BasePage {
+
   public readonly projects: readonly Project[] = [
     {
       id: 'warpath-devolved',
@@ -77,5 +80,17 @@ export class ProjectsPreviewPage {
       case 'Archived':
         return 'border-[#64748B4D] bg-[#64748B]/10 text-[#94A3B8]';
     }
+  }
+
+  protected override initialize(): void {
+    this.pageTitle = 'Projects'
+    this.pageSubTitle = 'Create and manage vaults for your applications, services, and environments.'
+  }
+
+  protected override loadData(): void {
+    //
+  }
+  protected override validate(): boolean {
+    return true;
   }
 }

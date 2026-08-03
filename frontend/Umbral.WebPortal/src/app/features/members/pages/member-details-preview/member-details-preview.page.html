@@ -5,18 +5,17 @@
 
   <section class="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
     <aside class="h-fit overflow-hidden rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80">
-      <div class="border-b border-[#A78BFA1F] px-5 py-4">
-        <h2 class="text-base font-semibold text-[#F8FAFC]">Member details</h2>
-        <p class="mt-1 text-sm text-[#94A3B8]">Account and access information</p>
-      </div>
-
       <div class="p-5">
         <div class="mb-6 flex items-center gap-3">
-          <div class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#8B5CF6]/15 text-base font-bold text-[#C4B5FD]">
+          <div
+            class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#8B5CF6]/15 text-base font-bold text-[#C4B5FD]"
+          >
             {{ member?.initials || '--' }}
           </div>
           <div class="min-w-0">
-            <p class="truncate font-semibold text-[#F8FAFC]">{{ member?.name || 'Unknown member' }}</p>
+            <p class="truncate font-semibold text-[#F8FAFC]">
+              {{ member?.name || 'Unknown member' }}
+            </p>
             <p class="truncate text-sm text-[#94A3B8]">{{ member?.email || 'No email address' }}</p>
           </div>
         </div>
@@ -37,7 +36,10 @@
           <div>
             <dt class="text-xs font-medium uppercase tracking-wider text-[#64748B]">Status</dt>
             <dd class="mt-2">
-              <span class="rounded-full border px-2 py-1 text-xs font-semibold" [class]="getMemberStatusClass(member?.status)">
+              <span
+                class="rounded-full border px-2 py-1 text-xs font-semibold"
+                [class]="getMemberStatusClass(member?.status)"
+              >
                 {{ member?.status || 'Unknown' }}
               </span>
             </dd>

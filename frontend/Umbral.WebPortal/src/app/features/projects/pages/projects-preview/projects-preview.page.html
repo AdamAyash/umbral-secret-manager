@@ -1,18 +1,6 @@
 <section class="mx-auto w-full max-w-screen-2xl">
   <header class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-    <div>
-      <div class="flex items-center gap-3">
-        <h1 class="m-0 text-3xl font-bold tracking-tight text-[#F8FAFC]">Projects</h1>
-        <span
-          class="rounded-full border border-[#A78BFA2E] bg-[#8B5CF6]/10 px-2.5 py-1 text-xs font-semibold text-[#C4B5FD]"
-        >
-          {{ projects.length }} total
-        </span>
-      </div>
-      <p class="mt-2 mb-0 text-sm text-[#94A3B8]">
-        Create and manage vaults for your applications, services, and environments.
-      </p>
-    </div>
+    <umbral-page-titles [pageReference]="this"></umbral-page-titles>
 
     <button
       type="button"
