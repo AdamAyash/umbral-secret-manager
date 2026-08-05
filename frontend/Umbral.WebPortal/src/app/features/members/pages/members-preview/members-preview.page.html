@@ -24,7 +24,8 @@
       </label>
     </div>
     <p-table
-      [value]="membersArray"
+      [value]="members"
+      dataKey="id"
       [selectionMode]="'single'"
       [selection]="this.currentlySelectedMember"
       (onRowSelect)="onMemberSelected($event)"
@@ -43,7 +44,7 @@
       </ng-template>
 
       <ng-template pTemplate="body" let-member>
-        <tr [pSelectableRow]="member">
+        <tr [pSelectableRowDblClick]="member">
           <td>
             <div class="flex items-center gap-3">
               <div
@@ -99,7 +100,9 @@
         <tr>
           <td colspan="5">
             <div class="flex flex-col items-center px-4 py-14 text-center">
-              <span class="grid h-11 w-11 place-items-center rounded-2xl bg-[#8B5CF6]/10 text-[#C4B5FD]">
+              <span
+                class="grid h-11 w-11 place-items-center rounded-2xl bg-[#8B5CF6]/10 text-[#C4B5FD]"
+              >
                 <i class="pi pi-users text-lg"></i>
               </span>
               <p class="mt-3 font-medium text-[#F8FAFC]">No members yet</p>
@@ -124,3 +127,4 @@
 <umbral-invite-member-dialog
   [baseDialogMediator]="this.membersDialogMediator"
 ></umbral-invite-member-dialog>
+<p-confirmdialog [draggable]="false" />

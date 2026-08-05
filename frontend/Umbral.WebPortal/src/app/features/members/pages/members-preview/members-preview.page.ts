@@ -3,7 +3,6 @@ import { TableModule, TableRowSelectEvent } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
-import { EmptyOutputModel } from '../../../../core/api/models/empty-output.model';
 import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
 import { InviteMemberDialog } from '../../dialogs/invite-member-dialog/invite-member.dialog';
 import { MembersService } from '../../services/members.service';
@@ -13,37 +12,40 @@ import { MembersErrorCodes } from '../../services/members-error-codes';
 import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
 import { MemberModel } from '../../models/member.model';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MemberStatus } from '../../../../shared/enums/member-status';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent, ConfirmDialogModule],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
+  providers: [ConfirmationService]
 })
 export class MembersPreviewPage extends BasePage {
 
-  public membersDialogMediator: BaseDialogMediator<EmptyInputModel, EmptyOutputModel> = new BaseDialogMediator<EmptyInputModel, EmptyOutputModel>();
-  public membersArray: MemberModel[] = new Array<MemberModel>;
+  public membersDialogMediator: BaseDialogMediator<EmptyInputModel, MemberModel> = new BaseDialogMediator<EmptyInputModel, MemberModel>();
+  public members: MemberModel[] = new Array<MemberModel>;
   public membersContextMenuItems?: MenuItem[];
   public currentlySelectedMember?: MemberModel;
 
-  private _membersService: MembersService = inject(MembersService)
+  private readonly _membersService: MembersService = inject(MembersService)
+  private readonly _confirmationService: ConfirmationService = inject(ConfirmationService);
+
   private memberActionsContextMenu: Signal<ContextMenu | undefined> = viewChild<ContextMenu>('memberActionsContextMenu');
 
   private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
 
     processResult: (output: GetAllMembersOutputModel): boolean => {
-      this.membersArray = output.members;
+      this.members = output.members;
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     processError: (problemDetails: ProblemDetailsModel<MembersErrorCodes>) => {
       //
     }
-
   };
 
   protected override initialize(): void {
@@ -59,6 +61,7 @@ export class MembersPreviewPage extends BasePage {
       {
         label: 'Delete member',
         icon: 'pi pi-trash text-red-400',
+        command: () => this.deleteMember()
       },
     ];
   }
@@ -86,8 +89,9 @@ export class MembersPreviewPage extends BasePage {
 
     const inputModel = new EmptyInputModel();
 
-    this.membersDialogMediator.openDialog(inputModel).subscribe(() => {
-      // Reload the member list here. This runs for both a successful invite and a dismissed dialog.
+    this.membersDialogMediator.openDialog(inputModel).subscribe((member) => {
+      if (member)
+        this.members.push(member);
     })
   }
 
@@ -101,5 +105,32 @@ export class MembersPreviewPage extends BasePage {
     if (memberModel) {
       this.redirectTo(`members/member-details/${memberModel.id}`);
     }
+  }
+
+  public deleteMember(): void {
+    this._confirmationService.confirm({
+      message: 'Do you want to delete this member?',
+      header: 'Danger Zone',
+      position: 'center',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger'
+      },
+
+      accept: () => {
+        const memberIndex = this.members.findIndex(member => member.id == this.currentlySelectedMember?.id);
+        this.members.splice(memberIndex, 1);
+      },
+      reject: () => {
+        return;
+      }
+    });
   }
 }

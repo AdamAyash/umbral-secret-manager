@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePage } from '../../../../core/ui';
-import { PaginatorModule } from 'primeng/paginator';
 
 type ProjectStatus = 'Active' | 'Setup' | 'Archived';
 interface Project {
@@ -18,14 +17,12 @@ interface Project {
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [PageTitlesComponent, PaginatorModule],
+  imports: [PageTitlesComponent],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
 })
 export class ProjectsPreviewPage extends BasePage {
 
-  public firstProjectIndex: number = 0;
-  public readonly projectsPerPage: number = 3;
   public readonly projects: readonly Project[] = [
     {
       id: 'warpath-devolved',
@@ -73,10 +70,6 @@ export class ProjectsPreviewPage extends BasePage {
     },
   ];
 
-  public get visibleProjects(): readonly Project[] {
-    return this.projects.slice(this.firstProjectIndex, this.firstProjectIndex + this.projectsPerPage);
-  }
-
   public getStatusClass(status: ProjectStatus): string {
     switch (status) {
       case 'Active':
@@ -98,9 +91,5 @@ export class ProjectsPreviewPage extends BasePage {
   }
   protected override validate(): boolean {
     return true;
-  }
-
-  public onProjectsPageChange(event: { first?: number }): void {
-    this.firstProjectIndex = event.first ?? 0;
   }
 }

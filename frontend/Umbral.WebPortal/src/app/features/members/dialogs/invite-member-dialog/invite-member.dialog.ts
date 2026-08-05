@@ -16,6 +16,8 @@ import { MembersService } from '../../services/members.service';
 import { InviteMemberInputModel } from '../../models/invite-member/invite-member-input.model';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { MembersErrorCodes } from '../../services/members-error-codes';
+import { MemberModel } from '../../models/member.model';
+import { InviteMemberOutputModel } from '../../models/invite-member/invite-member-output.model';
 
 interface Roles {
   label: string;
@@ -31,7 +33,7 @@ interface Roles {
   templateUrl: './invite-member.dialog.html',
   styleUrl: './invite-member.dialog.css',
 })
-export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputModel> {
+export class InviteMemberDialog extends BaseDialog<EmptyInputModel, MemberModel> {
 
   public userRoles: Roles[] = [
     { label: "Operator", value: UserRoles.Operator }
@@ -44,8 +46,11 @@ export class InviteMemberDialog extends BaseDialog<EmptyInputModel, EmptyOutputM
 
   private _inviteMemberResponseProcessable: IServerResponseProcessable<EmptyOutputModel, MembersErrorCodes> = {
 
-    processResult: (output: EmptyOutputModel): boolean => {
-      this.transferData(output);
+    processResult: (output: InviteMemberOutputModel): boolean => {
+      if (!output.member)
+        return false;
+
+      this.transferData(output.member);
       this._toastService.showInfo('Member Invited', 'The invitation has been sent successfully. Pending members will appear in the members list until they accept the invitation.');
 
       return true;
