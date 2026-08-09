@@ -24,7 +24,7 @@
       </label>
     </div>
     <p-table
-      [value]="members"
+      [value]="members()"
       dataKey="id"
       [selectionMode]="'single'"
       [selection]="this.currentlySelectedMember"

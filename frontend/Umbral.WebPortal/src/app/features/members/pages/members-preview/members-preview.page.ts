@@ -1,4 +1,4 @@
-import { Component, inject, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, Signal, viewChild, WritableSignal } from '@angular/core';
 import { TableModule, TableRowSelectEvent } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
@@ -22,12 +22,13 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent, ConfirmDialogModule],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MembersPreviewPage extends BasePage {
 
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, MemberModel> = new BaseDialogMediator<EmptyInputModel, MemberModel>();
-  public members: MemberModel[] = new Array<MemberModel>;
+  public members: WritableSignal<MemberModel[]> = signal(new Array<MemberModel>);
   public membersContextMenuItems?: MenuItem[];
   public currentlySelectedMember?: MemberModel;
 
@@ -39,7 +40,7 @@ export class MembersPreviewPage extends BasePage {
   private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
 
     processResult: (output: GetAllMembersOutputModel): boolean => {
-      this.members = output.members;
+      this.members.set(output.members);
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -91,7 +92,7 @@ export class MembersPreviewPage extends BasePage {
 
     this.membersDialogMediator.openDialog(inputModel).subscribe((member) => {
       if (member)
-        this.members.push(member);
+        this.members().push(member);
     })
   }
 
@@ -109,7 +110,7 @@ export class MembersPreviewPage extends BasePage {
 
   public deleteMember(): void {
     this._confirmationService.confirm({
-      message: 'Do you want to delete this member?',
+      message: 'Are you sure you want to delete this member?',
       header: 'Danger Zone',
       position: 'center',
       icon: 'pi pi-info-circle',
@@ -125,8 +126,8 @@ export class MembersPreviewPage extends BasePage {
       },
 
       accept: () => {
-        const memberIndex = this.members.findIndex(member => member.id == this.currentlySelectedMember?.id);
-        this.members.splice(memberIndex, 1);
+        const memberIndex = this.members().findIndex(member => member.id == this.currentlySelectedMember?.id);
+        this.members().splice(memberIndex, 1);
       },
       reject: () => {
         return;
