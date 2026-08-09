@@ -24,7 +24,7 @@
       </label>
     </div>
     <p-table
-      [value]="members"
+      [value]="members()"
       dataKey="id"
       [selectionMode]="'single'"
       [selection]="this.currentlySelectedMember"
@@ -50,7 +50,7 @@
               <div
                 class="grid h-9 w-9 place-items-center rounded-full bg-[#8B5CF6]/15 text-sm font-bold text-[#C4B5FD]"
               >
-                {{ member.initials }}
+                {{ member.initials || '--' }}
               </div>
 
               <div>
@@ -86,7 +86,7 @@
 
           <td class="text-right">
             <button
-              (click)="onMemberActions($event)"
+              (click)="onMemberActions($event, member)"
               type="button"
               class="rounded-lg p-2 text-[#64748B] transition hover:bg-[#03040A] hover:text-[#11FCFA]"
             >

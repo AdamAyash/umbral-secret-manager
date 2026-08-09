@@ -3,7 +3,6 @@ import { BaseServerRequestService, IServerResponseProcessable } from "../../../c
 import { InviteMemberInputModel } from "../models/invite-member/invite-member-input.model";
 import { EmptyOutputModel } from "../../../core/api/models/empty-output.model";
 import { MembersErrorCodes } from "./members-error-codes";
-import { GetAllMembersInputModel } from "../models/get-all-members/get-all-members-input.model";
 import { GetAllMembersOutputModel } from "../models/get-all-members/get-all-members-output.model";
 import { GetMemberInputModel } from "../models/get-member/get-member-input.model";
 import { GetMemberOutputModel } from "../models/get-member/get-member-output.model";
@@ -16,10 +15,9 @@ export class MembersService extends BaseServerRequestService {
         this.sendServerPostRequest('invite-member', inputModel, serverResponseProcessable);
     }
 
-    public getAllMembers(inputModel: GetAllMembersInputModel,
-        serverResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes>
+    public getAllMembers(serverResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes>
     ): void {
-        this.sendServerPostRequest('get-all-members', inputModel, serverResponseProcessable);
+        this.sendServerGetRequest('get-all-members', serverResponseProcessable);
     }
 
     public getMember(id: string, serverResponseProcessable: IServerResponseProcessable<GetMemberOutputModel, MembersErrorCodes>): void {

@@ -1,4 +1,4 @@
-import { Component, inject, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, Signal, viewChild, WritableSignal } from '@angular/core';
 import { TableModule, TableRowSelectEvent } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
@@ -6,7 +6,6 @@ import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
 import { InviteMemberDialog } from '../../dialogs/invite-member-dialog/invite-member.dialog';
 import { MembersService } from '../../services/members.service';
-import { GetAllMembersInputModel } from '../../models/get-all-members/get-all-members-input.model';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { MembersErrorCodes } from '../../services/members-error-codes';
 import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
@@ -22,12 +21,13 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent, ConfirmDialogModule],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ConfirmationService]
 })
 export class MembersPreviewPage extends BasePage {
 
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, MemberModel> = new BaseDialogMediator<EmptyInputModel, MemberModel>();
-  public members: MemberModel[] = new Array<MemberModel>;
+  public members: WritableSignal<MemberModel[]> = signal([]);
   public membersContextMenuItems?: MenuItem[];
   public currentlySelectedMember?: MemberModel;
 
@@ -39,7 +39,7 @@ export class MembersPreviewPage extends BasePage {
   private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
 
     processResult: (output: GetAllMembersOutputModel): boolean => {
-      this.members = output.members;
+      this.members.set(output.members);
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,7 +67,7 @@ export class MembersPreviewPage extends BasePage {
   }
 
   protected override loadData(): void {
-    this._membersService.getAllMembers(new GetAllMembersInputModel(), this._getAllMembersResponseProcessable)
+    this._membersService.getAllMembers(this._getAllMembersResponseProcessable)
   }
 
   protected override validate(): boolean {
@@ -91,12 +91,13 @@ export class MembersPreviewPage extends BasePage {
 
     this.membersDialogMediator.openDialog(inputModel).subscribe((member) => {
       if (member)
-        this.members.push(member);
+        this.members().push(member);
     })
   }
 
-  public onMemberActions(event: MouseEvent): void {
+  public onMemberActions(event: MouseEvent, member?: MemberModel): void {
     this.memberActionsContextMenu()?.show(event);
+    this.currentlySelectedMember = member;
   }
 
   public onMemberSelected(event: TableRowSelectEvent<MemberModel>): void {
@@ -125,8 +126,10 @@ export class MembersPreviewPage extends BasePage {
       },
 
       accept: () => {
-        const memberIndex = this.members.findIndex(member => member.id == this.currentlySelectedMember?.id);
-        this.members.splice(memberIndex, 1);
+        const memberIndex = this.members().findIndex(member => member.id == this.currentlySelectedMember?.id);
+        // if (memberIndex < 0)
+        //   //TODO ERROR
+        this.members.update(members => members.splice(memberIndex, 1))
       },
       reject: () => {
         return;
