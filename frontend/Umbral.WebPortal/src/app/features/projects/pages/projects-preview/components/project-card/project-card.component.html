@@ -1,0 +1,60 @@
+<article
+  class="group cursor-pointer flex w-full max-w-sm min-w-0 flex-col rounded-3xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.2)] transition duration-200 hover:-translate-y-0.5 hover:border-[#A78BFA38] hover:bg-[#111827]/80"
+>
+  <div class="flex items-start justify-between gap-4">
+    <div class="flex min-w-0 items-center gap-3">
+      <span
+        class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-[#A78BFA1F] bg-[#8B5CF6]/15 text-[#C4B5FD] transition group-hover:border-[#A78BFA38]"
+      >
+        <i class="pi pi-box text-base"></i>
+      </span>
+      <div class="min-w-0">
+        <h2 class="m-0 truncate text-lg font-bold text-[#F8FAFC]">{{ project().name }}</h2>
+        <span
+          class="mt-1 inline-flex rounded-full border px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.08em]"
+          [class]="getStatusClass(project().status!)"
+        >
+          {{ project().status }}
+        </span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-transparent text-[#64748B] transition hover:border-[#A78BFA2E] hover:bg-[#03040A] hover:text-[#11FCFA]"
+      [attr.aria-label]="'Open actions for ' + project.name"
+    >
+      <i class="pi pi-ellipsis-v text-sm"></i>
+    </button>
+  </div>
+
+  <p class="mt-4 mb-0 line-clamp-2 min-h-12 text-sm leading-6 text-[#94A3B8]">
+    {{ project().description }}
+  </p>
+
+  <dl class="mt-5 grid grid-cols-3 gap-2">
+    <div class="rounded-2xl border border-transparent bg-[#03040A]/60 p-3">
+      <dt class="text-[0.7rem] text-[#64748B]">Environments</dt>
+      <dd class="mt-1 text-lg font-bold text-[#F8FAFC]">{{ project().environments }}</dd>
+    </div>
+    <div class="rounded-2xl border border-transparent bg-[#03040A]/60 p-3">
+      <dt class="text-[0.7rem] text-[#64748B]">Secrets</dt>
+      <dd class="mt-1 text-lg font-bold text-[#F8FAFC]">{{ project().secrets }}</dd>
+    </div>
+    <div class="rounded-2xl border border-transparent bg-[#03040A]/60 p-3">
+      <dt class="text-[0.7rem] text-[#64748B]">Members</dt>
+      <dd class="mt-1 text-lg font-bold text-[#F8FAFC]">{{ project().members }}</dd>
+    </div>
+  </dl>
+
+  <footer class="mt-5 flex items-center justify-between gap-4 border-t border-[#A78BFA1F] pt-4">
+    <span class="truncate text-xs text-[#64748B]">Updated {{ project().updatedAt }}</span>
+    <button
+      type="button"
+      class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-[#C4B5FD] transition group-hover:text-[#11FCFA]"
+    >
+      Open vault
+      <i class="pi pi-arrow-right text-xs transition group-hover:translate-x-0.5"></i>
+    </button>
+  </footer>
+</article>

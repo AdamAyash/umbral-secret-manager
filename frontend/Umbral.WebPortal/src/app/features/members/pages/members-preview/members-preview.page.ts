@@ -6,7 +6,6 @@ import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
 import { InviteMemberDialog } from '../../dialogs/invite-member-dialog/invite-member.dialog';
 import { MembersService } from '../../services/members.service';
-import { GetAllMembersInputModel } from '../../models/get-all-members/get-all-members-input.model';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { MembersErrorCodes } from '../../services/members-error-codes';
 import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
@@ -22,8 +21,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent, ConfirmDialogModule],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ConfirmationService],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MembersPreviewPage extends BasePage {
 
@@ -68,7 +67,7 @@ export class MembersPreviewPage extends BasePage {
   }
 
   protected override loadData(): void {
-    this._membersService.getAllMembers(new GetAllMembersInputModel(), this._getAllMembersResponseProcessable)
+    this._membersService.getAllMembers(this._getAllMembersResponseProcessable)
   }
 
   protected override validate(): boolean {
@@ -96,8 +95,9 @@ export class MembersPreviewPage extends BasePage {
     })
   }
 
-  public onMemberActions(event: MouseEvent): void {
+  public onMemberActions(event: MouseEvent, member?: MemberModel): void {
     this.memberActionsContextMenu()?.show(event);
+    this.currentlySelectedMember = member;
   }
 
   public onMemberSelected(event: TableRowSelectEvent<MemberModel>): void {
@@ -127,7 +127,9 @@ export class MembersPreviewPage extends BasePage {
 
       accept: () => {
         const memberIndex = this.members().findIndex(member => member.id == this.currentlySelectedMember?.id);
-        this.members().splice(memberIndex, 1);
+        // if (memberIndex < 0)
+        //   //TODO ERROR
+        this.members.update(members => members.splice(memberIndex, 1))
       },
       reject: () => {
         return;

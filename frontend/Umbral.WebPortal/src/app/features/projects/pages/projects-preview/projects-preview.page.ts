@@ -1,85 +1,40 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePage } from '../../../../core/ui';
-
-type ProjectStatus = 'Active' | 'Setup' | 'Archived';
-interface Project {
-  id: string;
-  name: string;
-  description: string;
-  status: ProjectStatus;
-  environments: number;
-  secrets: number;
-  members: number;
-  updatedAt: string;
-  icon: string;
-}
+import { ProjectsService } from '../../services/project.service';
+import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
+import { GetAllProjectsOutputModel } from '../../models/get-all-projects/get-all-projects-output.model';
+import { ProjectsServiceErrorCodes } from '../../services/projects-service-error-codes';
+import { ProjectModel } from '../../models/project.model';
+import { ProjectCardComponent } from "./components/project-card/project-card.component";
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [PageTitlesComponent],
+  imports: [PageTitlesComponent, ProjectCardComponent],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsPreviewPage extends BasePage {
 
-  public readonly projects: readonly Project[] = [
-    {
-      id: 'warpath-devolved',
-      name: 'Warpath Devolved',
-      description: 'RTS backend, deployment, and environment secrets.',
-      status: 'Active',
-      environments: 3,
-      secrets: 24,
-      members: 5,
-      updatedAt: '2 hours ago',
-      icon: 'pi pi-box',
-    },
-    {
-      id: 'umbral-web-portal',
-      name: 'Umbral Web Portal',
-      description: 'Frontend application configuration and service credentials.',
-      status: 'Active',
-      environments: 3,
-      secrets: 18,
-      members: 4,
-      updatedAt: 'Yesterday',
-      icon: 'pi pi-globe',
-    },
-    {
-      id: 'deployment-pipeline',
-      name: 'Deployment Pipeline',
-      description: 'CI/CD tokens, signing keys, and infrastructure credentials.',
-      status: 'Setup',
-      environments: 2,
-      secrets: 9,
-      members: 3,
-      updatedAt: '3 days ago',
-      icon: 'pi pi-sitemap',
-    },
-    {
-      id: 'legacy-billing',
-      name: 'Legacy Billing',
-      description: 'Retained credentials for the archived billing service.',
-      status: 'Archived',
-      environments: 1,
-      secrets: 7,
-      members: 2,
-      updatedAt: 'May 24',
-      icon: 'pi pi-wallet',
-    },
-  ];
+  public projects: WritableSignal<ProjectModel[]> = signal([]);
 
-  public getStatusClass(status: ProjectStatus): string {
-    switch (status) {
-      case 'Active':
-        return 'border-[#11FCFA33] bg-[#11FCFA]/10 text-[#11FCFA]';
-      case 'Setup':
-        return 'border-[#FBBF2433] bg-[#FBBF24]/10 text-[#FCD34D]';
-      case 'Archived':
-        return 'border-[#64748B4D] bg-[#64748B]/10 text-[#94A3B8]';
+  private _projectsService: ProjectsService = inject(ProjectsService);
+
+  private _getAllProjectServerResponseProcessable: IServerResponseProcessable<GetAllProjectsOutputModel, ProjectsServiceErrorCodes> = {
+    processResult: (output: GetAllProjectsOutputModel): boolean => {
+      if (!output.projects)
+        return false;
+
+      this.projects.set(output.projects);
+
+      return true;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    processError: (problemDetails: ProblemDetailsModel<ProjectsServiceErrorCodes>) => {
+      //
     }
-  }
+  };
 
   protected override initialize(): void {
     this.pageTitle = 'Projects'
@@ -87,7 +42,7 @@ export class ProjectsPreviewPage extends BasePage {
   }
 
   protected override loadData(): void {
-    //
+    this._projectsService.getAllProjects(this._getAllProjectServerResponseProcessable);
   }
   protected override validate(): boolean {
     return true;
