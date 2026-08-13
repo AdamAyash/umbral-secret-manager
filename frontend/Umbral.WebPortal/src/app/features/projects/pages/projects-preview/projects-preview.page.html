@@ -13,7 +13,10 @@
 
   <div class="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
     @for (project of projects(); track project.id) {
-      <umbral-project-card [project]="project"></umbral-project-card>
+      <umbral-project-card
+        (projectCardClicked)="onProjectCardClicked()"
+        [project]="project"
+      ></umbral-project-card>
     }
   </div>
 </section>

@@ -104,7 +104,7 @@ export class MembersPreviewPage extends BasePage {
 
     const memberModel = event.data as MemberModel;
     if (memberModel) {
-      this.redirectTo(`members/member-details/${memberModel.id}`);
+      this.redirectTo(`members/details/${memberModel.id}`);
     }
   }
 
