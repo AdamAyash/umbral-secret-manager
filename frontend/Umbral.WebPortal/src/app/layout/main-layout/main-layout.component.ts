@@ -10,5 +10,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './main-layout.component.css',
 })
 export class MainLayoutComponent {
-
 }

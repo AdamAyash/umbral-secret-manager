@@ -126,10 +126,7 @@ export class MembersPreviewPage extends BasePage {
       },
 
       accept: () => {
-        const memberIndex = this.members().findIndex(member => member.id == this.currentlySelectedMember?.id);
-        // if (memberIndex < 0)
-        //   //TODO ERROR
-        this.members.update(members => members.splice(memberIndex, 1))
+        this.members.update(members => members.filter(member => member.id != this.currentlySelectedMember?.id))
       },
       reject: () => {
         return;

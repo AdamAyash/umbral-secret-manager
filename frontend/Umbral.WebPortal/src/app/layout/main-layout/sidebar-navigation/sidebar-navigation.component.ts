@@ -15,6 +15,6 @@ export class SidebarNavigationComponent {
   private layoutService: LayoutService = inject(LayoutService);
 
   public getNavigationItems(): NavigationItemData[] {
-    return this.layoutService.NavigationItems;
+    return this.layoutService.navigationItems;
   }
 }
