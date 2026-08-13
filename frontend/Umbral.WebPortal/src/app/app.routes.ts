@@ -30,10 +30,16 @@ export const routes: Routes = [
                         .then(m => m.MembersPreviewPage)
             },
             {
-                path: 'members/member-details/:id',
+                path: 'members/details/:id',
                 loadComponent: () =>
                     import('./features/members/pages/member-details-preview/member-details-preview.page')
                         .then(m => m.MemberDetailsPreviewPage),
+            },
+            {
+                path: 'projects/secrets/:id',
+                loadComponent: () =>
+                    import('./features/projects/pages/project-secrets/project-secrets.page')
+                        .then(m => m.ProjectSecretsPage),
             }
         ]
     },

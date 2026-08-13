@@ -47,4 +47,8 @@ export class ProjectsPreviewPage extends BasePage {
   protected override validate(): boolean {
     return true;
   }
+
+  public onProjectCardClicked(): void {
+    this.redirectTo(`projects/secrets/1`);
+  }
 }

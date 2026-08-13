@@ -1,0 +1,60 @@
+:host ::ng-deep .members-table .p-datatable-table {
+  overflow: hidden;
+  border: 1px solid rgb(167 139 250 / 0.1);
+  border-radius: 0.9rem;
+}
+
+:host ::ng-deep .members-table .p-datatable-thead > tr > th {
+  border-color: rgb(167 139 250 / 0.1);
+  background: rgb(3 4 10 / 0.42);
+  color: #94a3b8;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+:host ::ng-deep .members-table .p-datatable-tbody > tr {
+  transition: background-color 160ms ease;
+}
+
+:host ::ng-deep .members-table .p-datatable-tbody > tr:hover {
+  background: rgb(139 92 246 / 0.045);
+}
+
+:host ::ng-deep .members-table .p-datatable-tbody > tr > td {
+  border-color: rgb(167 139 250 / 0.08);
+  padding-top: 0.95rem;
+  padding-bottom: 0.95rem;
+}
+
+:host ::ng-deep .members-table .p-paginator {
+  border-color: rgb(167 139 250 / 0.1);
+  background: rgb(3 4 10 / 0.25);
+  padding-top: 0.7rem;
+}
+
+:host ::ng-deep .members-table .p-paginator .p-paginator-page.p-p-highlight {
+  background: rgb(139 92 246 / 0.18);
+  color: #c4b5fd;
+}
+
+.member-action {
+  display: inline-grid;
+  height: 2rem;
+  width: 2rem;
+  place-items: center;
+  border-radius: 0.4rem;
+  color: #94a3b8;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.member-action:hover {
+  background: rgb(139 92 246 / 0.14);
+  color: #c4b5fd;
+}
+
+.member-action:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
