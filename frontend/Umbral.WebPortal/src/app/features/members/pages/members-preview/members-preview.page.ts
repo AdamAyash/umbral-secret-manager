@@ -22,12 +22,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class MembersPreviewPage extends BasePage {
 
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, MemberModel> = new BaseDialogMediator<EmptyInputModel, MemberModel>();
-  public members: WritableSignal<MemberModel[]> = signal([]);
+  public members: WritableSignal<MemberModel[]> = signal(new Array<MemberModel>);
   public membersContextMenuItems?: MenuItem[];
   public currentlySelectedMember?: MemberModel;
 
@@ -110,7 +110,7 @@ export class MembersPreviewPage extends BasePage {
 
   public deleteMember(): void {
     this._confirmationService.confirm({
-      message: 'Do you want to delete this member?',
+      message: 'Are you sure you want to delete this member?',
       header: 'Danger Zone',
       position: 'center',
       icon: 'pi pi-info-circle',
