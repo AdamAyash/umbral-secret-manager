@@ -36,7 +36,6 @@ export class ProjectSecretsPage extends BasePage {
 
   public secrets: WritableSignal<SecretModel[]> = signal(this._tempSecrets);
   public readonly environmentOptions = [
-    { label: 'All environments', value: null },
     { label: 'Development', value: 'development' },
     { label: 'Staging', value: 'staging' },
     { label: 'Production', value: 'production' },
@@ -58,6 +57,7 @@ export class ProjectSecretsPage extends BasePage {
 
   protected override initialize(): void {
     this.pageTitle = 'Project Overview';
+    this.pageSubTitle = 'Manage project secrets'
   }
   protected override loadData(): void {
     //
