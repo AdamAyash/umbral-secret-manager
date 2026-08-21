@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { MessageService } from "primeng/api";
-import { Severity } from "../../../shared/enums/severity";
+import { Severity } from "../../../shared/enumerations/severity";
 
 /**
  * Toast message service for displaying messages

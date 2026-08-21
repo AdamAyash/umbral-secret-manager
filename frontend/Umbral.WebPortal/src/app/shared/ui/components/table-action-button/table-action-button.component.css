@@ -1,0 +1,27 @@
+.table-action {
+  display: grid;
+  height: 2rem;
+  width: 2rem;
+  place-items: center;
+  border-radius: 0.4rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.table-action:hover {
+  background: rgb(139 92 246 / 0.14);
+  color: #c4b5fd;
+}
+
+.table-action-danger:hover {
+  background: rgb(244 63 94 / 0.12);
+  color: #fda4af;
+}
+
+.table-action:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}

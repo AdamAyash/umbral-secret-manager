@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal, Signal, viewChild, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { TableModule, TableRowSelectEvent } from 'primeng/table';
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { BasePageTemplateComponent } from "../../../../core/ui/pages/base-page-template/base-page-template.component";
@@ -10,15 +10,16 @@ import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../cor
 import { MembersErrorCodes } from '../../services/members-error-codes';
 import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
 import { MemberModel } from '../../models/member.model';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { ConfirmationService, MenuItem } from 'primeng/api';
-import { MemberStatus } from '../../../../shared/enums/member-status';
+import { ConfirmationService } from 'primeng/api';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MemberStatus } from '../../../../shared/enumerations/member-status';
+import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
+import { TableActionButtonComponent } from "../../../../shared/ui/components/table-action-button/table-action-button.component";
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, ContextMenuModule, PageTitlesComponent, ConfirmDialogModule],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, PageTitlesComponent, ConfirmDialogModule, ActionButtonComponent, TableActionButtonComponent],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,13 +29,10 @@ export class MembersPreviewPage extends BasePage {
 
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, MemberModel> = new BaseDialogMediator<EmptyInputModel, MemberModel>();
   public members: WritableSignal<MemberModel[]> = signal(new Array<MemberModel>);
-  public membersContextMenuItems?: MenuItem[];
   public currentlySelectedMember?: MemberModel;
 
   private readonly _membersService: MembersService = inject(MembersService)
   private readonly _confirmationService: ConfirmationService = inject(ConfirmationService);
-
-  private memberActionsContextMenu: Signal<ContextMenu | undefined> = viewChild<ContextMenu>('memberActionsContextMenu');
 
   private _getAllMembersResponseProcessable: IServerResponseProcessable<GetAllMembersOutputModel, MembersErrorCodes> = {
 
@@ -52,18 +50,6 @@ export class MembersPreviewPage extends BasePage {
 
     this.pageTitle = 'Members'
     this.pageSubTitle = 'Manage everyone who belongs to your organization.'
-
-    this.membersContextMenuItems = [
-      {
-        label: 'Deactivate member',
-        icon: 'pi pi-user-minus',
-      },
-      {
-        label: 'Delete member',
-        icon: 'pi pi-trash text-red-400',
-        command: () => this.deleteMember()
-      },
-    ];
   }
 
   protected override loadData(): void {
@@ -95,11 +81,6 @@ export class MembersPreviewPage extends BasePage {
     })
   }
 
-  public onMemberActions(event: MouseEvent, member?: MemberModel): void {
-    this.memberActionsContextMenu()?.show(event);
-    this.currentlySelectedMember = member;
-  }
-
   public onMemberSelected(event: TableRowSelectEvent<MemberModel>): void {
 
     const memberModel = event.data as MemberModel;
@@ -108,7 +89,7 @@ export class MembersPreviewPage extends BasePage {
     }
   }
 
-  public deleteMember(): void {
+  public onDeleteMember(member: MemberModel): void {
     this._confirmationService.confirm({
       message: 'Are you sure you want to delete this member?',
       header: 'Danger Zone',
@@ -126,7 +107,7 @@ export class MembersPreviewPage extends BasePage {
       },
 
       accept: () => {
-        this.members.update(members => members.filter(member => member.id != this.currentlySelectedMember?.id))
+        this.members.update(members => members.filter(currentMember => currentMember.id != member?.id))
       },
       reject: () => {
         return;

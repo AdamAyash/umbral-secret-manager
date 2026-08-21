@@ -7,10 +7,11 @@ import { GetAllProjectsOutputModel } from '../../models/get-all-projects/get-all
 import { ProjectsServiceErrorCodes } from '../../services/projects-service-error-codes';
 import { ProjectModel } from '../../models/project.model';
 import { ProjectCardComponent } from "./components/project-card/project-card.component";
+import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [PageTitlesComponent, ProjectCardComponent],
+  imports: [PageTitlesComponent, ProjectCardComponent, ActionButtonComponent],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush

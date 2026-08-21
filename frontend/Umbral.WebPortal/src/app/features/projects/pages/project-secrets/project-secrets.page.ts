@@ -7,10 +7,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
+import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 
 @Component({
   selector: 'umbral-project-secrets',
-  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, PasswordModule, SelectModule],
+  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, PasswordModule, SelectModule, ActionButtonComponent],
   templateUrl: './project-secrets.page.html',
   styleUrl: './project-secrets.page.css',
 })

@@ -32,7 +32,7 @@
             {{ member?.initials || '--' }}
           </div>
           <div class="min-w-0 flex-1">
-            <p class="truncate text-base font-semibold text-[#F8FAFC]">
+            <p class="truncate text-base font-semibold text-surface-50">
               {{ member?.name || 'Unknown member' }}
             </p>
             <p class="mt-0.5 truncate text-sm text-[#94A3B8]">
@@ -102,7 +102,7 @@
           >
             <div class="flex items-center justify-between gap-4 px-3.5 py-2.5">
               <dt class="text-sm text-[#94A3B8]">Role</dt>
-              <dd class="text-sm font-medium text-[#F8FAFC]">{{ member?.role || '--' }}</dd>
+              <dd class="text-sm font-medium text-surface-50">{{ member?.role || '--' }}</dd>
             </div>
             <div class="flex items-center justify-between gap-4 px-3.5 py-2.5">
               <dt class="text-sm text-[#94A3B8]">Last active</dt>
@@ -120,7 +120,7 @@
         class="flex flex-col gap-3 border-b border-[#A78BFA1F] px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h2 class="text-base font-semibold text-[#F8FAFC]">Projects</h2>
+          <h2 class="text-base font-semibold text-surface-50">Projects</h2>
           <p class="mt-1 text-sm text-[#94A3B8]">Projects this member can access</p>
         </div>
         <div class="flex items-center gap-3">
@@ -159,7 +159,7 @@
                 >
                   <i class="pi pi-box text-sm"></i>
                 </span>
-                <span class="font-medium text-[#F8FAFC]">{{ project.name }}</span>
+                <span class="font-medium text-surface-50">{{ project.name }}</span>
               </div>
             </td>
             <td class="text-sm text-[#CBD5E1]">{{ project.role }}</td>
@@ -177,7 +177,7 @@
                 >
                   <i class="pi pi-briefcase text-lg"></i>
                 </span>
-                <p class="mt-3 font-medium text-[#F8FAFC]">No project access yet</p>
+                <p class="mt-3 font-medium text-surface-50">No project access yet</p>
                 <p class="mt-1 text-sm text-[#94A3B8]">
                   Projects assigned to this member will appear here.
                 </p>

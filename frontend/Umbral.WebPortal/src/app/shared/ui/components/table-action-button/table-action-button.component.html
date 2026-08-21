@@ -1,0 +1,10 @@
+<button
+  (click)="onButtonClicked()"
+  type="button"
+  class="table-action"
+  [class.table-action-danger]="this.isDangerZoneAction()"
+  aria-label="{{ buttonText() }}"
+  title="{{ buttonText() }}"
+>
+  <i class="{{ icon() }}"></i>
+</button>

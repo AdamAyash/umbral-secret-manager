@@ -3,7 +3,6 @@ import { BasePage } from '../../../../core/ui';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePageTemplateComponent } from '../../../../core/ui/pages/base-page-template/base-page-template.component';
 import { MemberModel } from '../../models/member.model';
-import { MemberStatus } from '../../../../shared/enums/member-status';
 import { MembersService } from '../../services/members.service';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { MembersErrorCodes } from '../../services/members-error-codes';
@@ -12,6 +11,7 @@ import { QueryParameters } from '../../../../core/ui/pages/query-parameters';
 import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
+import { MemberStatus } from '../../../../shared/enumerations/member-status';
 
 interface MemberProject {
   id: string;

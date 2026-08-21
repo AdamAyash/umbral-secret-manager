@@ -1,14 +1,10 @@
 <umbral-base-page-template [pageReference]="this">
   <section class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
     <umbral-page-titles [pageReference]="this"></umbral-page-titles>
-    <button
-      (click)="this.onInviteMemberDialog()"
-      type="button"
-      class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#8B5CF6] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(139,92,246,0.2)] transition hover:bg-[#7C3AED] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA]"
-    >
-      <i class="pi pi-plus text-xs"></i>
-      <span>Invite member</span>
-    </button>
+    <umbral-action-button
+      buttonText="Invite member"
+      (buttonClicked)="onInviteMemberDialog()"
+    ></umbral-action-button>
   </section>
   <div class="members-table rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4 sm:p-5">
     <div class="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -18,7 +14,7 @@
         </span>
         <div>
           <div class="flex items-center gap-2">
-            <p class="font-semibold text-[#F8FAFC]">Organization members</p>
+            <p class="font-semibold text-surface-50">Organization members</p>
             <span
               class="rounded-full border border-[#A78BFA]/20 bg-[#8B5CF6]/10 px-2 py-0.5 text-xs font-semibold text-[#C4B5FD]"
             >
@@ -34,7 +30,7 @@
           type="search"
           placeholder="Search members"
           aria-label="Search members"
-          class="w-full rounded-xl border border-[#A78BFA1F] bg-[#03040A]/60 py-2.5 pl-9 pr-3 text-sm text-[#F8FAFC] placeholder:text-[#64748B] outline-none transition focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20"
+          class="w-full rounded-xl border border-[#A78BFA1F] bg-[#03040A]/60 py-2.5 pl-9 pr-3 text-sm text-surface-50 placeholder:text-[#64748B] outline-none transition focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20"
         />
       </label>
     </div>
@@ -46,7 +42,6 @@
       (onRowSelect)="onMemberSelected($event)"
       [paginator]="true"
       [rows]="5"
-      responsiveLayout="scroll"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -69,7 +64,7 @@
               </div>
 
               <div>
-                <p class="font-semibold text-[#F8FAFC]">
+                <p class="font-semibold text-surface-50">
                   {{ member.name }}
                 </p>
                 <p class="text-xs text-[#94A3B8]">
@@ -100,14 +95,18 @@
           </td>
 
           <td class="text-right">
-            <button
-              (click)="onMemberActions($event, member)"
-              type="button"
-              class="member-action"
-              aria-label="Member actions"
-            >
-              <i class="pi pi-ellipsis-v"></i>
-            </button>
+            <div class="inline-flex">
+              <umbral-table-action-button
+                buttonText="Delete member"
+                icon="pi pi-trash"
+                [isDangerZoneAction]="true"
+                (buttonClicked)="onDeleteMember(member)"
+              ></umbral-table-action-button>
+              <umbral-table-action-button
+                buttonText="Deactivate member"
+                icon="pi pi-ban"
+              ></umbral-table-action-button>
+            </div>
           </td>
         </tr>
       </ng-template>
@@ -121,7 +120,7 @@
               >
                 <i class="pi pi-users text-lg"></i>
               </span>
-              <p class="mt-3 font-medium text-[#F8FAFC]">No members yet</p>
+              <p class="mt-3 font-medium text-surface-50">No members yet</p>
               <p class="mt-1 max-w-sm text-sm text-[#94A3B8]">
                 Invite teammates to collaborate on your organization's projects and secrets.
               </p>
@@ -138,7 +137,6 @@
         </tr>
       </ng-template>
     </p-table>
-    <p-contextmenu #memberActionsContextMenu [model]="membersContextMenuItems" />
   </div>
 </umbral-base-page-template>
 <umbral-invite-member-dialog

@@ -10,7 +10,7 @@
         <i class="pi pi-box text-base"></i>
       </span>
       <div class="min-w-0">
-        <h2 class="m-0 truncate text-lg font-bold text-[#F8FAFC]">{{ project().name }}</h2>
+        <h2 class="m-0 truncate text-lg font-bold text-surface-50">{{ project().name }}</h2>
         <span
           class="mt-1 inline-flex rounded-full border px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.08em]"
           [class]="getStatusClass(project().status!)"
@@ -36,15 +36,15 @@
   <dl class="mt-5 grid grid-cols-3 gap-2">
     <div class="rounded-2xl border border-transparent bg-[#03040A]/60 p-3">
       <dt class="text-[0.7rem] text-[#64748B]">Environments</dt>
-      <dd class="mt-1 text-lg font-bold text-[#F8FAFC]">{{ project().environments }}</dd>
+      <dd class="mt-1 text-lg font-bold text-surface-50">{{ project().environments }}</dd>
     </div>
     <div class="rounded-2xl border border-transparent bg-[#03040A]/60 p-3">
       <dt class="text-[0.7rem] text-[#64748B]">Secrets</dt>
-      <dd class="mt-1 text-lg font-bold text-[#F8FAFC]">{{ project().secrets }}</dd>
+      <dd class="mt-1 text-lg font-bold text-surface-50">{{ project().secrets }}</dd>
     </div>
     <div class="rounded-2xl border border-transparent bg-[#03040A]/60 p-3">
       <dt class="text-[0.7rem] text-[#64748B]">Members</dt>
-      <dd class="mt-1 text-lg font-bold text-[#F8FAFC]">{{ project().members }}</dd>
+      <dd class="mt-1 text-lg font-bold text-surface-50">{{ project().members }}</dd>
     </div>
   </dl>
 

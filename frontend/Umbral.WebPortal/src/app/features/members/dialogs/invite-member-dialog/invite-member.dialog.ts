@@ -11,13 +11,13 @@ import { ErrorMessageComponent } from "../../../../shared/ui/components";
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { SelectModule } from 'primeng/select';
-import { UserRoles } from '../../../../shared/enums/user-roles';
 import { MembersService } from '../../services/members.service';
 import { InviteMemberInputModel } from '../../models/invite-member/invite-member-input.model';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { MembersErrorCodes } from '../../services/members-error-codes';
 import { MemberModel } from '../../models/member.model';
 import { InviteMemberOutputModel } from '../../models/invite-member/invite-member-output.model';
+import { UserRoles } from '../../../../shared/enumerations/user-roles';
 
 interface Roles {
   label: string;
