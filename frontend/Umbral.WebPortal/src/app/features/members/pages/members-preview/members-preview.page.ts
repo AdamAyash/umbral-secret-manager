@@ -15,7 +15,7 @@ import { PageTitlesComponent } from "../../../../shared/ui/components/page-title
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MemberStatus } from '../../../../shared/enumerations/member-status';
 import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
-import { TableActionButtonComponent } from "../../../../shared/ui/components/table-action-button/table-action-button.component";
+import { TableActionButtonComponent } from "../../../../shared/ui/components/tables/table-action-button/table-action-button.component";
 
 @Component({
   selector: 'umbral-members-preview-page',

@@ -3,8 +3,7 @@
   type="button"
   class="table-action"
   [class.table-action-danger]="this.isDangerZoneAction()"
-  aria-label="{{ buttonText() }}"
-  title="{{ buttonText() }}"
+  [pTooltip]="tooltip()"
 >
   <i class="{{ icon() }}"></i>
 </button>

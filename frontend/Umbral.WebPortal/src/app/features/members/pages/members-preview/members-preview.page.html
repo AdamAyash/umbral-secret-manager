@@ -95,15 +95,19 @@
           </td>
 
           <td class="text-right">
-            <div class="inline-flex">
+            <div
+              class="inline-flex items-center rounded-lg border border-transparent bg-[#03040A]/30 p-0.5 transition hover:border-[#A78BFA]/15 hover:bg-[#03040A]/60"
+            >
               <umbral-table-action-button
                 buttonText="Delete member"
                 icon="pi pi-trash"
                 [isDangerZoneAction]="true"
+                tooltip="Delete member"
                 (buttonClicked)="onDeleteMember(member)"
               ></umbral-table-action-button>
               <umbral-table-action-button
                 buttonText="Deactivate member"
+                tooltip="Deactivate member"
                 icon="pi pi-ban"
               ></umbral-table-action-button>
             </div>
