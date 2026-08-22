@@ -1,4 +1,4 @@
-import { Component, output, OutputEmitterRef } from '@angular/core';
+import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import { InputText } from "primeng/inputtext";
 import { IconField } from "primeng/iconfield";
 import { InputIcon } from "primeng/inputicon";
@@ -10,6 +10,8 @@ import { InputIcon } from "primeng/inputicon";
   styleUrl: './search-bar.component.css',
 })
 export class SearchBarComponent {
+
+  public placeHolder: InputSignal<string> = input('');
   public filter: OutputEmitterRef<string> = output();
 
   protected onChangeValue(event: Event): void {

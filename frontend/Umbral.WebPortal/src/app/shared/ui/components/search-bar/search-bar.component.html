@@ -4,9 +4,8 @@
     (input)="onChangeValue($event)"
     pInputText
     type="search"
-    autocomplete
-    placeholder="Search members"
-    aria-label="Search members"
+    autocomplete="on"
+    [placeholder]="this.placeHolder()"
     [fluid]="true"
     class="rounded-2xl!"
   />

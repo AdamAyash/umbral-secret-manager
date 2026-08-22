@@ -41,29 +41,15 @@ export class ProjectSecretsPage extends BasePage {
     },
   ];
 
+  private filteredSecrets: SecretModel[] = [];
+
   public secrets: WritableSignal<SecretModel[]> = signal(this._tempSecrets);
-  private secretsBackupBuffer: SecretModel[] = [];
 
   public readonly environmentOptions = [
     { label: 'Development', value: 'development' },
     { label: 'Staging', value: 'staging' },
     { label: 'Production', value: 'production' },
   ];
-
-  private readonly revealedSecrets = new Set<SecretModel>();
-
-  public isSecretRevealed(secret: SecretModel): boolean {
-    return this.revealedSecrets.has(secret);
-  }
-
-  public toggleSecretVisibility(secret: SecretModel): void {
-    if (this.revealedSecrets.has(secret)) {
-      this.revealedSecrets.delete(secret);
-      return;
-    }
-
-    this.revealedSecrets.add(secret);
-  }
 
   public getEnvironmentBadge(environment: Environments): string {
     switch (environment) {
@@ -77,9 +63,14 @@ export class ProjectSecretsPage extends BasePage {
   }
 
   protected onSearchSecrets(searchValue: string): void {
+    this.filteredSecrets = this.secrets().filter(s => s.name?.toLowerCase().includes(searchValue.toLocaleLowerCase()));
+  }
 
-    this.secretsBackupBuffer = [...this.secrets()];
-    this.secrets.update(secrets => secrets.filter(s => s.name?.toLowerCase().includes(searchValue.toLocaleLowerCase())));
+  protected getSecrets(): SecretModel[] {
+    if (this.filteredSecrets.length > 0)
+      return this.filteredSecrets;
+
+    return this.secrets();
   }
 
   protected override initialize(): void {
