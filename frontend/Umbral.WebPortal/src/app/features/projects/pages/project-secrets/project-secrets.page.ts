@@ -12,6 +12,10 @@ import { TableActionButtonComponent } from "../../../../shared/ui/components/tab
 import { Environments } from '../../../../shared/enumerations/environments';
 import { SearchBarComponent } from "../../../../shared/ui/components/search-bar/search-bar.component";
 
+export interface SecretTableModel extends SecretModel {
+  isRevealed: boolean;
+}
+
 @Component({
   selector: 'umbral-project-secrets',
   imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, PasswordModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
@@ -41,9 +45,10 @@ export class ProjectSecretsPage extends BasePage {
     },
   ];
 
-  private filteredSecrets: SecretModel[] = [];
+  private filteredSecrets: SecretTableModel[] = [];
 
-  public secrets: WritableSignal<SecretModel[]> = signal(this._tempSecrets);
+  public readonly secretValueMask: string = '••••••••••••••••';
+  public secrets: WritableSignal<SecretTableModel[]> = signal(this._tempSecrets as SecretTableModel[]);
 
   public readonly environmentOptions = [
     { label: 'Development', value: 'development' },
@@ -73,6 +78,25 @@ export class ProjectSecretsPage extends BasePage {
     return this.secrets();
   }
 
+  protected revealSecretValue(secret: SecretTableModel): void {
+    secret.isRevealed = true;
+  }
+
+  protected hideSecretValue(secret: SecretTableModel): void {
+    secret.isRevealed = false;
+  }
+
+  protected onInitEditSecret(secret: SecretTableModel): void {
+    this.revealSecretValue(secret);
+  }
+
+  protected onSaveSecret(secret: SecretTableModel): void {
+    //TODO Save secret request.
+
+    this.hideSecretValue(secret);
+    this.toastService.showSuccess('Success', 'Successfully saved secret.');
+  }
+
   protected override initialize(): void {
     this.pageTitle = 'Project Overview';
     this.pageSubTitle = 'Manage and protect your project secrets'
@@ -80,6 +104,7 @@ export class ProjectSecretsPage extends BasePage {
   protected override loadData(): void {
     //
   }
+
   protected override validate(): boolean {
     return true;
   }

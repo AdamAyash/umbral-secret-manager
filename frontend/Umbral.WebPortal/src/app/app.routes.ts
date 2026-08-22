@@ -4,6 +4,7 @@ import { SignInPage } from './features/authentication/pages/sign-in/sign-in.page
 import { authenticationGuard } from './core/guards/authentication-guard';
 import { SignUpPage } from './features/authentication/pages/sign-up/sign-up.page';
 import { CheckEmailPage } from './features/authentication/pages/check-email/check-email.page';
+import { NavigationContext } from './layout/layout.config';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
                 path: 'projects',
                 loadComponent: () =>
                     import('./features/projects/pages/projects-preview/projects-preview.page')
-                        .then(m => m.ProjectsPreviewPage)
+                        .then(m => m.ProjectsPreviewPage),
             },
             {
                 path: 'dashboard',
@@ -40,6 +41,9 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/projects/pages/project-secrets/project-secrets.page')
                         .then(m => m.ProjectSecretsPage),
+                data: {
+                    "navigationContext": NavigationContext.Projects
+                }
             }
         ]
     },

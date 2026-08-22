@@ -1,11 +1,8 @@
 import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import { InputText } from "primeng/inputtext";
-import { IconField } from "primeng/iconfield";
-import { InputIcon } from "primeng/inputicon";
-
 @Component({
   selector: 'umbral-search-bar',
-  imports: [InputText, IconField, InputIcon],
+  imports: [InputText],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',
 })

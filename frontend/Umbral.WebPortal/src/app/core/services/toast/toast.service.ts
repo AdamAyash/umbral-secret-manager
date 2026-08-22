@@ -27,6 +27,16 @@ export class ToastService {
      * @param details 
      * @param isSticky 
      */
+    public showSuccess(title?: string, details?: string, isSticky: boolean = false): void {
+        this._messageService.add({ severity: Severity.Success, summary: title, detail: details, sticky: isSticky });
+    }
+
+    /**
+     * 
+     * @param title 
+     * @param details 
+     * @param isSticky 
+     */
     public showError(title?: string, details?: string, isSticky: boolean = false): void {
         this._messageService.add({ severity: Severity.Error, summary: title, detail: details, sticky: isSticky });
     }

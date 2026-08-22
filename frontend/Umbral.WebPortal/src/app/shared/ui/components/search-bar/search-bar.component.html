@@ -1,12 +1,16 @@
-<p-iconfield>
-  <p-inputicon class="pi pi-search" />
+<div class="inline-flex items-center rounded-xl border border-surface-600 overflow-hidden">
+  <div
+    class="flex h-10 w-10 items-center justify-center border-r border-surface-600 bg-[#8B5CF6]/12"
+  >
+    <i class="pi pi-search text-[#C4B5FD]"></i>
+  </div>
+
   <input
-    (input)="onChangeValue($event)"
     pInputText
     type="search"
-    autocomplete="on"
-    [placeholder]="this.placeHolder()"
-    [fluid]="true"
-    class="rounded-2xl!"
+    autocomplete="off"
+    [placeholder]="placeHolder()"
+    (input)="onChangeValue($event)"
+    class="h-10 border-none! outline-none! shadow-none! bg-transparent!"
   />
-</p-iconfield>
+</div>
