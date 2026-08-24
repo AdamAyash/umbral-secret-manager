@@ -18,4 +18,5 @@ export const MAIN_SIDEBAR_ITEMS: NavigationItemData[] = [
 
 export const PROJECT_SIDEBAR_ITEMS: NavigationItemData[] = [
   { label: 'Dashboard', icon: ApplicationIcons.Dashboard, route: '/dashboard' },
+  //{ label: 'Secrets vault', icon: ApplicationIcons.SecretsVault, route: 'projects/secrets-vault/:id' },
 ];

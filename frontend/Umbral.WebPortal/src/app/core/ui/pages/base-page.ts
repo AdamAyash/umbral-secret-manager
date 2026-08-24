@@ -25,7 +25,7 @@ export abstract class BasePage implements OnInit {
     /*
     * 
     */
-    protected abstract loadData(): void;
+    protected abstract loadData(): boolean;
 
     /*
     * 
@@ -36,7 +36,11 @@ export abstract class BasePage implements OnInit {
      */
     public ngOnInit(): void {
         this.initialize();
-        this.loadData();
+
+        if (!this.loadData()) {
+            //TODO explicit error or toast message + handle.
+            throw new Error();
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
-import { Component, signal, WritableSignal } from '@angular/core';
-import { BasePage, BasePageTemplateComponent } from '../../../../core/ui';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
+import { BasePage, BasePageTemplateComponent, QueryParameters } from '../../../../core/ui';
 import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { TableModule } from 'primeng/table';
 import { SecretModel } from '../../models/secret.model';
@@ -11,44 +11,47 @@ import { ActionButtonComponent } from "../../../../shared/ui/components/action-b
 import { TableActionButtonComponent } from "../../../../shared/ui/components/tables/table-action-button/table-action-button.component";
 import { Environments } from '../../../../shared/enumerations/environments';
 import { SearchBarComponent } from "../../../../shared/ui/components/search-bar/search-bar.component";
+import { Utilities } from '../../../../core/utilities/utilities';
+import { SecretsVaultService } from '../../services/secrets-vault-service.ts/secrets-vault.service';
+import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
+import { GetSecretsByProjectIdOutputModel } from '../../models/get-secrets-by-project-id/get-secrets-by-project-id-output.model';
+import { SecretsVaultServiceErrorCodes } from '../../services/secrets-vault-service.ts/secrets-vault-service-error-codes';
 
 export interface SecretTableModel extends SecretModel {
   isRevealed: boolean;
 }
 
 @Component({
-  selector: 'umbral-project-secrets',
+  selector: 'umbral-secrets-vault-page',
   imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, PasswordModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
-  templateUrl: './project-secrets.page.html',
-  styleUrl: './project-secrets.page.css',
+  templateUrl: './secrets-vault.page.html',
+  styleUrl: './secrets-vault.page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectSecretsPage extends BasePage {
 
-  private _tempSecrets: SecretModel[] = [
-    {
-      id: "1",
-      name: 'Database connection',
-      value: 'adadadaji1ejoijdio',
-      environment: Environments.Development,
-    },
-    {
-      id: "2",
-      name: 'Stripe API key',
-      value: 'sk_live_ji1ejoijdio',
-      environment: Environments.Staging,
-    },
-    {
-      id: "3",
-      name: 'JWT signing key',
-      value: 'a7Jf9K2mQ1xV8rT4',
-      environment: Environments.Production,
-    },
-  ];
+  private _secretsVaultService: SecretsVaultService = inject(SecretsVaultService);
 
   private filteredSecrets: SecretTableModel[] = [];
+  private secretsSnapshot: Map<string, SecretTableModel> = new Map<string, SecretTableModel>();
 
   public readonly secretValueMask: string = '••••••••••••••••';
-  public secrets: WritableSignal<SecretTableModel[]> = signal(this._tempSecrets as SecretTableModel[]);
+  public secrets: WritableSignal<SecretTableModel[]> = signal([]);
+
+  private _getSecretsByProjectIdServerResponseProcessable: IServerResponseProcessable<GetSecretsByProjectIdOutputModel, SecretsVaultServiceErrorCodes> = {
+    processResult: (output: GetSecretsByProjectIdOutputModel): boolean => {
+
+      if (!this.secrets)
+        return false;
+
+      this.secrets.set(output.secrets as SecretTableModel[]);
+      return true;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    processError: (problemDetails: ProblemDetailsModel<SecretsVaultServiceErrorCodes>) => {
+      //
+    }
+  };
 
   public readonly environmentOptions = [
     { label: 'Development', value: 'development' },
@@ -87,22 +90,57 @@ export class ProjectSecretsPage extends BasePage {
   }
 
   protected onInitEditSecret(secret: SecretTableModel): void {
+    if (!secret.id)
+      return;
+
+    const secretSnapshot = Utilities.cloneObject(secret);
+    if (!secretSnapshot)
+      return;
+
+    this.secretsSnapshot.set(secret.id, secretSnapshot);
     this.revealSecretValue(secret);
   }
 
   protected onSaveSecret(secret: SecretTableModel): void {
-    //TODO Save secret request.
-
+    if (!secret.id)
+      return;
+    this.secretsSnapshot.delete(secret.id);
     this.hideSecretValue(secret);
     this.toastService.showSuccess('Success', 'Successfully saved secret.');
+  }
+
+  protected onCancelEditSecret(secret: SecretTableModel): void {
+    if (!secret.id)
+      return;
+
+    const secretSnapshot = this.secretsSnapshot.get(secret.id);
+    if (!secretSnapshot)
+      return;
+
+    this.secrets.update(secrets =>
+      secrets.map(s =>
+        s.id === secret.id
+          ? secretSnapshot
+          : s
+      )
+    );
+
+    this.secretsSnapshot.delete(secret.id);
   }
 
   protected override initialize(): void {
     this.pageTitle = 'Project Overview';
     this.pageSubTitle = 'Manage and protect your project secrets'
   }
-  protected override loadData(): void {
-    //
+
+  protected override loadData(): boolean {
+    const projectId = this.getQueryParameter(QueryParameters.Id);
+    if (!projectId)
+      return false;
+
+    this._secretsVaultService.getSecretsByProjectId(projectId, this._getSecretsByProjectIdServerResponseProcessable);
+
+    return true;
   }
 
   protected override validate(): boolean {

@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
-import { BaseServerRequestService, IServerResponseProcessable } from "../../../core/api";
-import { GetAllProjectsOutputModel } from "../models/get-all-projects/get-all-projects-output.model";
+import { BaseServerRequestService, IServerResponseProcessable } from "../../../../core/api";
+import { GetAllProjectsOutputModel } from "../../models/get-all-projects/get-all-projects-output.model";
 import { ProjectsServiceErrorCodes } from "./projects-service-error-codes";
 
+/**
+ * Projects data service.
+ */
 @Injectable({ providedIn: 'root' })
 export class ProjectsService extends BaseServerRequestService {
 

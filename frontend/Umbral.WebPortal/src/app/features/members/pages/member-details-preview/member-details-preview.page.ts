@@ -63,16 +63,15 @@ export class MemberDetailsPreviewPage extends BasePage {
     this.pageTitle = 'Member details'
     this.pageSubTitle = 'View this member\'s account and access information.'
   }
-  protected override loadData(): void {
+  protected override loadData(): boolean {
 
     const memberId: string | null = this.getQueryParameter(QueryParameters.Id)
-    if (!memberId) {
-      this.toastService.showError('Member no found', 'This member does not exist.')
-      this.redirectTo('members');
-      return;
-    }
+    if (!memberId)
+      return false;
 
     this._membersService.getMember(memberId, this._getMemberResponseProcessable);
+
+    return true;
   }
   protected override validate(): boolean {
     return true;

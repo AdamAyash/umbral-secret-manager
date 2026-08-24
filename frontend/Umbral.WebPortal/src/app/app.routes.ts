@@ -37,9 +37,9 @@ export const routes: Routes = [
                         .then(m => m.MemberDetailsPreviewPage),
             },
             {
-                path: 'projects/secrets/:id',
+                path: 'projects/secrets-vault/:id',
                 loadComponent: () =>
-                    import('./features/projects/pages/project-secrets/project-secrets.page')
+                    import('./features/projects/pages/secrets-vault/secrets-vault.page')
                         .then(m => m.ProjectSecretsPage),
                 data: {
                     "navigationContext": NavigationContext.Projects

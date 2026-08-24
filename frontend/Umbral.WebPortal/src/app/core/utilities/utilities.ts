@@ -17,6 +17,16 @@ export class Utilities {
     }
 
     /**
+     * Make a deep clone of an object
+     * @param object the cloned object
+     */
+    public static cloneObject<TObject>(object: TObject): TObject | undefined {
+        const json: string = JSON.stringify(object);
+
+        return Utilities.deserializeFromJson<TObject>(json)
+    }
+
+    /**
      * Returns whether the string provided is empty
      * @param inputString 
      * @returns 
