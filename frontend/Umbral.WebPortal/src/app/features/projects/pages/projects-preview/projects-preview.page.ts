@@ -8,10 +8,11 @@ import { ProjectsServiceErrorCodes } from '../../services/projects-service/proje
 import { ProjectModel } from '../../models/project.model';
 import { ProjectCardComponent } from "./components/project-card/project-card.component";
 import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [PageTitlesComponent, ProjectCardComponent, ActionButtonComponent],
+  imports: [PageTitlesComponent, ProjectCardComponent, ActionButtonComponent, RouterOutlet],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -51,7 +52,7 @@ export class ProjectsPreviewPage extends BasePage {
     return true;
   }
 
-  public onProjectCardClicked(): void {
-    this.redirectTo(`projects/secrets-vault/1`);
+  public onProjectCardClicked(project: ProjectModel): void {
+    this.redirectTo(`projects/project/${project.id}`);
   }
 }

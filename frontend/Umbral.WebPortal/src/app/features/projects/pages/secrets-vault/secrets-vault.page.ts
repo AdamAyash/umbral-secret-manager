@@ -5,7 +5,6 @@ import { TableModule } from 'primeng/table';
 import { SecretModel } from '../../models/secret.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
 import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 import { TableActionButtonComponent } from "../../../../shared/ui/components/tables/table-action-button/table-action-button.component";
@@ -23,7 +22,7 @@ export interface SecretTableModel extends SecretModel {
 
 @Component({
   selector: 'umbral-secrets-vault-page',
-  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, PasswordModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
+  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
   templateUrl: './secrets-vault.page.html',
   styleUrl: './secrets-vault.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -134,7 +133,8 @@ export class ProjectSecretsPage extends BasePage {
   }
 
   protected override loadData(): boolean {
-    const projectId = this.getQueryParameter(QueryParameters.Id);
+    const projectId = this._activatedRoute.snapshot.parent?.paramMap.get(QueryParameters.Id);
+
     if (!projectId)
       return false;
 
