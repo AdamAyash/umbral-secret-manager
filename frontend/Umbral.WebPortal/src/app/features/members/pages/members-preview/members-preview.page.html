@@ -24,18 +24,15 @@
           <p class="mt-0.5 text-xs text-[#94A3B8]">People with access to your organization</p>
         </div>
       </div>
-      <label class="relative block w-full max-w-xs">
-        <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#64748B]"></i>
-        <input
-          type="search"
-          placeholder="Search members"
-          aria-label="Search members"
-          class="w-full rounded-xl border border-[#A78BFA1F] bg-[#03040A]/60 py-2.5 pl-9 pr-3 text-sm text-surface-50 placeholder:text-[#64748B] outline-none transition focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20"
-        />
-      </label>
+      <umbral-search-bar
+        class="basis-1/4"
+        placeHolder="Search member by name or email address."
+        (filter)="onSearchMembers($event)"
+      >
+      </umbral-search-bar>
     </div>
     <p-table
-      [value]="members()"
+      [value]="getMembers()"
       dataKey="id"
       [selectionMode]="'single'"
       [selection]="this.currentlySelectedMember"

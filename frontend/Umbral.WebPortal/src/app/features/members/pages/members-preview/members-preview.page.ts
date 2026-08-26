@@ -16,10 +16,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MemberStatus } from '../../../../shared/enumerations/member-status';
 import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 import { TableActionButtonComponent } from "../../../../shared/ui/components/tables/table-action-button/table-action-button.component";
+import { SearchBarComponent } from "../../../../shared/ui/components/search-bar/search-bar.component";
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, PageTitlesComponent, ConfirmDialogModule, ActionButtonComponent, TableActionButtonComponent],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, PageTitlesComponent, ConfirmDialogModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +31,8 @@ export class MembersPreviewPage extends BasePage {
   public membersDialogMediator: BaseDialogMediator<EmptyInputModel, MemberModel> = new BaseDialogMediator<EmptyInputModel, MemberModel>();
   public members: WritableSignal<MemberModel[]> = signal(new Array<MemberModel>);
   public currentlySelectedMember?: MemberModel;
+
+  private filteredMembers: MemberModel[] = [];
 
   private readonly _membersService: MembersService = inject(MembersService)
   private readonly _confirmationService: ConfirmationService = inject(ConfirmationService);
@@ -60,7 +63,7 @@ export class MembersPreviewPage extends BasePage {
     return true;
   }
 
-  public getMemberStatusClass(status: MemberStatus): string {
+  protected getMemberStatusClass(status: MemberStatus): string {
     switch (status) {
       case MemberStatus.Active:
         return 'border-[#11FCFA33] bg-[#11FCFA]/10 text-[#11FCFA]';
@@ -71,7 +74,7 @@ export class MembersPreviewPage extends BasePage {
     }
   }
 
-  public onInviteMemberDialog(): void {
+  protected onInviteMemberDialog(): void {
 
     const inputModel = new EmptyInputModel();
 
@@ -81,7 +84,7 @@ export class MembersPreviewPage extends BasePage {
     })
   }
 
-  public onMemberSelected(event: TableRowSelectEvent<MemberModel>): void {
+  protected onMemberSelected(event: TableRowSelectEvent<MemberModel>): void {
 
     const memberModel = event.data as MemberModel;
     if (memberModel) {
@@ -89,7 +92,19 @@ export class MembersPreviewPage extends BasePage {
     }
   }
 
-  public onDeleteMember(member: MemberModel): void {
+  protected getMembers(): MemberModel[] {
+    if (this.filteredMembers.length > 0)
+      return this.filteredMembers;
+
+    return this.members();
+  }
+
+  protected onSearchMembers(searchValue: string): void {
+    this.filteredMembers = this.members().filter(member => member.name?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      || member.email?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
+  }
+
+  protected onDeleteMember(member: MemberModel): void {
     this._confirmationService.confirm({
       message: 'Are you sure you want to delete this member?',
       header: 'Danger Zone',

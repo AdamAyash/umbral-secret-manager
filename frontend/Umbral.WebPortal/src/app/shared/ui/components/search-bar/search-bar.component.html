@@ -1,4 +1,4 @@
-<div class="inline-flex items-center rounded-xl border border-surface-600 overflow-hidden">
+<div class="inline-flex w-full not-first-of-type:rounded-xl border border-surface-600">
   <div
     class="flex h-10 w-10 items-center justify-center border-r border-surface-600 bg-[#8B5CF6]/12"
   >
@@ -10,6 +10,7 @@
     type="search"
     autocomplete="off"
     [placeholder]="placeHolder()"
+    [fluid]="true"
     (input)="onChangeValue($event)"
     class="h-10 border-none! outline-none! shadow-none! bg-transparent!"
   />
