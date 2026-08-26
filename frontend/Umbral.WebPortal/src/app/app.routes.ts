@@ -43,6 +43,11 @@ export const routes: Routes = [
         component: ProjectLayoutComponent,
         children: [
             {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'secrets-vault'
+            },
+            {
                 path: 'secrets-vault',
                 loadComponent: () =>
                     import('./features/projects/pages/secrets-vault/secrets-vault.page')
