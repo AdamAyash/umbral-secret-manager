@@ -4,7 +4,7 @@ import { SignInPage } from './features/authentication/pages/sign-in/sign-in.page
 import { authenticationGuard } from './core/guards/authentication-guard';
 import { SignUpPage } from './features/authentication/pages/sign-up/sign-up.page';
 import { CheckEmailPage } from './features/authentication/pages/check-email/check-email.page';
-import { NavigationContext } from './layout/layout.config';
+import { ProjectLayoutComponent } from './project-layout/project-layout.component';
 
 export const routes: Routes = [
     {
@@ -36,16 +36,19 @@ export const routes: Routes = [
                     import('./features/members/pages/member-details-preview/member-details-preview.page')
                         .then(m => m.MemberDetailsPreviewPage),
             },
-            {
-                path: 'projects/secrets/:id',
-                loadComponent: () =>
-                    import('./features/projects/pages/project-secrets/project-secrets.page')
-                        .then(m => m.ProjectSecretsPage),
-                data: {
-                    "navigationContext": NavigationContext.Projects
-                }
-            }
         ]
+    },
+    {
+        path: 'projects/project/:id',
+        component: ProjectLayoutComponent,
+        children: [
+            {
+                path: 'secrets-vault',
+                loadComponent: () =>
+                    import('./features/projects/pages/secrets-vault/secrets-vault.page')
+                        .then(m => m.ProjectSecretsPage),
+            }
+        ],
     },
     {
         path: 'sign-in',

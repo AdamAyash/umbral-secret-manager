@@ -57,8 +57,8 @@ export class SignInPage extends BasePage {
     this.signInForm = this._authenticationFormBuilderService.buildSignInForm();
   }
 
-  protected override loadData(): void {
-    //
+  protected override loadData(): boolean {
+    return true;
   }
 
   protected override validate(): boolean {

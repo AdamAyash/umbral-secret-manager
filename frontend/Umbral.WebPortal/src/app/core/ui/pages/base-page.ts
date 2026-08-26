@@ -13,9 +13,9 @@ export abstract class BasePage implements OnInit {
     @Input() public pageSubTitle: string = '';
 
     protected readonly toastService: ToastService = inject(ToastService);
+    protected readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
     private readonly _router: Router = inject(Router);
-    private readonly _activatedRouter: ActivatedRoute = inject(ActivatedRoute);
 
     /*
      * 
@@ -25,7 +25,7 @@ export abstract class BasePage implements OnInit {
     /*
     * 
     */
-    protected abstract loadData(): void;
+    protected abstract loadData(): boolean;
 
     /*
     * 
@@ -36,7 +36,11 @@ export abstract class BasePage implements OnInit {
      */
     public ngOnInit(): void {
         this.initialize();
-        this.loadData();
+
+        if (!this.loadData()) {
+            //TODO explicit error or toast message + handle.
+            throw new Error();
+        }
     }
 
     /**
@@ -60,6 +64,6 @@ export abstract class BasePage implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     protected getQueryParameter(queryParameter: QueryParameters) {
-        return this._activatedRouter.snapshot.paramMap.get(queryParameter);
+        return this._activatedRoute.snapshot.paramMap.get(queryParameter);
     }
 }

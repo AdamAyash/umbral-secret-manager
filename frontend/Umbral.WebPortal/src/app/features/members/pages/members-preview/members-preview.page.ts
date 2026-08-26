@@ -55,8 +55,10 @@ export class MembersPreviewPage extends BasePage {
     this.pageSubTitle = 'Manage everyone who belongs to your organization.'
   }
 
-  protected override loadData(): void {
+  protected override loadData(): boolean {
     this._membersService.getAllMembers(this._getAllMembersResponseProcessable)
+
+    return true;
   }
 
   protected override validate(): boolean {
