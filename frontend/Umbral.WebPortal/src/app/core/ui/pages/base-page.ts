@@ -2,6 +2,7 @@ import { Directive, inject, Input, OnInit } from "@angular/core";
 import { ToastService } from "../../services/toast/toast.service";
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { QueryParameters } from "./query-parameters";
+import { MenuItem } from "primeng/api";
 
 /**
  *  Base page  abstract class providing basic functionality for most pages.
@@ -31,6 +32,14 @@ export abstract class BasePage implements OnInit {
     * 
     */
     protected abstract validate(): boolean;
+
+    /*
+    * 
+    */
+    public getBreadCrumps(): MenuItem[] {
+        return [];
+    }
+
     /**
      * On init implementation
      */

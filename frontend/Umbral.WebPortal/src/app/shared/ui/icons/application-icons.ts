@@ -1,6 +1,7 @@
 export enum ApplicationIcons {
-    Projects = 'pi pi-folder',
-    Dashboard = 'pi pi-home',
-    Members = 'pi pi-users',
-    SecretsVault = 'pi pi-lock'
+    Folder = 'pi pi-folder',
+    Dashboard = 'pi pi-th-large',
+    Users = 'pi pi-users',
+    Lock = 'pi pi-lock',
+    Bell = 'pi pi-bell',
 }

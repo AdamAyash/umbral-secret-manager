@@ -9,16 +9,21 @@ import { ProjectModel } from '../../models/project.model';
 import { ProjectCardComponent } from "./components/project-card/project-card.component";
 import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 import { RouterOutlet } from '@angular/router';
+import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
+import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
+import { NewProjectModel } from '../../models/create-new-project/new-project.model';
+import { CreateNewProjectDialog } from "../../dialogs/create-new-project/create-new-project.dialog";
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [PageTitlesComponent, ProjectCardComponent, ActionButtonComponent, RouterOutlet],
+  imports: [PageTitlesComponent, ProjectCardComponent, ActionButtonComponent, RouterOutlet, CreateNewProjectDialog],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsPreviewPage extends BasePage {
 
+  public createNewProjectMediator: BaseDialogMediator<EmptyInputModel, NewProjectModel> = new BaseDialogMediator<EmptyInputModel, NewProjectModel>();
   public projects: WritableSignal<ProjectModel[]> = signal([]);
 
   private _projectsService: ProjectsService = inject(ProjectsService);
@@ -50,6 +55,15 @@ export class ProjectsPreviewPage extends BasePage {
   }
   protected override validate(): boolean {
     return true;
+  }
+
+  protected onCreateNewProject(): void {
+
+    const inputModel = new EmptyInputModel();
+
+    this.createNewProjectMediator.openDialog(inputModel).subscribe((project) => {
+      //
+    })
   }
 
   public onProjectCardClicked(project: ProjectModel): void {

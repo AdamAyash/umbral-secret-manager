@@ -76,7 +76,7 @@ export class MembersPreviewPage extends BasePage {
     }
   }
 
-  protected onInviteMemberDialog(): void {
+  protected onInviteMember(): void {
 
     const inputModel = new EmptyInputModel();
 

@@ -1,5 +1,6 @@
 import { Component, input, InputSignal, } from '@angular/core';
 import { BasePage } from '../base-page';
+
 @Component({
   selector: 'umbral-base-page-template',
   imports: [],

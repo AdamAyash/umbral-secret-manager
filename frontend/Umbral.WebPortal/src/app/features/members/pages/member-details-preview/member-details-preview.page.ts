@@ -59,6 +59,13 @@ export class MemberDetailsPreviewPage extends BasePage {
 
   };
 
+  public override  getBreadCrumps(): MenuItem[] {
+    return [
+      { label: 'Dashboard', icon: 'home', routerLink: '/dashboard' },
+      { label: 'Dashboard', icon: 'home', routerLink: '/dashboard' }
+    ]
+  }
+
   protected override initialize(): void {
     this.pageTitle = 'Member details'
     this.pageSubTitle = 'View this member\'s account and access information.'
