@@ -11,10 +11,10 @@ import { TableActionButtonComponent } from "../../../../shared/ui/components/tab
 import { Environments } from '../../../../shared/enumerations/environments';
 import { SearchBarComponent } from "../../../../shared/ui/components/search-bar/search-bar.component";
 import { Utilities } from '../../../../core/utilities/utilities';
-import { SecretsVaultService } from '../../services/secrets-vault-service.ts/secrets-vault.service';
+import { SecretsVaultService } from '../../services/secrets-vault-service/secrets-vault.service';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { GetSecretsByProjectIdOutputModel } from '../../models/get-secrets-by-project-id/get-secrets-by-project-id-output.model';
-import { SecretsVaultServiceErrorCodes } from '../../services/secrets-vault-service.ts/secrets-vault-service-error-codes';
+import { SecretsVaultServiceErrorCodes } from '../../services/secrets-vault-service/secrets-vault-service-error-codes';
 
 export interface SecretTableModel extends SecretModel {
   isRevealed: boolean;

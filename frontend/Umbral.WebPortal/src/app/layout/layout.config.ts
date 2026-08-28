@@ -13,10 +13,12 @@ export interface NavigationItemData {
 
 export const MAIN_SIDEBAR_ITEMS: NavigationItemData[] = [
   { label: 'Dashboard', icon: ApplicationIcons.Dashboard, route: '/dashboard' },
-  { label: 'Projects', icon: ApplicationIcons.Projects, route: '/projects' },
-  { label: 'Members', icon: ApplicationIcons.Members, route: '/members' }
+  { label: 'Projects', icon: ApplicationIcons.Folder, route: '/projects' },
+  { label: 'Organization Members', icon: ApplicationIcons.Users, route: '/members' },
+  { label: 'Notifications', icon: ApplicationIcons.Bell, route: '/notifications' }
 ];
 
 export const PROJECT_SIDEBAR_ITEMS: NavigationItemData[] = [
-  { label: 'Secrets vault', icon: ApplicationIcons.SecretsVault, route: 'secrets-vault' },
+  { label: 'Overview', icon: ApplicationIcons.Dashboard, route: 'overview' },
+  { label: 'Secrets vault', icon: ApplicationIcons.Lock, route: 'secrets-vault' },
 ];

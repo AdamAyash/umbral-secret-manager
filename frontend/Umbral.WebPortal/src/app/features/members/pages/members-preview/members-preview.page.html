@@ -3,7 +3,7 @@
     <umbral-page-titles [pageReference]="this"></umbral-page-titles>
     <umbral-action-button
       buttonText="Invite member"
-      (buttonClicked)="onInviteMemberDialog()"
+      (buttonClicked)="onInviteMember()"
     ></umbral-action-button>
   </section>
   <div class="members-table rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4 sm:p-5">
@@ -126,7 +126,7 @@
                 Invite teammates to collaborate on your organization's projects and secrets.
               </p>
               <button
-                (click)="onInviteMemberDialog()"
+                (click)="onInviteMember()"
                 type="button"
                 class="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#8B5CF6] px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-[#7C3AED] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A78BFA]"
               >
