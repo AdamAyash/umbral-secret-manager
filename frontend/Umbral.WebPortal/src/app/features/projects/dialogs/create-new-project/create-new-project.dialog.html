@@ -1,46 +1,56 @@
 <umbral-base-dialog-template
-  title="Create new project"
+  title="Create a new project"
   [dialogController]="this.baseDialogMediator()"
-></umbral-base-dialog-template>
-<umbral-base-dialog-template title="Invite member" [dialogController]="this.baseDialogMediator()">
+>
   <div class="pb-5">
     <p class="text-sm text-[#94A3B8]">Create new project to store your secrets and credentials.</p>
   </div>
   <form
-    [formGroup]="this.inviteMemberForm"
+    [formGroup]="this.createNewProjectForm"
     class="flex w-full flex-col gap-6"
     name="invite-member"
     (ngSubmit)="onSubmit()"
   >
-    <div class="relative flex flex-col gap-1">
-      <label for="invite-email" class="text-sm font-semibold text-[#E2E8F0]">Email address</label>
-      <p-iconfield>
-        <p-inputicon class="pi pi-envelope" />
-        <input
-          #email
-          pInputText
-          id="invite-email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          formControlName="email"
-          placeholder="name@company.com"
-          [fluid]="true"
-          variant="filled"
-          required
-        />
-      </p-iconfield>
-      <umbral-error-message [control]="this.email!" fieldLabel="Email address">
-      </umbral-error-message>
-    <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-      <p-button
-        label="Cancel"
-        severity="secondary"
-        [outlined]="true"
-        type="button"
-        (onClick)="this.onCloseDialog()"
+    <div class="relative flex flex-col gap-2">
+      <label for="project-name" class="text-sm font-semibold text-[#E2E8F0]">Project name</label>
+      <input
+        #projectName
+        pInputText
+        id="project-name"
+        name="projectName"
+        autocomplete="off"
+        type="text"
+        formControlName="projectName"
+        placeholder="Type your project name"
+        [fluid]="true"
+        variant="filled"
+        required
       />
-      <p-button label="Send invitation" icon="pi pi-send" type="submit" />
+      <umbral-error-message [control]="this.projectName!" fieldLabel="Project name">
+      </umbral-error-message>
+      <label for="project-description" class="text-sm font-semibold text-[#E2E8F0]"
+        >Project description</label
+      >
+      <textarea
+        rows="4"
+        cols="10"
+        variant="filled"
+        pTextarea
+        placeholder="Project description"
+        formControlName="projectDescription"
+      ></textarea>
+      <umbral-error-message [control]="this.projectDescription!" fieldLabel="Project description">
+      </umbral-error-message>
+      <div class="flex flex-col-reverse pt-1 gap-3 sm:flex-row sm:justify-end">
+        <p-button
+          label="Cancel"
+          severity="secondary"
+          [outlined]="true"
+          type="button"
+          (onClick)="this.onCloseDialog()"
+        />
+        <p-button label="Create project" type="submit" />
+      </div>
     </div>
   </form>
 </umbral-base-dialog-template>

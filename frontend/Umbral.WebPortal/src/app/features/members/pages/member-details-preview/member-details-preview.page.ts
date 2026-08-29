@@ -59,10 +59,10 @@ export class MemberDetailsPreviewPage extends BasePage {
 
   };
 
-  public override  getBreadCrumps(): MenuItem[] {
+  public override getBreadCrumps(): MenuItem[] {
     return [
-      { label: 'Dashboard', icon: 'home', routerLink: '/dashboard' },
-      { label: 'Dashboard', icon: 'home', routerLink: '/dashboard' }
+      { label: 'Members', icon: 'home', routerLink: '/members' },
+      { label: 'Member details', icon: 'home', routerLink: '/members/details' }
     ]
   }
 

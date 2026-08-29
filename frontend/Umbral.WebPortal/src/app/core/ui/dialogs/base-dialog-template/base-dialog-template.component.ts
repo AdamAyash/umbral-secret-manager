@@ -10,6 +10,7 @@ import { BaseDialogMediator } from '../base-dialog-mediator/base-dialog-mediator
   styleUrl: './base-dialog-template.component.css',
 })
 export class BaseDialogTemplateComponent<TDialogInputModel, TDialogOutputModel> {
+
   public title: InputSignal<string> = input.required();
   public dialogController: InputSignal<BaseDialogMediator<TDialogInputModel, TDialogOutputModel>> = input.required();
 }

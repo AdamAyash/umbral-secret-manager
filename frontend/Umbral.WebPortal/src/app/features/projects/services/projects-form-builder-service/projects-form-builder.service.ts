@@ -12,7 +12,6 @@ export class ProjectsFormBuilderService {
         Validators.required,
       ]),
       projectDescription: new FormControl('', [
-        Validators.required,
       ]),
     }
       , {

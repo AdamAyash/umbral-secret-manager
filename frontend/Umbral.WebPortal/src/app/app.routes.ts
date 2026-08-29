@@ -13,6 +13,11 @@ export const routes: Routes = [
         canActivate: [authenticationGuard],
         children: [
             {
+                path: '',
+                redirectTo: '/dashboard',
+                pathMatch: 'full'
+            },
+            {
                 path: 'projects',
                 loadComponent: () =>
                     import('./features/projects/pages/projects-preview/projects-preview.page')
