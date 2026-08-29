@@ -18,7 +18,7 @@ export class SecretsVaultService extends BaseServerRequestService {
     }
 
     protected override getServiceDomain(): string {
-        return 'secrets-vault'
+        return 'secrets'
     }
 
 }

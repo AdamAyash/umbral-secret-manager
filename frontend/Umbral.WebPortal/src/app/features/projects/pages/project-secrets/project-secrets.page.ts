@@ -15,16 +15,16 @@ import { SecretsVaultService } from '../../services/secrets-vault-service/secret
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
 import { GetSecretsByProjectIdOutputModel } from '../../models/get-secrets-by-project-id/get-secrets-by-project-id-output.model';
 import { SecretsVaultServiceErrorCodes } from '../../services/secrets-vault-service/secrets-vault-service-error-codes';
-
+import { TextareaModule } from 'primeng/textarea';
 export interface SecretTableModel extends SecretModel {
   isRevealed: boolean;
 }
 
 @Component({
-  selector: 'umbral-secrets-vault-page',
-  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, InputTextModule, FormsModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
-  templateUrl: './secrets-vault.page.html',
-  styleUrl: './secrets-vault.page.css',
+  selector: 'umbral-project-secrets-page',
+  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, TextareaModule, InputTextModule, FormsModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
+  templateUrl: './project-secrets.page.html',
+  styleUrl: './project-secrets.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectSecretsPage extends BasePage {
@@ -128,7 +128,7 @@ export class ProjectSecretsPage extends BasePage {
   }
 
   protected override initialize(): void {
-    this.pageTitle = 'Project Overview';
+    this.pageTitle = 'Project Secrets';
     this.pageSubTitle = 'Manage and protect your project secrets'
   }
 

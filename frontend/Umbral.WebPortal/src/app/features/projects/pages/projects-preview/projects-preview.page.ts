@@ -11,7 +11,6 @@ import { ActionButtonComponent } from "../../../../shared/ui/components/action-b
 import { RouterOutlet } from '@angular/router';
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
-import { NewProjectModel } from '../../models/create-new-project/new-project.model';
 import { CreateNewProjectDialog } from "../../dialogs/create-new-project/create-new-project.dialog";
 
 @Component({
@@ -23,7 +22,7 @@ import { CreateNewProjectDialog } from "../../dialogs/create-new-project/create-
 })
 export class ProjectsPreviewPage extends BasePage {
 
-  public createNewProjectMediator: BaseDialogMediator<EmptyInputModel, NewProjectModel> = new BaseDialogMediator<EmptyInputModel, NewProjectModel>();
+  public createNewProjectMediator: BaseDialogMediator<EmptyInputModel, ProjectModel> = new BaseDialogMediator<EmptyInputModel, ProjectModel>();
   public projects: WritableSignal<ProjectModel[]> = signal([]);
 
   private _projectsService: ProjectsService = inject(ProjectsService);
@@ -60,7 +59,6 @@ export class ProjectsPreviewPage extends BasePage {
   protected onCreateNewProject(): void {
 
     const inputModel = new EmptyInputModel();
-
     this.createNewProjectMediator.openDialog(inputModel).subscribe((project) => {
       //
     })

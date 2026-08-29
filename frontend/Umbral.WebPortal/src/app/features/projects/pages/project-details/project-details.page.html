@@ -1,0 +1,57 @@
+<umbral-base-page-template [pageReference]="this">
+  <umbral-page-titles [pageReference]="this"></umbral-page-titles>
+</umbral-base-page-template>
+
+<div class="flex flex-col">
+  <div class="flex flex-row pt-5">
+    <div class="basis-1/2 rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4 sm:p-5">
+      <div class="text-xl pb-5 font-bold"><h2>Project Details</h2></div>
+      <div class="flex flex-col">
+        <form>
+          <div class="flex flex-col gap-y-2">
+            <label class="text-sm text-[#94A3B8]" for="">Project name</label>
+            <input variant="filled" pInputText type="text" />
+          </div>
+          <div class="flex flex-col gap-y-2 pt-5">
+            <label class="text-sm text-[#94A3B8]" for="">Project description</label>
+            <textarea variant="filled" pTextarea name="" id=""></textarea>
+          </div>
+          <div class="pt-5">
+            <p-button disabled="true">Save</p-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row pt-5">
+    <div class="basis-1/2 rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4 sm:p-5">
+      <div class="text-xl pb-5 font-bold"><h2>Delete protection</h2></div>
+      <div class="flex flex-col">
+        <form>
+          <div class="inline-flex items-center gap-x-2">
+            <p-check-box binary="true"></p-check-box>
+            <label pLabel for="checkbox-indicator" class="text-sm text-[#94A3B8]"
+              >Protect you project from being deleted</label
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row pt-5">
+    <div class="basis-1/2 rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4 sm:p-5">
+      <div class="inline-flex items-center gap-x-3 text-xl pb-5 font-bold">
+        <i class="pi pi-exclamation-triangle"></i>
+        <h2>Danger zone</h2>
+      </div>
+      <div class="flex flex-col">
+        <form>
+          <div class="inline-flex gap-3">
+            <p-button severity="danger" outlined="true">Delete project</p-button>
+            <p-button severity="danger" outlined="true"> Leave project</p-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

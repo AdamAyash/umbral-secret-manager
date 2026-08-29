@@ -61,8 +61,7 @@ export class MemberDetailsPreviewPage extends BasePage {
 
   public override getBreadCrumps(): MenuItem[] {
     return [
-      { label: 'Members', icon: 'home', routerLink: '/members' },
-      { label: 'Member details', icon: 'home', routerLink: '/members/details' }
+      { label: 'Dashboard', routerLink: '/dashboard' },
     ]
   }
 

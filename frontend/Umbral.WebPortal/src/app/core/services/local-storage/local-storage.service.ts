@@ -49,7 +49,7 @@ export class LocalStorageService {
         const cachedItem: string | null = localStorage.getItem(key);
 
         if (!cachedItem)
-            return;
+            return undefined;
 
         return Utilities.deserializeFromJson<TObject>(cachedItem);
     }

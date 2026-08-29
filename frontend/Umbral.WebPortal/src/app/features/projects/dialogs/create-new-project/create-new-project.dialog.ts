@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { BaseDialog } from '../../../../core/ui/dialogs/base-dialog/base-dialog';
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
-import { NewProjectModel } from '../../models/create-new-project/new-project.model';
 import { BaseDialogTemplateComponent } from "../../../../core/ui/dialogs/base-dialog-template/base-dialog-template.component";
 import { Button } from "primeng/button";
 import { ErrorMessageComponent } from "../../../../shared/ui/components";
@@ -9,13 +8,15 @@ import { ProjectsFormBuilderService } from '../../services/projects-form-builder
 import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
+import { ProjectModel } from '../../models/project.model';
+
 @Component({
   selector: 'umbral-create-new-project-dialog',
   imports: [BaseDialogTemplateComponent, Button, ErrorMessageComponent, TextareaModule, ReactiveFormsModule, InputText],
   templateUrl: './create-new-project.dialog.html',
   styleUrl: './create-new-project.dialog.css',
 })
-export class CreateNewProjectDialog extends BaseDialog<EmptyInputModel, NewProjectModel> {
+export class CreateNewProjectDialog extends BaseDialog<EmptyInputModel, ProjectModel> {
 
   public createNewProjectForm!: FormGroup;
   private _projectsFormBuilderService: ProjectsFormBuilderService = inject(ProjectsFormBuilderService);
@@ -48,5 +49,4 @@ export class CreateNewProjectDialog extends BaseDialog<EmptyInputModel, NewProje
 
     return true;
   }
-
 }

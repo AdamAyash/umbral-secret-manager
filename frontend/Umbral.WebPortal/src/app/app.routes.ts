@@ -50,12 +50,18 @@ export const routes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo: 'secrets-vault'
+                redirectTo: 'secrets'
             },
             {
-                path: 'secrets-vault',
+                path: 'details',
                 loadComponent: () =>
-                    import('./features/projects/pages/secrets-vault/secrets-vault.page')
+                    import('./features/projects/pages/project-details/project-details.page')
+                        .then(m => m.ProjectDetailsPage),
+            },
+            {
+                path: 'secrets',
+                loadComponent: () =>
+                    import('./features/projects/pages/project-secrets/project-secrets.page')
                         .then(m => m.ProjectSecretsPage),
             }
         ],
