@@ -32,7 +32,7 @@ export abstract class BaseServerRequestService {
         serviceProcessable: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>,
     ): void {
         this._loadingAnimationService.begin();
-        this._httpClient
+        const httpRequest$ = this._httpClient
             .post<BaseServerResponse<TOutputModel>>(
                 this.constructFullRequestURL(serviceRoute),
                 inputModel
@@ -47,6 +47,7 @@ export abstract class BaseServerRequestService {
                         this._toastService.showError("Something went wrong on our end. Try refreshing, or come back in a few minutes");
 
                     this._loadingAnimationService.end();
+                    httpRequest$.unsubscribe();
                     return EMPTY;
                 }))
             .subscribe((serverResponse) => {
@@ -56,6 +57,7 @@ export abstract class BaseServerRequestService {
                         throw new Error();
                     }
                 }
+                httpRequest$.unsubscribe();
             });
     }
 
