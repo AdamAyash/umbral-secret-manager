@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { BasePage } from '../../../../core/ui';
-import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePageTemplateComponent } from '../../../../core/ui/pages/base-page-template/base-page-template.component';
 import { MemberModel } from '../../models/member.model';
 import { MembersService } from '../../services/members.service';
@@ -12,6 +11,7 @@ import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { MemberStatus } from '../../../../shared/enumerations/member-status';
+import { PageHeaderComponent } from '../../../../shared/ui/components/page-header/page-header.component';
 
 interface MemberProject {
   id: string;
@@ -24,7 +24,7 @@ interface MemberProject {
 
 @Component({
   selector: 'umbral-member-details-preview',
-  imports: [BasePageTemplateComponent, PageTitlesComponent, MenuModule, TableModule],
+  imports: [BasePageTemplateComponent, PageHeaderComponent, MenuModule, TableModule],
   templateUrl: './member-details-preview.page.html',
   styleUrl: './member-details-preview.page.css',
 })
@@ -36,12 +36,12 @@ export class MemberDetailsPreviewPage extends BasePage {
     {
       label: 'Deactivate member',
       icon: 'pi pi-user-minus',
-      command: () => this.toastService.showInfo('Deactivate member', 'Member deactivation will be available soon.'),
+      command: () => this.showInfo('Deactivate member', 'Member deactivation will be available soon.'),
     },
     {
       label: 'Delete member',
       icon: 'pi pi-trash text-red-400',
-      command: () => this.toastService.showInfo('Delete member', 'Member deletion will be available soon.'),
+      command: () => this.showInfo('Delete member', 'Member deletion will be available soon.'),
     },
   ];
 
@@ -97,14 +97,14 @@ export class MemberDetailsPreviewPage extends BasePage {
 
     try {
       await navigator.clipboard.writeText(value);
-      this.toastService.showInfo('Copied', `${label} copied to clipboard.`);
+      this.showInfo('Copied', `${label} copied to clipboard.`);
     } catch {
-      this.toastService.showError('Copy failed', `Unable to copy the ${label.toLowerCase()}.`);
+      this.showError('Copy failed', `Unable to copy the ${label.toLowerCase()}.`);
     }
   }
 
   public onAddToProject(): void {
-    this.toastService.showInfo('Add to project', 'Project assignment will be available soon.');
+    this.showInfo('Add to project', 'Project assignment will be available soon.');
   }
 
 }

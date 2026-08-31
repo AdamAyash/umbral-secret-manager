@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
-import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePage } from '../../../../core/ui';
 import { ProjectsService } from '../../services/projects-service/project.service';
 import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../core/api';
@@ -7,15 +6,16 @@ import { GetAllProjectsOutputModel } from '../../models/get-all-projects/get-all
 import { ProjectsServiceErrorCodes } from '../../services/projects-service/projects-service-error-codes';
 import { ProjectModel } from '../../models/project.model';
 import { ProjectCardComponent } from "./components/project-card/project-card.component";
-import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 import { RouterOutlet } from '@angular/router';
 import { EmptyInputModel } from '../../../../core/api/models/empty-input.model';
 import { BaseDialogMediator } from '../../../../core/ui/dialogs/base-dialog-mediator/base-dialog-mediator';
 import { CreateNewProjectDialog } from "../../dialogs/create-new-project/create-new-project.dialog";
+import { PageHeaderComponent } from '../../../../shared/ui/components/page-header/page-header.component';
+import { PageActionButtonComponent } from '../../../../shared/ui/components';
 
 @Component({
   selector: 'umbral-projects-preview-page',
-  imports: [PageTitlesComponent, ProjectCardComponent, ActionButtonComponent, RouterOutlet, CreateNewProjectDialog],
+  imports: [PageHeaderComponent, ProjectCardComponent, PageActionButtonComponent, RouterOutlet, CreateNewProjectDialog],
   templateUrl: './projects-preview.page.html',
   styleUrl: './projects-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush

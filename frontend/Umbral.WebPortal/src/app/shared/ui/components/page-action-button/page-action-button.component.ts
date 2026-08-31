@@ -1,12 +1,12 @@
 import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 
 @Component({
-  selector: 'umbral-action-button',
+  selector: 'umbral-page-action-button',
   imports: [],
-  templateUrl: './action-button.component.html',
-  styleUrl: './action-button.component.css',
+  templateUrl: './page-action-button.component.html',
+  styleUrl: './page-action-button.component.css',
 })
-export class ActionButtonComponent {
+export class PageActionButtonComponent {
   public buttonText: InputSignal<string> = input.required();
   public buttonClicked: OutputEmitterRef<void> = output();
 

@@ -1,9 +1,9 @@
 <section class="mx-auto w-full max-w-screen-2xl">
   <header class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-    <umbral-page-titles [pageReference]="this"></umbral-page-titles>
+    <umbral-page-header [pageReference]="this"></umbral-page-header>
 
-    <umbral-action-button buttonText="New project" (buttonClicked)="onCreateNewProject()">
-    </umbral-action-button>
+    <umbral-page-action-button buttonText="New project" (buttonClicked)="onCreateNewProject()">
+    </umbral-page-action-button>
   </header>
 
   <div class="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

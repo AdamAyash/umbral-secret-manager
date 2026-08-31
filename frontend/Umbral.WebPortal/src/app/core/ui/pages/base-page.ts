@@ -2,6 +2,7 @@ import { Directive, inject, Input, OnInit } from "@angular/core";
 import { ToastService } from "../../services/toast/toast.service";
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { QueryParameters } from "./query-parameters";
+import { LoadingAnimationService } from "../../services/loading-animation-service/loading-animation-service";
 
 /**
  *  Base page  abstract class providing basic functionality for most pages.
@@ -12,10 +13,32 @@ export abstract class BasePage implements OnInit {
     @Input({ required: true }) public pageTitle: string = '';
     @Input() public pageSubTitle: string = '';
 
-    protected readonly toastService: ToastService = inject(ToastService);
+    private readonly _loadingAnimationService: LoadingAnimationService = inject(LoadingAnimationService);
+    private readonly _toastService: ToastService = inject(ToastService);
+    private readonly _router: Router = inject(Router);
+
     protected readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-    private readonly _router: Router = inject(Router);
+
+    /**
+     * Whether the page is loading (if we have running requests)
+     * @returns 
+     */
+    public isPageLoading(): boolean {
+        return this._loadingAnimationService.isLoadingAnimationActive();
+    }
+
+    public showInfo(title?: string, description?: string): void {
+        this._toastService.showInfo(title, description);
+    }
+
+    public showSuccess(title?: string, description?: string): void {
+        this._toastService.showSuccess(title, description);
+    }
+
+    public showError(title?: string, description?: string): void {
+        this._toastService.showError(title, description);
+    }
 
     /*
      * 

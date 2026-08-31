@@ -1,10 +1,10 @@
 <umbral-base-page-template [pageReference]="this">
   <section class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-    <umbral-page-titles [pageReference]="this"></umbral-page-titles>
-    <umbral-action-button
+    <umbral-page-header [pageReference]="this"></umbral-page-header>
+    <umbral-page-action-button
       buttonText="Invite member"
       (buttonClicked)="onInviteMember()"
-    ></umbral-action-button>
+    ></umbral-page-action-button>
   </section>
   <div class="members-table rounded-2xl border border-[#A78BFA1F] bg-[#0B1020]/80 p-4 sm:p-5">
     <div class="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -33,6 +33,7 @@
     </div>
     <p-table
       [value]="getMembers()"
+      [loading]="this.isPageLoading()"
       dataKey="id"
       [selectionMode]="'single'"
       [selection]="this.currentlySelectedMember"

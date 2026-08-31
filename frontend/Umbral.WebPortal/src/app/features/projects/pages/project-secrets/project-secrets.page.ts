@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { BasePage, BasePageTemplateComponent, QueryParameters } from '../../../../core/ui';
-import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { TableModule } from 'primeng/table';
 import { SecretModel } from '../../models/secret.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 import { TableActionButtonComponent } from "../../../../shared/ui/components/tables/table-action-button/table-action-button.component";
 import { Environments } from '../../../../shared/enumerations/environments';
 import { SearchBarComponent } from "../../../../shared/ui/components/search-bar/search-bar.component";
@@ -16,13 +14,15 @@ import { IServerResponseProcessable, ProblemDetailsModel } from '../../../../cor
 import { GetSecretsByProjectIdOutputModel } from '../../models/get-secrets-by-project-id/get-secrets-by-project-id-output.model';
 import { SecretsVaultServiceErrorCodes } from '../../services/secrets-vault-service/secrets-vault-service-error-codes';
 import { TextareaModule } from 'primeng/textarea';
+import { PageHeaderComponent } from '../../../../shared/ui/components/page-header/page-header.component';
+import { PageActionButtonComponent } from '../../../../shared/ui/components';
 export interface SecretTableModel extends SecretModel {
   isRevealed: boolean;
 }
 
 @Component({
   selector: 'umbral-project-secrets-page',
-  imports: [BasePageTemplateComponent, PageTitlesComponent, TableModule, TextareaModule, InputTextModule, FormsModule, SelectModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
+  imports: [BasePageTemplateComponent, PageHeaderComponent, TableModule, TextareaModule, InputTextModule, FormsModule, SelectModule, PageActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
   templateUrl: './project-secrets.page.html',
   styleUrl: './project-secrets.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -105,7 +105,7 @@ export class ProjectSecretsPage extends BasePage {
       return;
     this.secretsSnapshot.delete(secret.id);
     this.hideSecretValue(secret);
-    this.toastService.showSuccess('Success', 'Successfully saved secret.');
+    this.showSuccess('Success', 'Successfully saved secret.');
   }
 
   protected onCancelEditSecret(secret: SecretTableModel): void {

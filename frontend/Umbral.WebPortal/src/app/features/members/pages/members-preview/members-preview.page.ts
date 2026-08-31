@@ -11,16 +11,16 @@ import { MembersErrorCodes } from '../../services/members-error-codes';
 import { GetAllMembersOutputModel } from '../../models/get-all-members/get-all-members-output.model';
 import { MemberModel } from '../../models/member.model';
 import { ConfirmationService } from 'primeng/api';
-import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MemberStatus } from '../../../../shared/enumerations/member-status';
-import { ActionButtonComponent } from "../../../../shared/ui/components/action-button/action-button.component";
 import { TableActionButtonComponent } from "../../../../shared/ui/components/tables/table-action-button/table-action-button.component";
 import { SearchBarComponent } from "../../../../shared/ui/components/search-bar/search-bar.component";
+import { PageHeaderComponent } from '../../../../shared/ui/components/page-header/page-header.component';
+import { PageActionButtonComponent } from '../../../../shared/ui/components';
 
 @Component({
   selector: 'umbral-members-preview-page',
-  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, PageTitlesComponent, ConfirmDialogModule, ActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
+  imports: [TableModule, BasePageTemplateComponent, InviteMemberDialog, PageHeaderComponent, ConfirmDialogModule, PageActionButtonComponent, TableActionButtonComponent, SearchBarComponent],
   templateUrl: './members-preview.page.html',
   styleUrl: './members-preview.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
