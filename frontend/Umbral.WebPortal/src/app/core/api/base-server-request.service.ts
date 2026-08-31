@@ -26,6 +26,12 @@ export abstract class BaseServerRequestService {
      */
     protected abstract getServiceDomain(): string;
 
+    /**
+     * Sends a post request
+     * @param serviceRoute route of the request
+     * @param inputModel input model
+     * @param serviceProcessable 
+     */
     protected sendServerPostRequest<TInputModel, TOutputModel, TServiceErrorCodes>(
         serviceRoute: string,
         inputModel: TInputModel,

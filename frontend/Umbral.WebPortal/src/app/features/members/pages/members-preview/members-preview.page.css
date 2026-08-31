@@ -1,5 +1,5 @@
 :host ::ng-deep .members-table .p-datatable-table {
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid rgb(167 139 250 / 0.1);
   border-radius: 0.9rem;
 }
