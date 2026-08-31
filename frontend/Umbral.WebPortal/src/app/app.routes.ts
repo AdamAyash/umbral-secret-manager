@@ -22,9 +22,6 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/projects/pages/projects-preview/projects-preview.page')
                         .then(m => m.ProjectsPreviewPage),
-                data: {
-                    breadcrumb: 'Projects'
-                }
             },
             {
                 path: 'dashboard',

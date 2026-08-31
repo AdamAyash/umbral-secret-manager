@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
 import { BasePage } from '../../../../core/ui';
+import { PageHeaderComponent } from '../../../../shared/ui/components/page-header/page-header.component';
 
 @Component({
   selector: 'umbral-dashboard',
-  imports: [PageTitlesComponent],
+  imports: [PageHeaderComponent],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
 })

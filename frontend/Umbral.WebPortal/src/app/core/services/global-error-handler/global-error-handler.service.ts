@@ -3,6 +3,9 @@
 import { ErrorHandler, inject, Injectable } from '@angular/core';
 import { ToastService } from '../toast/toast.service';
 
+/**
+ * Global error handler.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -11,8 +14,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   private readonly _toastService: ToastService = inject(ToastService)
 
   public handleError(error: any): void {
-    console.debug(error);
+    console.log(error);
     this._toastService.showError("Something went wrong on our end. Try refreshing, or come back in a few minutes");
   }
-
 }

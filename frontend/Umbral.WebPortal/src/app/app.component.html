@@ -1,9 +1,2 @@
-@if (this.loadingAnimationService.isLoadingAnimationActive()) {
-  <div class="fixed inset-0 flex items-center justify-center bg-black/30 z-9999">
-    <p-progressSpinner strokeWidth="4" animationDuration=".8s"> </p-progressSpinner>
-  </div>
-}
-<p-blockUI [blocked]="this.loadingAnimationService.isLoadingAnimationActive()"> </p-blockUI>
 <router-outlet></router-outlet>
-
 <p-toast />

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BasePage, BasePageTemplateComponent } from "../../../../core/ui";
-import { PageTitlesComponent } from "../../../../shared/ui/components/page-titles/page-titles.component";
+import { PageHeaderComponent } from "../../../../shared/ui/components/page-header/page-header.component";
 import { InputText } from "primeng/inputtext";
 import { Textarea } from "primeng/textarea";
 import { Button } from "primeng/button";
@@ -8,7 +8,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'umbral-project-details',
-  imports: [BasePageTemplateComponent, PageTitlesComponent, InputText, Textarea, Button, CheckboxModule],
+  imports: [BasePageTemplateComponent, PageHeaderComponent, InputText, Textarea, Button, CheckboxModule],
   templateUrl: './project-details.page.html',
   styleUrl: './project-details.page.css',
 })

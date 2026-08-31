@@ -14,10 +14,11 @@ import { RouterLink } from '@angular/router';
 import { UserAuthenticationErrorCodes } from '../../services/user-authentication-error-codes';
 import { SignInOutputModel } from '../../models/sign-in/sign-in-output.model';
 import { SingInInputModel } from '../../models/sign-in/sign-in-input.model';
+import { BasePageTemplateComponent } from "../../../../core/ui";
 
 @Component({
   selector: 'umbral-sign-in-page',
-  imports: [ReactiveFormsModule, InputTextModule, RouterLink, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent],
+  imports: [ReactiveFormsModule, InputTextModule, RouterLink, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent, BasePageTemplateComponent],
   templateUrl: './sign-in.page.html',
   styleUrl: './sign-in.page.css',
 })
@@ -41,7 +42,7 @@ export class SignInPage extends BasePage {
     },
     processError: (problemDetails: ProblemDetailsModel<UserAuthenticationErrorCodes>) => {
       if (problemDetails.errorCode === UserAuthenticationErrorCodes.InvalidCredentials)
-        this.toastService.showError(problemDetails.title, problemDetails?.detail);
+        this.showError(problemDetails.title, problemDetails?.detail);
     }
   };
 

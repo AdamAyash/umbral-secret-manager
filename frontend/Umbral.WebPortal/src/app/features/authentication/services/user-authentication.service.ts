@@ -11,6 +11,7 @@ import { SignUpOutputModel } from "../models/sign-up/sign-up-output.model";
 import { ResendEmailVerificationInputModel } from "../models/resend-email-verification/resend-email-verification-input.model";
 import { ResendEmailVerificationOutputModel } from "../models/resend-email-verification/resend-email-verification-output.model";
 import { SignInOutputModel } from "../models/sign-in/sign-in-output.model";
+import { UserRoles } from "../../../shared/enumerations/user-roles";
 
 /**
  * User authentication service 
@@ -19,7 +20,7 @@ import { SignInOutputModel } from "../models/sign-in/sign-in-output.model";
 export class UserAuthenticationService extends BaseServerRequestService {
 
     private readonly _localStorageService: LocalStorageService = inject(LocalStorageService);
-    private readonly _userSessionLocalStorageKey: string = "USER_SESSION";
+    private readonly _userSessionLocalStorageKey: string = "UserSession";
     private readonly _router: Router = inject(Router);
 
     private _userSession?: UserSessionModel;
@@ -81,6 +82,19 @@ export class UserAuthenticationService extends BaseServerRequestService {
             this._userSession = this._localStorageService.getItem(this._userSessionLocalStorageKey) as UserSessionModel;
 
         return this._userSession;
+    }
+
+    /**
+     * Checks if the currently logged user has a specifier role.
+     * @param role 
+     * @returns 
+     */
+    public hasUserRole(role?: UserRoles): boolean {
+
+        if (!this.isUserAuthenticated())
+            return false;
+
+        return this.getUserSession()?.role === role;
     }
 
     /**

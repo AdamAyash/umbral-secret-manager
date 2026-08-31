@@ -22,7 +22,7 @@ export class CheckEmailPage extends BasePage {
   private _resendEmailVerificationResponseProcessable: IServerResponseProcessable<ResendEmailVerificationOutputModel, UserAuthenticationErrorCodes> = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     processResult: (output: ResendEmailVerificationOutputModel): boolean => {
-      this.toastService.showInfo('Email Resent', 'A new verification email has been sent. Please, check your inbox.');
+      this.showInfo('Email Resent', 'A new verification email has been sent. Please, check your inbox.');
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

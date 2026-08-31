@@ -1,5 +1,8 @@
 <Solution>
-  <Project Path="Umbral.Api/Umbral.Api.csproj" Id="d059ead1-21d7-4828-bc0b-97f44413365d" />
-  <Project Path="Umbral.Application/Umbral.Application.csproj" Id="27f4d2d1-2adb-446b-85aa-8328fb239b7b" />
-  <Project Path="Umbral.Domain/Umbral.Domain.csproj" Id="d373a95b-0326-4946-a74f-f00e4fb4c8bb" />
+  <Folder Name="/src/">
+    <Project Path="src/Umbral.Application/Umbral.Application.csproj" />
+    <Project Path="src/Umbral.Domain/Umbral.Domain.csproj" />
+    <Project Path="src/Umbral.Infrastructure/Umbral.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="src/Umbral.Api/Umbral.Api.csproj" />
 </Solution>
