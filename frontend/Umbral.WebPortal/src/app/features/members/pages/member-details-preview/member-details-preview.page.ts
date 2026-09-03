@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { BasePage } from '../../../../core/ui';
 import { BasePageTemplateComponent } from '../../../../core/ui/pages/base-page-template/base-page-template.component';
 import { MemberModel } from '../../models/member.model';
@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { MemberStatus } from '../../../../shared/enumerations/member-status';
-import { PageHeaderComponent } from '../../../../shared/ui/components/page-header/page-header.component';
+import { PageHeaderComponent } from "../../../../shared/ui/components/page-header/page-header.component";
 
 interface MemberProject {
   id: string;
@@ -24,14 +24,16 @@ interface MemberProject {
 
 @Component({
   selector: 'umbral-member-details-preview',
-  imports: [BasePageTemplateComponent, PageHeaderComponent, MenuModule, TableModule],
+  imports: [BasePageTemplateComponent, MenuModule, TableModule, PageHeaderComponent],
   templateUrl: './member-details-preview.page.html',
   styleUrl: './member-details-preview.page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MemberDetailsPreviewPage extends BasePage {
 
-  public member?: MemberModel;
+  public member: WritableSignal<MemberModel | undefined> = signal(undefined);
   public readonly projects: MemberProject[] = [];
+
   public readonly memberActions: MenuItem[] = [
     {
       label: 'Deactivate member',
@@ -49,7 +51,7 @@ export class MemberDetailsPreviewPage extends BasePage {
   private _getMemberResponseProcessable: IServerResponseProcessable<GetMemberOutputModel, MembersErrorCodes> = {
 
     processResult: (output: GetMemberOutputModel): boolean => {
-      this.member = output.member;
+      this.member.set(output.member);
       return true;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

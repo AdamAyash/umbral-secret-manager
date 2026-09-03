@@ -1,8 +1,15 @@
 <Solution>
-  <Folder Name="/src/">
-    <Project Path="src/Umbral.Application/Umbral.Application.csproj" />
-    <Project Path="src/Umbral.Domain/Umbral.Domain.csproj" />
-    <Project Path="src/Umbral.Infrastructure/Umbral.Infrastructure.csproj" />
+  <Folder Name="/database/">
+    <Project Path="database/Umbral.ApplicationDatabase/Umbral.ApplicationDatabase.sqlproj" Id="808dce9d-7154-43d1-bf56-32c250b12496">
+      <Build />
+      <Deploy />
+    </Project>
   </Folder>
-  <Project Path="src/Umbral.Api/Umbral.Api.csproj" />
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/">
+    <Project Path="src/Backend/Umbral.Api/Umbral.Api.csproj" />
+    <Project Path="src/backend/Umbral.Application/Umbral.Application.csproj" />
+    <Project Path="src/backend/Umbral.Domain/Umbral.Domain.csproj" />
+    <Project Path="src/backend/Umbral.Infrastructure/Umbral.Infrastructure.csproj" />
+  </Folder>
 </Solution>

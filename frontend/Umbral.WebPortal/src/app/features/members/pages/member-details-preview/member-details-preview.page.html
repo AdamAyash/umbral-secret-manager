@@ -29,22 +29,22 @@
           <div
             class="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-[#A78BFA33] bg-[#8B5CF6]/15 text-base font-bold text-[#DDD6FE] shadow-[0_8px_24px_rgba(139,92,246,0.15)]"
           >
-            {{ member?.initials || '--' }}
+            {{ member()?.initials || '--' }}
           </div>
           <div class="min-w-0 flex-1">
             <p class="truncate text-base font-semibold text-surface-50">
-              {{ member?.name || 'Unknown member' }}
+              {{ member()?.name || 'Unknown member' }}
             </p>
             <p class="mt-0.5 truncate text-sm text-[#94A3B8]">
-              {{ member?.email || 'No email address' }}
+              {{ member()?.email || 'No email address' }}
             </p>
           </div>
         </div>
         <span
           class="mt-3 inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold"
-          [class]="getMemberStatusClass(member?.status)"
+          [class]="getMemberStatusClass(member()?.status)"
         >
-          {{ member?.status || 'Unknown' }}
+          {{ member()?.status || 'Unknown' }}
         </span>
       </div>
 
@@ -60,11 +60,11 @@
               <dt class="text-xs text-[#64748B]">Member ID</dt>
               <dd class="mt-1 flex items-start gap-2">
                 <span class="min-w-0 flex-1 break-all font-mono text-xs text-[#CBD5E1]">{{
-                  member?.id || '--'
+                  member()?.id || '--'
                 }}</span>
                 <button
-                  (click)="copyToClipboard(member?.id, 'Member ID')"
-                  [disabled]="!member?.id"
+                  (click)="copyToClipboard(member()?.id, 'Member ID')"
+                  [disabled]="!member()?.id"
                   type="button"
                   aria-label="Copy member ID"
                   class="shrink-0 rounded-md p-1.5 text-[#94A3B8] transition hover:bg-[#8B5CF6]/15 hover:text-[#C4B5FD] focus-visible:outline-2 focus-visible:outline-[#A78BFA] disabled:cursor-not-allowed disabled:opacity-40"
@@ -77,11 +77,11 @@
               <dt class="text-xs text-[#64748B]">Email address</dt>
               <dd class="mt-1 flex items-start gap-2">
                 <span class="min-w-0 flex-1 break-all text-sm text-[#CBD5E1]">{{
-                  member?.email || '--'
+                  member()?.email || '--'
                 }}</span>
                 <button
-                  (click)="copyToClipboard(member?.email, 'Email')"
-                  [disabled]="!member?.email"
+                  (click)="copyToClipboard(member()?.email, 'Email')"
+                  [disabled]="!member()?.email"
                   type="button"
                   aria-label="Copy email address"
                   class="shrink-0 rounded-md p-1.5 text-[#94A3B8] transition hover:bg-[#8B5CF6]/15 hover:text-[#C4B5FD] focus-visible:outline-2 focus-visible:outline-[#A78BFA] disabled:cursor-not-allowed disabled:opacity-40"
@@ -102,11 +102,13 @@
           >
             <div class="flex items-center justify-between gap-4 px-3.5 py-2.5">
               <dt class="text-sm text-[#94A3B8]">Role</dt>
-              <dd class="text-sm font-medium text-surface-50">{{ member?.role || '--' }}</dd>
+              <dd class="text-sm font-medium text-surface-50">{{ member()?.role || '--' }}</dd>
             </div>
             <div class="flex items-center justify-between gap-4 px-3.5 py-2.5">
               <dt class="text-sm text-[#94A3B8]">Last active</dt>
-              <dd class="text-right text-sm text-[#CBD5E1]">{{ member?.lastActiveAt || '--' }}</dd>
+              <dd class="text-right text-sm text-[#CBD5E1]">
+                {{ member()?.lastActiveAt || '--' }}
+              </dd>
             </div>
           </dl>
         </div>
@@ -140,7 +142,7 @@
         </div>
       </header>
 
-      <p-table [value]="projects" responsiveLayout="scroll">
+      <p-table [value]="projects">
         <ng-template pTemplate="header">
           <tr>
             <th>Project</th>

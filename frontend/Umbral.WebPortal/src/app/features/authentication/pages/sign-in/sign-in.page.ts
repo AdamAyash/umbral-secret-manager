@@ -10,7 +10,6 @@ import { IServerResponseProcessable } from '../../../../core/api/server-response
 import { BasePage } from '../../../../core/ui/pages/base-page';
 import { ErrorMessageComponent } from '../../../../shared/ui/components/error-message/error-message.component';
 import { ProblemDetailsModel } from '../../../../core/api';
-import { RouterLink } from '@angular/router';
 import { UserAuthenticationErrorCodes } from '../../services/user-authentication-error-codes';
 import { SignInOutputModel } from '../../models/sign-in/sign-in-output.model';
 import { SingInInputModel } from '../../models/sign-in/sign-in-input.model';
@@ -18,7 +17,7 @@ import { BasePageTemplateComponent } from "../../../../core/ui";
 
 @Component({
   selector: 'umbral-sign-in-page',
-  imports: [ReactiveFormsModule, InputTextModule, RouterLink, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent, BasePageTemplateComponent],
+  imports: [ReactiveFormsModule, InputTextModule, IconFieldModule, InputIconModule, PasswordModule, ErrorMessageComponent, BasePageTemplateComponent],
   templateUrl: './sign-in.page.html',
   styleUrl: './sign-in.page.css',
 })

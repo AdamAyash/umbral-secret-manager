@@ -3,4 +3,8 @@
     <p-progressSpinner strokeWidth="4" animationDuration=".8s"> </p-progressSpinner>
   </div>
 }
-<p-blockUI [blocked]="this.loadingAnimationService.isLoadingAnimationActive()"> </p-blockUI>
+<p-blockUI
+  #blockUI
+  [blocked]="this.loadingAnimationService.isLoadingAnimationActive() && this.isBlockUIActive"
+>
+</p-blockUI>
