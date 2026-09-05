@@ -5,4 +5,5 @@ namespace Umbral.Application.Repository.Base;
 public interface IRepository<Entity>
     where Entity : BaseEntity
 {
+    public ICollection<Entity> GetAll();
 }

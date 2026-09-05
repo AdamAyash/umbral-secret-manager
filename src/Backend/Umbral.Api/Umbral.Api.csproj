@@ -10,8 +10,4 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Umbral.Infrastructure\Umbral.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

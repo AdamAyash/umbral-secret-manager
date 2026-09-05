@@ -10,6 +10,5 @@
     <Project Path="src/Backend/Umbral.Api/Umbral.Api.csproj" />
     <Project Path="src/backend/Umbral.Application/Umbral.Application.csproj" />
     <Project Path="src/backend/Umbral.Domain/Umbral.Domain.csproj" />
-    <Project Path="src/backend/Umbral.Infrastructure/Umbral.Infrastructure.csproj" />
   </Folder>
 </Solution>

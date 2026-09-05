@@ -60,4 +60,8 @@
     <Folder Include="Security" />
     <Folder Include="Security\Schemas" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Security\Schemas\Identity.sql" />
+    <Build Include="Tables\UserProfiles.sql" />
+  </ItemGroup>
 </Project>
