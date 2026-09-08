@@ -7,7 +7,6 @@ public class BaseEntity
 {
     [Key]
     public int Id { get; private set; }
-    [Key]
     public Guid GUID { get; private set; }
     public DateTime DateCreated { get; private set; }
     public DateTime DateUpdated { get; private set; }

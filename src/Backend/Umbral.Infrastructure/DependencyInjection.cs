@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Umbral.Application.Repository;
 using Umbral.Infrastructure.Persistence.Application;
+using Umbral.Infrastructure.Persistence.Application.Repositories;
 
 namespace Umbral.Infrastructure;
 
@@ -17,6 +19,9 @@ public static class DependencyInjection
             options.UseSqlServer(
                 configuration.GetConnectionString("Application"));
         });
+
+        //Repositories
+        services.AddScoped<IUserProfilesRepository, UserProfilesRepository>();
 
         return services;
     }
