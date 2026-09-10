@@ -1,12 +1,13 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Umbral.Domain.Entities.Base;
 
-public class BaseEntity
+public abstract class BaseEntity
 {
     [Key]
     public int Id { get; private set; }
+    [ConcurrencyCheck]
+    public int Version { get; set; }
     public Guid GUID { get; private set; }
     public DateTime DateCreated { get; private set; }
     public DateTime DateUpdated { get; private set; }
