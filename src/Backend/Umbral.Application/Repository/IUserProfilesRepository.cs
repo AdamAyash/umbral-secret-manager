@@ -1,5 +1,5 @@
 ﻿using Umbral.Application.Repository.Base;
-using Umbral.Domain.Entities.Identity;
+using Umbral.Domain.Entities.Users;
 
 namespace Umbral.Application.Repository;
 

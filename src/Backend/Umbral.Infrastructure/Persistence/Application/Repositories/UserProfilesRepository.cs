@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Umbral.Application.Repository;
-using Umbral.Domain.Entities.Identity;
+using Umbral.Domain.Entities.Users;
 
 namespace Umbral.Infrastructure.Persistence.Application.Repositories;
 

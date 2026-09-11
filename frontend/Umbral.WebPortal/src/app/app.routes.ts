@@ -5,12 +5,13 @@ import { authenticationGuard } from './core/guards/authentication-guard';
 import { SignUpPage } from './features/authentication/pages/sign-up/sign-up.page';
 import { CheckEmailPage } from './features/authentication/pages/check-email/check-email.page';
 import { ProjectLayoutComponent } from './project-layout/project-layout.component';
+import { initialSetupGuard } from './core/guards/initial-setup.guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: MainLayoutComponent,
-        canActivate: [authenticationGuard],
+        canActivate: [authenticationGuard, initialSetupGuard],
         children: [
             {
                 path: '',
@@ -46,6 +47,7 @@ export const routes: Routes = [
     {
         path: 'projects/project/:id',
         component: ProjectLayoutComponent,
+        canActivate: [initialSetupGuard],
         children: [
             {
                 path: '',

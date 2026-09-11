@@ -107,7 +107,7 @@ export abstract class BaseServerRequestService {
      * @param serviceRoute route of the server endpoint
      * @returns a full constructed url
      */
-    private constructFullRequestURL(serviceRoute: string): string {
+    protected constructFullRequestURL(serviceRoute: string): string {
         return environment.serverUrl + this.getServiceDomain() + '/' + serviceRoute;
     }
 }
