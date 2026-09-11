@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, viewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoadingAnimationService } from '../../../../core/services/loading-animation-service/loading-animation-service';
 import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -10,11 +10,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   templateUrl: './page-animation-controller.component.html',
   styleUrl: './page-animation-controller.component.css',
 })
-export class PageAnimationControllerComponent implements OnDestroy {
+export class PageAnimationControllerComponent {
   public readonly loadingAnimationService: LoadingAnimationService = inject(LoadingAnimationService);
-  public isBlockUIActive: boolean = true;
 
-  public ngOnDestroy(): void {
-    this.isBlockUIActive = false;
-  }
 }

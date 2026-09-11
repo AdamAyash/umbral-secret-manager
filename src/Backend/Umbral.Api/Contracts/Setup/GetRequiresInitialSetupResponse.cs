@@ -1,6 +1,6 @@
 ﻿namespace Umbral.Api.Contracts.Setup;
 
-public sealed class GetSetupStatusResponse
+public sealed class GetRequiresInitialSetupResponse
 {
     public bool RequiresInitialSetup { get; set; }
 }

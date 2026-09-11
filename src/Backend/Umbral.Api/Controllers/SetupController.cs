@@ -13,7 +13,7 @@ namespace Umbral.Api.Controllers
             SetupStatusService setupStatusService = new SetupStatusService();
             var result = await setupStatusService.RequiresInitialSetupAsync(CancellationToken.None);
 
-            var temp = new GetSetupStatusResponse() { RequiresInitialSetup = result.Data };
+            var temp = new GetRequiresInitialSetupResponse() { RequiresInitialSetup = result.Data };
 
             return ApiOk(temp);
         }
