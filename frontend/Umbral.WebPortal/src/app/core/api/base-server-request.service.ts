@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { catchError, EMPTY, finalize } from "rxjs";
+import { catchError, EMPTY, finalize, Observable } from "rxjs";
 import { ProblemDetailsModel, IServerResponseProcessable, BaseServerResponse } from ".";
 import { LoadingAnimationService } from "../services/loading-animation-service/loading-animation-service";
 import { ToastService } from "../services/toast/toast.service";
@@ -45,15 +45,7 @@ export abstract class BaseServerRequestService {
             )
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-
-                    const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
-                    if (problemDetails.errorCode)
-                        serviceProcessable.processError(problemDetails);
-                    else
-                        this._toastService.showError("Something went wrong on our end. Try refreshing, or come back in a few minutes");
-
-                    httpRequest$.unsubscribe();
-                    return EMPTY;
+                    return this.handleError(error, serviceProcessable);;
                 }),
                 finalize(() => this._loadingAnimationService.end()))
             .subscribe((serverResponse) => {
@@ -83,13 +75,7 @@ export abstract class BaseServerRequestService {
             )
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
-                    if (problemDetails)
-                        serviceProcessable.processError(problemDetails);
-                    else
-                        console.log("Error happened");
-
-                    return EMPTY;
+                    return this.handleError(error, serviceProcessable);
                 }),
                 finalize(() => this._loadingAnimationService.end())
             )
@@ -103,11 +89,42 @@ export abstract class BaseServerRequestService {
     }
 
     /**
+     * sends a standard get request
+     * @param serviceRoute 
+     * @param serviceProcessable 
+     */
+    protected sendServerGetRequestUnprocessable<TOutputModel>(serviceRoute: string): Observable<BaseServerResponse<TOutputModel>> {
+
+        return this._httpClient
+            .get<BaseServerResponse<TOutputModel>>(
+                this.constructFullRequestURL(serviceRoute)
+            )
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return this.handleError(error);
+                }),
+            );
+    }
+
+    /**
      * Constructs a full request url (server address + domain + serviceRoute)
      * @param serviceRoute route of the server endpoint
      * @returns a full constructed url
      */
-    protected constructFullRequestURL(serviceRoute: string): string {
+    private constructFullRequestURL(serviceRoute: string): string {
         return environment.serverUrl + this.getServiceDomain() + '/' + serviceRoute;
+    }
+
+    /**
+     * 
+     */
+    private handleError<TOutputModel, TServiceErrorCodes>(error: HttpErrorResponse, serviceProcessable?: IServerResponseProcessable<TOutputModel, TServiceErrorCodes>): Observable<never> {
+        const problemDetails: ProblemDetailsModel<TServiceErrorCodes> = error.error as ProblemDetailsModel<TServiceErrorCodes>;
+        if (problemDetails)
+            serviceProcessable?.processError(problemDetails);
+        else
+            throw new Error("Unhandled exception");
+
+        return EMPTY;
     }
 }

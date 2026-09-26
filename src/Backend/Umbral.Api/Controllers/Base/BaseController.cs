@@ -17,27 +17,18 @@ public abstract class BaseController : ControllerBase
     /// <typeparam name="ResponseData"></typeparam>
     /// <param name="responseData"></param>
     /// <returns></returns>
-    protected IActionResult FromResult<T>(BusinessResult<T> result)
-        => result.Status switch
-        {
-            ResultStatus.Ok => ApiOk(result.Data),
-            ResultStatus.Unauthorized => ApiUnauthorized(result.ErrorMessage),
-            ResultStatus.NotFound => ApiNotFound(result.ErrorMessage),
-            ResultStatus.Conflict => ApiConflict(result.ErrorMessage),
-            _ => throw new Exception("Unhandled result status")
-        };
-
-    /// <summary>
-    /// Creates an HTTP 200 OK response containing a standardized success payload with the specified response data.
-    /// </summary>
-    /// <remarks>Use this method to return successful API responses in a consistent format. The response structure
-    /// includes a success indicator and the provided data.</remarks>
-    /// <typeparam name="ResponseData">The type of the data to include in the response body.</typeparam>
-    /// <param name="responseData">The data to include in the success response payload. Can be null if no data is required.</param>
-    /// <returns>An IActionResult representing a 200 OK response with a standardized success payload containing the specified data.</returns>
-    protected IActionResult ApiOk<ResponseData>(ResponseData responseData) =>
-      Ok(BuildSuccessResponse(responseData));
-
+    protected IActionResult ApiSuccessResponse<TData>(TData data) => Ok(BuildSuccessResponse(data));
+    protected IActionResult ApiErrorResponse<TData>(BusinessResult<TData> businessResult) => BuildErrorResponse(businessResult);
+    private int MapBusinessStatusToHttpStatus(ResultStatus status) => status switch
+    {
+        ResultStatus.Ok => 200,
+        ResultStatus.ValidationFailure => 400,
+        ResultStatus.NotFound => 404,
+        ResultStatus.Unauthorized => 401,
+        ResultStatus.Conflict => 409,
+        ResultStatus.DatabaseFailure => 503,
+        _ => 500
+    };
 
     /// <summary>
     /// Creates a new BaseServerResponse<T> instance containing the specified response data and success status.
@@ -58,13 +49,33 @@ public abstract class BaseController : ControllerBase
         return baseServerResponse;
     }
 
-    private ProblemDetailsModel BuildFailResponse()
+    private IActionResult BuildErrorResponse<TData>(BusinessResult<TData> businessResult)
     {
-        var problemDetailsModel = new ProblemDetailsModel()
+        int statusCode = MapBusinessStatusToHttpStatus(businessResult.Status);
+        var problemDetails = new ProblemDetails
         {
-            
+            Type = $"https://httpstatuses.com/{statusCode}",
+            Title = GetProblemTitle(statusCode),
+            Status = statusCode,
+            Detail = businessResult.ErrorMessage,
+            Instance = HttpContext.Request.Path.Value
         };
 
-        return problemDetailsModel;
+        if (!string.IsNullOrWhiteSpace(businessResult.ErrorCode))
+            problemDetails.Extensions["errorCode"] = businessResult.ErrorCode;
+
+        problemDetails.Extensions["traceId"] = HttpContext.TraceIdentifier;
+
+        return StatusCode(statusCode, problemDetails);
     }
+
+    private static string GetProblemTitle(int statusCode) => statusCode switch
+    {
+        StatusCodes.Status400BadRequest => "The request is invalid.",
+        StatusCodes.Status401Unauthorized => "Authentication is required.",
+        StatusCodes.Status404NotFound => "The requested resource was not found.",
+        StatusCodes.Status409Conflict => "The request conflicts with the current state.",
+        StatusCodes.Status503ServiceUnavailable => "The service is temporarily unavailable.",
+        _ => "The request could not be completed."
+    };
 }

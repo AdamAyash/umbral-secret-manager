@@ -15,6 +15,7 @@ namespace Umbral.Application.Common.BusinessResult
         public TData? Data { get; init; }
         public bool IsSuccess { get; init; }
         public string? ErrorMessage { get; init; }
+        public string? ErrorCode { get; init; }
         public ResultStatus Status { get; init; }
 
         private BusinessResult()
@@ -46,6 +47,15 @@ namespace Umbral.Application.Common.BusinessResult
             {
                 IsSuccess = false,
                 ErrorMessage = arguments.Length > 0 ? string.Format(errorMessage, arguments) : errorMessage,
+                Status = status
+            };
+
+        public static BusinessResult<TData> Failure(string errorMessage, ResultStatus status,
+            string errorCode, params object[] arguments) => new()
+            {
+                IsSuccess = false,
+                ErrorMessage = arguments.Length > 0 ? string.Format(errorMessage, arguments) : errorMessage,
+                ErrorCode = errorCode,
                 Status = status
             };
     }

@@ -14,8 +14,7 @@ export class SetupStatusService extends BaseServerRequestService {
      */
     public getRequiresInitialSetup(): Observable<GetRequiresInitialSetupOutputModel> {
         if (!this._initialSetupStatusRequest$) {
-            this._initialSetupStatusRequest$ = this._httpClient
-                .get<BaseServerResponse<GetRequiresInitialSetupOutputModel>>(this.constructFullRequestURL('require-initial-setup'))
+            this._initialSetupStatusRequest$ = this.sendServerGetRequestUnprocessable<GetRequiresInitialSetupOutputModel>('require-initial-setup')
                 .pipe(
                     map((response) => {
                         if (!response.isSuccessful || !response.data)
